@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:right_routes/global_widgets/custom_buttons.dart';
@@ -114,6 +115,7 @@ class GetStartedScreen extends StatelessWidget {
               onPressed: () {},
             ),
             SizedBox(height: 130.h),
+            // Your widget
             Container(
               width: 206.w,
               height: 55.h,
@@ -130,7 +132,7 @@ class GetStartedScreen extends StatelessWidget {
                           text: 'Already a Subscriber?\n',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w500,
                             height: 1.75,
@@ -140,11 +142,16 @@ class GetStartedScreen extends StatelessWidget {
                           text: 'SIGN IN ',
                           style: TextStyle(
                             color: const Color(0xFF9DACF5),
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontFamily: 'League Gothic',
                             fontWeight: FontWeight.w400,
                             height: 1.40,
                           ),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              print('Sign In clicked');
+                              // Get.toNamed('/signin');
+                            },
                         ),
                       ],
                     ),
