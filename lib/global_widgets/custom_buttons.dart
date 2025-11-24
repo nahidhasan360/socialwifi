@@ -19,44 +19,46 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height,
     this.fontSize,
-    this.backgroundColor = AppColors.orange, // Example Orange
+    this.backgroundColor = AppColors.orange,
     this.textColor = Colors.white,
     this.borderRadius = 10.0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return
-      Container(
-        width: 234.w,
-        height: 58.h,
-        padding: EdgeInsets.all(10.w),
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        width: width ?? 234.w,
+        height: height ?? 58.h,
+        padding: const EdgeInsets.all(10),
         decoration: ShapeDecoration(
-          color: AppColors.orange,
+          color: backgroundColor,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.r),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: 10,
           children: [
-            SizedBox(width: 10.w),
             Text(
               'GET STARTED',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: AppColors.white,
-                fontSize: 24.sp,
+                color: Colors.white,
+                fontSize: 24,
                 fontFamily: 'League Gothic',
                 fontWeight: FontWeight.w400,
                 height: 1.17,
-                letterSpacing: 2.sp,
+                letterSpacing: 2,
               ),
             ),
           ],
         ),
-      );
+      ),
+    );
   }
 }

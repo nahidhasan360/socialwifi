@@ -1,17 +1,20 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
-import '../../views/get_started_screen/get_started_screen.dart';
+import '../../views/authentication/enter_email_screen/enter_email_screen.dart';
+import '../../views/authentication/get_started_screen/get_started_screen.dart';
 import '../../views/splash_screen/splash_screen.dart';
 
-
-
 class AppRoutes {
-  ///=========================== onboarding Part 1======================//
   static const String splashScreen = "/SplashScreen";
   static const String getStartedScreen = "/GetStartedScreen";
 
-  // ================== welcome screen =====================//
-  static const String welcomeScreen = "/WelcomeScreen";
+  // ================== Enter Email screen =====================//
+  static const String enterEmailScreen = "/EnterEmailScreen";
+
+
+
+
+
   static const String welcomeScreen2 = "/WelcomeScreen2";
   static const String welcomePage = "/WelcomePage";
 
@@ -23,6 +26,7 @@ class AppRoutes {
     ///=========================== onboarding Part 1  =======================//
     GetPage(name: splashScreen, page: () => SplashScreen()),
     GetPage(name: getStartedScreen, page: () => GetStartedScreen()),
+    GetPage(name: enterEmailScreen, page: () => EnterEmailScreen()),
 
     // // ====================== welcome screen =============================
     // GetPage(name: welcomeScreen, page: () => WelcomeScreen()),
@@ -43,8 +47,5 @@ class AppRoutes {
     // GetPage(name: continueScreen, page: () => ContinueScreen()),
     // GetPage(name: setNewPassword, page: () => SetNewPassword()),
     // GetPage(name: successScreen, page: () => SuccessScreen()),
-
-
-
   ];
 }

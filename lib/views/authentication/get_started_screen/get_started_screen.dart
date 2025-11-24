@@ -1,9 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_buttons.dart';
+import '../../../utils/assets_manager.dart';
 
-import '../../utils/assets_manager.dart';
+
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
@@ -110,14 +114,14 @@ class GetStartedScreen extends StatelessWidget {
             SizedBox(height: 19.h),
             CustomButton(
               text: "Get Started",
-              height: 55.h,
-              width: 234.w,
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(AppRoutes.enterEmailScreen);
+              },
             ),
             SizedBox(height: 130.h),
             // Your widget
             Container(
-              width: 206.w,
+              width: 152.w,
               height: 55.h,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -132,7 +136,7 @@ class GetStartedScreen extends StatelessWidget {
                           text: 'Already a Subscriber?\n',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w500,
                             height: 1.75,
@@ -142,15 +146,15 @@ class GetStartedScreen extends StatelessWidget {
                           text: 'SIGN IN ',
                           style: TextStyle(
                             color: const Color(0xFF9DACF5),
-                            fontSize: 20.sp,
+                            fontSize: 20,
                             fontFamily: 'League Gothic',
                             fontWeight: FontWeight.w400,
                             height: 1.40,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              print('Sign In clicked');
-                              // Get.toNamed('/signin');
+                              // Navigate or action here
+                              // Get.to(() => SignInScreen());
                             },
                         ),
                       ],
@@ -158,7 +162,7 @@ class GetStartedScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                 ],
-              ),
+              )
             ),
           ],
         ),
