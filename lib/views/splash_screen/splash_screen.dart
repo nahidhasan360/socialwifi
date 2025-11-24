@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import '../../core/routes/all_routes.dart';
+import '../../utils/assets_manager.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    print("InitState called");
+    Future.delayed(const Duration(seconds: 5), () {
+      print("Navigating to GET Started Screen");
+      Get.offNamed(AppRoutes.getStartedScreen);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity.w,
+        height: double.infinity.h,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(ImageManager.mapBackground),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 250.w,
+              height: 124.h,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(ImageManager.splashScreenLogo),
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

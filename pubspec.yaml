@@ -1,0 +1,46 @@
+name: right_routes
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  device_preview: ^1.1.0
+  get: ^4.7.2
+  flutter_screenutil: ^5.9.3
+  flutter_svg: ^2.2.3
+  google_fonts: ^6.3.2
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  # Assets
+  assets:
+    - assets/background/
+    - assets/icons/
+    - assets/images/
+    - assets/fonts/
+
+  # Fonts (✅ Correct indentation - same level as assets)
+  fonts:
+    - family: League Gothic
+      fonts:
+        - asset: assets/fonts/LeagueGothic-Regular.ttf
+          weight: 400
+
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+          weight: 400
+
