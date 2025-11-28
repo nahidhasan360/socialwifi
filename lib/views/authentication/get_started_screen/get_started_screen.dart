@@ -51,7 +51,6 @@ class GetStartedScreen extends StatelessWidget {
             SizedBox(height: 25.h),
             // Text Rich
             SizedBox(
-              width: 330.w,
               child: Text.rich(
                 TextSpan(
                   children: const [
@@ -59,6 +58,7 @@ class GetStartedScreen extends StatelessWidget {
                       text:
                           'EXPERIENCE THE EASE OF\nAUTOMATED VISUAL AND VOICE\nGUIDED PERMITTED ROUTE\nNAVIGATION',
                       style: commonStyle,
+
                     ),
                   ],
                 ),
@@ -114,6 +114,9 @@ class GetStartedScreen extends StatelessWidget {
             SizedBox(height: 19.h),
             CustomButton(
               text: "Get Started",
+              width: 134.w,
+              height: 58.h,
+              fontSize: 24.sp,
               onPressed: () {
                 Get.toNamed(AppRoutes.enterEmailScreen);
               },
@@ -121,8 +124,8 @@ class GetStartedScreen extends StatelessWidget {
             SizedBox(height: 130.h),
             // Your widget
             Container(
-              width: 152.w,
-              height: 55.h,
+              width: 160,
+              height: 55,
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -146,7 +149,7 @@ class GetStartedScreen extends StatelessWidget {
                           text: 'SIGN IN ',
                           style: TextStyle(
                             color: const Color(0xFF9DACF5),
-                            fontSize: 20,
+                            fontSize: 20 ,
                             fontFamily: 'League Gothic',
                             fontWeight: FontWeight.w400,
                             height: 1.40,

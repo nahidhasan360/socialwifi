@@ -7,10 +7,10 @@ class CustomButton extends StatelessWidget {
   final VoidCallback onPressed;
   final double? width;
   final double? height;
-  final Color backgroundColor;
-  final Color textColor;
+  final Color? backgroundColor;
+  final Color? textColor;
   final double? fontSize;
-  final double borderRadius;
+  final double? borderRadius;
 
   const CustomButton({
     Key? key,
@@ -21,44 +21,56 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.backgroundColor = AppColors.orange,
     this.textColor = Colors.white,
-    this.borderRadius = 10.0,
+    this.borderRadius = 10,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
-        width: width ?? 234.w,
-        height: height ?? 58.h,
-        padding: const EdgeInsets.all(10),
-        decoration: ShapeDecoration(
-          color: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(borderRadius),
+      child:
+      button(),
+    );
+  }
+}
+
+class button extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          width: 234,
+          height: 58,
+          padding: const EdgeInsets.all(10),
+          decoration: ShapeDecoration(
+            color: const Color(0xFFF58842),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            spacing: 10,
+            children: [
+              Text(
+                'GET STARTED',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                  fontFamily: 'League Gothic',
+                  fontWeight: FontWeight.w400,
+                  height: 1.17,
+                  letterSpacing: 2,
+                ),
+              ),
+            ],
           ),
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          spacing: 10,
-          children: [
-            Text(
-              'GET STARTED',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24,
-                fontFamily: 'League Gothic',
-                fontWeight: FontWeight.w400,
-                height: 1.17,
-                letterSpacing: 2,
-              ),
-            ),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }
