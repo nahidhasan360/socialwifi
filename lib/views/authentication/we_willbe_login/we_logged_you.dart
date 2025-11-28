@@ -78,10 +78,10 @@ class WeLoggedYou extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     // controller.verifyOtp();
-                    Get.dialog(
-                      TermsModal(),
-                      barrierDismissible: true,
-                    );
+                    // Get.dialog(
+                    //   TermsModal(),
+                    //   barrierDismissible: true,
+                    // );
                     print('Its clicked ');
                   },
                   child: Container(

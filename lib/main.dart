@@ -4,10 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/services.dart';
 
 import 'core/routes/all_routes.dart';
 
 void main() {
+  // 🔥 TRANSPARENT STATUS BAR WITH WHITE ICONS
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,            // ✅ Transparent background (body দেখাবে)
+      statusBarIconBrightness: Brightness.light,     // ✅ Android white icons
+      statusBarBrightness: Brightness.dark,          // ✅ iOS white icons
+    ),
+  );
+
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
@@ -33,9 +43,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            // textTheme: GoogleFonts.leagueGothicTextTheme(
-            //   Theme.of(context).textTheme,
-            // ),
+            appBarTheme: const AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: Brightness.light,
+                statusBarBrightness: Brightness.dark,
+              ),
+            ),
           ),
           initialRoute: AppRoutes.splashScreen,
           navigatorKey: Get.key,

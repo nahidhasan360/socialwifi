@@ -1,7 +1,9 @@
 // ==================== Controller ====================
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:right_routes/utils/colors.dart';
 
+import '../privacy_policy/privacy_policy.dart';
 import '../terms_of_service/terms_of_service.dart';
 
 class CreatePasswordController extends GetxController {
@@ -18,7 +20,7 @@ class CreatePasswordController extends GetxController {
   // Password Strength
   final RxString strengthLabel = "Fair".obs;  // default
   final RxDouble strengthProgress = 0.7.obs;
-  final Rx<Color> strengthColor = Colors.orange.obs;
+  final Rx<Color> strengthColor = AppColors.orange.obs;
 
 
 
@@ -70,17 +72,17 @@ class CreatePasswordController extends GetxController {
       // Weak - Red
       strengthLabel.value = 'Weak';
       strengthProgress.value = 0.33;
-      strengthColor.value = Color(0xFFFF5252);
+      strengthColor.value = Color(0xFFE20202);
     } else if (strength <= 4) {
       // Fair - Yellow
       strengthLabel.value = 'Fair';
       strengthProgress.value = 0.66;
-      strengthColor.value = Color(0xFFFFC107);
+      strengthColor.value = Color(0xFFFFC700);
     } else {
       // Strong - Green
       strengthLabel.value = 'Strong';
       strengthProgress.value = 1.0;
-      strengthColor.value = Color(0xFF4CAF50);
+      strengthColor.value = Color(0xFF19D503);
     }
   }
 
@@ -94,16 +96,15 @@ class CreatePasswordController extends GetxController {
   }
 
   void viewTermsOfUse() {
-    Get.toNamed('/terms');
+    Get.to(() => TermsModal());
   }
 
   void viewPrivacyPolicy() {
-    Get.dialog(
-      TermsModal(),
-      barrierDismissible: true,
-    );
-    print('Its clicked ');
+    Get.to(() => PrivacyPolicy());
+
   }
+
+
 
   void createAccount() {
     Get.snackbar(

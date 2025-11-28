@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:right_routes/utils/colors.dart';
 import 'package:flutter_svg/svg.dart';
 
-class TermsModal extends StatelessWidget {
-  const TermsModal({super.key});
+class PrivacyPolicy extends StatelessWidget {
+  const PrivacyPolicy({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +24,25 @@ class TermsModal extends StatelessWidget {
             SizedBox( height: 80,),
 
             /// ❌ Close Button (Top Right)
-        Positioned(
-        right: 12.w,
-          top: 40.h,
-          child: GestureDetector(
-            onTap: () => Get.back(),
-            child: IconButton(
-              padding: EdgeInsets.zero, // removes extra padding
-              onPressed: () => Get.back(),
+            Positioned(
+              right: 12.w,
+              top: 40.h,
+              child: GestureDetector(
+                onTap: () => Get.back(),
+                child: IconButton(
+                  padding: EdgeInsets.zero, // removes extra padding
+                  onPressed: () => Get.back(),
 
-              icon: SvgPicture.asset(
-                "assets/icons/Close-X-Circle.svg",
-                width: 29.w,
-                height: 29.h,
+                  icon: SvgPicture.asset(
+                    "assets/icons/Close-X-Circle.svg",
+                    width: 29.w,
+                    height: 29.h,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
 
-        /// FOREGROUND CONTENT (LEFT SIDE)
+            /// FOREGROUND CONTENT (LEFT SIDE)
             Positioned(
               left: 0,
               right: 0,
@@ -56,7 +56,7 @@ class TermsModal extends StatelessWidget {
 
                     /// Title
                     Text(
-                      "Terms of Service",
+                      "Privacy Policy",
                       style: TextStyle(
                         fontSize: 21.sp,
                         fontFamily: 'Lato',

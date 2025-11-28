@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/utils/colors.dart';
 import '../../../utils/assets_manager.dart';
+import '../terms_of_service/terms_of_service.dart';
 import 'create_password_controller.dart';
 
 class CreateAnAccount extends StatelessWidget {
@@ -107,43 +108,45 @@ class CreateAnAccount extends StatelessWidget {
                         SizedBox(height: 18),
 
                         /// Touch ID Switch
-            Obx(
-                  () => Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // 👉 Switch বামে
-                  Transform.scale(
-                    scaleX: 0.87,
-                    scaleY: 0.77,
-                    child: Switch(
-                      padding: EdgeInsets.only( left: -6),
-                      value: controller.useTouchId.value,
-                      activeThumbColor: AppColors.orange,
-                      activeTrackColor: AppColors.orange.withOpacity(0.5),
-                      inactiveThumbColor: Colors.grey,
-                      inactiveTrackColor: Colors.grey.withOpacity(0.3),
-                      onChanged: (v) => controller.useTouchId.value = v,
-                    ),
-                  ),
-                  SizedBox( width: 5.w,),
+                        Obx(
+                          () => Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              // 👉 Switch বামে
+                              Transform.scale(
+                                scaleX: 0.87,
+                                scaleY: 0.77,
+                                child: Switch(
+                                  padding: EdgeInsets.only(left: -6),
+                                  value: controller.useTouchId.value,
+                                  activeThumbColor: AppColors.orange,
+                                  activeTrackColor: AppColors.orange
+                                      .withOpacity(0.5),
+                                  inactiveThumbColor: Colors.grey,
+                                  inactiveTrackColor: Colors.grey.withOpacity(
+                                    0.3,
+                                  ),
+                                  onChanged: (v) =>
+                                      controller.useTouchId.value = v,
+                                ),
+                              ),
+                              SizedBox(width: 5.w),
 
+                              // 👉 Text ডানে
+                              Text(
+                                "Use touch ID",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontFamily: 'Lato',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
 
-                  // 👉 Text ডানে
-                  Text(
-                    "Use touch ID",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-
-            SizedBox(height: 21.h),
+                        SizedBox(height: 21.h),
 
                         /// Terms Checkbox
                         Obx(() => _buildTermsCheckbox()),
@@ -175,8 +178,8 @@ class CreateAnAccount extends StatelessWidget {
   Widget _buildProgressBar() {
     return Obx(() {
       final progress = controller.strengthProgress.value; // Will be 0.7
-      final color = controller.strengthColor.value;       // Will be Colors.orange
-      final label = controller.strengthLabel.value;       // Will be "Fair"
+      final color = controller.strengthColor.value; // Will be Colors.orange
+      final label = controller.strengthLabel.value; // Will be "Fair"
 
       return Padding(
         // ... (rest of your widget code remains unchanged)
@@ -229,9 +232,10 @@ class CreateAnAccount extends StatelessWidget {
       );
     });
   }
+
   /// ================= Logo ======================
   Widget _buildLogo() {
-    return  Container(
+    return Container(
       width: 225.w,
       height: 112.h,
       decoration: BoxDecoration(
@@ -242,10 +246,10 @@ class CreateAnAccount extends StatelessWidget {
       ),
     );
   }
+
   /// ================= Email Display ======================
   Widget _buildEmailDisplay() {
     return Column(
-
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -255,7 +259,7 @@ class CreateAnAccount extends StatelessWidget {
             fontSize: 18,
             fontFamily: 'Lato',
             fontWeight: FontWeight.w400,
-            height:1.44,
+            height: 1.44,
           ),
         ),
         Row(
@@ -309,7 +313,7 @@ class CreateAnAccount extends StatelessWidget {
         ),
         child: Row(
           children: [
-             SizedBox(width: 16.w),
+            SizedBox(width: 16.w),
             Expanded(
               child: TextField(
                 controller: controller.passwordController,
@@ -409,10 +413,10 @@ class CreateAnAccount extends StatelessWidget {
             TextSpan(
               children: [
                 TextSpan(
-                  text: "I have read & agree to the",
+                  text: "I have read & agree to the ",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 15,
                     fontFamily: 'Lato',
                     height: 1.38,
                   ),
@@ -421,7 +425,7 @@ class CreateAnAccount extends StatelessWidget {
                   text: "Terms of Use",
                   style: TextStyle(
                     color: Color(0xFF5B9BFF),
-                    fontSize: 16,
+                    fontSize: 15,
                     fontFamily: 'Lato',
                     height: 1.38,
                     decoration: TextDecoration.underline,
@@ -443,54 +447,57 @@ class CreateAnAccount extends StatelessWidget {
 
   /// ================= Privacy Checkbox =====================
   Widget _buildPrivacyCheckbox() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildCustomCheckbox(
-          controller.agreePrivacy.value,
-          () => controller.agreePrivacy.value = !controller.agreePrivacy.value,
-        ),
-        SizedBox(width: 7.w),
-        Expanded(
-          child: Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(
-                  text: "I have read & understand the ",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'Lato',
-                    height: 1.38,
+    return Container(
+      width: double.infinity,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildCustomCheckbox(
+            controller.agreePrivacy.value,
+            () => controller.agreePrivacy.value = !controller.agreePrivacy.value,
+          ),
+          SizedBox(width: 7.w),
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: "I have read & understand the ",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: 'Lato',
+                      height: 1.38,
+                    ),
                   ),
-                ),
-                TextSpan(
-                  text: "Privacy & Policy",
-                  style: TextStyle(
-                    color: Color(0xFF5B9BFF),
-                    fontSize: 16,
-                    fontFamily: 'Lato',
-                    height: 1.38,
-                    decoration: TextDecoration.underline,
+                  TextSpan(
+                    text: "Privacy & Policy",
+                    style: TextStyle(
+                      color: Color(0xFF5B9BFF),
+                      fontSize: 15,
+                      fontFamily: 'Lato',
+                      height: 1.38,
+                      decoration: TextDecoration.underline,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = controller.viewPrivacyPolicy,
                   ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = controller.viewPrivacyPolicy,
-                ),
-                TextSpan(
-                  text:
-                      ", and understand the nature of my consent to the collection, use and/or disclosure of my personal data and the consequences of such consent.",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'Lato',
-                    height: 1.38,
+                  TextSpan(
+                    text:
+                        ", and understand the nature of my consent to the collection, use and/or disclosure of my personal data and the consequences of such consent.",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15,
+                      fontFamily: 'Lato',
+                      height: 1.38,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -505,7 +512,7 @@ class CreateAnAccount extends StatelessWidget {
         decoration: BoxDecoration(
           color: value ? AppColors.orange : AppColors.medGray,
           border: Border.all(
-              color: value ? AppColors.orange : Colors.transparent,
+            color: value ? AppColors.orange : Colors.transparent,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(3.r),
@@ -557,7 +564,6 @@ class CreateAnAccount extends StatelessWidget {
   //   );
   // }
 
-
   Widget _buildContinueButton() {
     final isEnabled = controller.isFormValid;
 
@@ -570,7 +576,6 @@ class CreateAnAccount extends StatelessWidget {
       //     : null, //
       //
       //     Disable the tap if isEnabled is false
-
       onTap: () {
         Get.toNamed(AppRoutes.loginAccount);
       },
@@ -600,9 +605,4 @@ class CreateAnAccount extends StatelessWidget {
       ),
     );
   }
-
-
-
 }
-
-
