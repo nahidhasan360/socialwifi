@@ -26,17 +26,17 @@ class LoginAccount extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(23),
+          padding: EdgeInsets.all(22),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 40.h),
+                SizedBox(height: 40),
                 /// LOGO
                 Center(
                   child: Container(
-                    width: 225.w,
-                    height: 112.h,
+                    width: 225,
+                    height: 112,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(ImageManager.splashScreenLogo),
@@ -47,200 +47,204 @@ class LoginAccount extends StatelessWidget {
                 ),
 
                 SizedBox(height: 18.h),
-
-                /// TITLE
-                SizedBox(
-                  child: Text(
-                    'Good News you already have a Right Route account',
-                    style: TextStyle(
-                      color: Colors.white,
-                      height: 1.12,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-
-                SizedBox(height: 17.h),
-
-                /// EMAIL TEXT
-                Text(
-                  'Since you’ve already used your email to sign up for this service, you can now log in using',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-
-                /// EMAIL
-                Row(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'tanvirhasan890@gmail.com', // static
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
+                    /// TITLE
+                    SizedBox(
+                      child: Text(
+                        'Good News you already have a Right Route account',
+                        style: TextStyle(
+                          color: Colors.white,
+                          height: 1.12,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                    SizedBox(width: 4.w),
+
+                    SizedBox(height: 17.h),
+
+                    /// EMAIL TEXT
                     Text(
-                      'edit',
-                      style: TextStyle(
-                        color: const Color(0xFF9DACF5),
-                        fontSize: 18,
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.w500,
-                        height: 1.44,
+                      'Since you’ve already used your email to sign up for this service, you can now log in using',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+
+                    /// EMAIL
+                    Row(
+                      children: [
+                        Text(
+                          'tanvirhasan890@gmail.com', // static
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          'edit',
+                          style: TextStyle(
+                            color: const Color(0xFF9DACF5),
+                            fontSize: 18,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.w500,
+                            height: 1.44,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 14.h),
+                    SizedBox(
+                      child: Text(
+                        'Enter your current password to log in.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.w500,
+                          height: 1.56,
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                    SizedBox(height: 8.h),
 
-                SizedBox(height: 14.h),
-                SizedBox(
-                  child: Text(
-                    'Enter your current password to log in.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.w500,
-                      height: 1.56,
+                    /// PASSWORD FIELD
+                    Container(
+                      height: 48.h,
+                      padding: EdgeInsets.symmetric(horizontal: 14.w),
+                      decoration: BoxDecoration(
+                        color: AppColors.medGray,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              obscureText: true,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'password',
+                                hintStyle: TextStyle(
+                                  color: const Color(0xFFBFBFBF),
+                                  fontSize: 16,
+                                  fontFamily: 'Lato',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.75,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Icon(Icons.visibility_off, color: Colors.white54),
+
+                          // Obx(() => IconButton(
+                          //   icon: Icon(controller.hidePassword.value
+                          //       ? Icons.visibility_off
+                          //       : Icons.visibility),
+                          //   onPressed: () => controller.togglePassword(),
+                          // )),
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-                SizedBox(height: 8.h),
 
-                /// PASSWORD FIELD
-                Container(
-                  height: 48.h,
-                  padding: EdgeInsets.symmetric(horizontal: 14.w),
-                  decoration: BoxDecoration(
-                    color: AppColors.medGray,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'password',
-                            hintStyle: TextStyle(
-                              color: const Color(0xFFBFBFBF),
-                              fontSize: 16,
-                              fontFamily: 'Lato',
-                              fontWeight: FontWeight.w400,
-                              height: 1.75,
+                    SizedBox(height: 24.h),
+
+                    /// ============ LOGIN BUTTON + FINGERPRINT ================
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: (){
+                              Get.toNamed(AppRoutes.otpVerificationScreen);
+                            },
+                            child: Container(
+                              height: 50.h,
+                              decoration: BoxDecoration(
+                                color: AppColors.orange,
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'LOG IN',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontFamily: "League Gothic",
+                                    fontWeight: FontWeight.w600,
+                                    height: 1.17,
+                                    letterSpacing: 2,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Icon(Icons.visibility_off, color: Colors.white54),
-
-                      // Obx(() => IconButton(
-                      //   icon: Icon(controller.hidePassword.value
-                      //       ? Icons.visibility_off
-                      //       : Icons.visibility),
-                      //   onPressed: () => controller.togglePassword(),
-                      // )),
-                    ],
-                  ),
-                ),
-
-                SizedBox(height: 24.h),
-
-                /// ============ LOGIN BUTTON + FINGERPRINT ================
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: (){
-                          Get.toNamed(AppRoutes.otpVerificationScreen);
-                        },
-                        child: Container(
+                        SizedBox(width: 10.w),
+                        Container(
                           height: 50.h,
+                          width: 55.w,
                           decoration: BoxDecoration(
                             color: AppColors.orange,
                             borderRadius: BorderRadius.circular(10.r),
                           ),
                           child: Center(
-                            child: Text(
-                              'LOG IN',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontFamily: "League Gothic",
-                                fontWeight: FontWeight.w600,
-                                height: 1.17,
-                                letterSpacing: 2,
-                              ),
+                            child: Icon(
+                              Icons.fingerprint,
+                              color: AppColors.white,
+                              size: 30.sp,
                             ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-                    SizedBox(width: 10.w),
-                    Container(
-                      height: 50.h,
-                      width: 55.w,
-                      decoration: BoxDecoration(
-                        color: AppColors.orange,
-                        borderRadius: BorderRadius.circular(10.r),
-                      ),
-                      child: Center(
-                        child: Icon(
-                          Icons.fingerprint,
-                          color: AppColors.white,
-                          size: 30.sp,
+
+                    SizedBox(height: 15.h),
+
+                    /// TOUCH ID SWITCH
+                    Row(
+                      children: [
+                        // Obx(() => Switch(
+                        //   value: controller.useTouchId.value,
+                        //   onChanged: (v) => controller.useTouchId.value = v,
+                        //   activeColor: Colors.orange,
+                        // )),
+                        Switch(
+                          value: true,
+                          onChanged: (v) {},
+                          activeColor: Colors.orange,
                         ),
-                      ),
+                        SizedBox(width: 6.w),
+                        Text(
+                          'Use touch ID',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.w500,
+                            height: 1.75,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
 
-                SizedBox(height: 15.h),
-
-                /// TOUCH ID SWITCH
-                Row(
-                  children: [
-                    // Obx(() => Switch(
-                    //   value: controller.useTouchId.value,
-                    //   onChanged: (v) => controller.useTouchId.value = v,
-                    //   activeColor: Colors.orange,
-                    // )),
-                    Switch(
-                      value: true,
-                      onChanged: (v) {},
-                      activeColor: Colors.orange,
-                    ),
-                    SizedBox(width: 6.w),
-                    Text(
-                      'Use touch ID',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.w500,
-                        height: 1.75,
-                      ),
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 48.h),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Having trouble logging in? Send a one time code.',
-                      style: TextStyle(
-                        color: const Color(0xFF9DACF5),
-                        fontSize: 16,
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.w500,
-                        height: 1.38,
-                      ),
-                      textAlign: TextAlign.start,
+                    SizedBox(height: 45.h),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Having trouble logging in? Send a one time code.',
+                          style: TextStyle(
+                            color: const Color(0xFF9DACF5),
+                            fontSize: 16,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.w500,
+                            height: 1.38,
+                          ),
+                          textAlign: TextAlign.start,
+                        ),
+                      ],
                     ),
                   ],
                 ),

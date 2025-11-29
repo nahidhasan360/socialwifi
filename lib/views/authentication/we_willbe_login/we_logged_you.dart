@@ -23,18 +23,17 @@ class WeLoggedYou extends StatelessWidget {
         ),
 
         child: Padding(
-          padding: EdgeInsets.all(22.w),
+          padding: EdgeInsets.all(22),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 95.h),
-
+                SizedBox(height: 40),
                 /// LOGO
                 Center(
                   child: Container(
-                    width: 225.w,
-                    height: 112.h,
+                    width: 225,
+                    height: 112,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(ImageManager.splashScreenLogo),

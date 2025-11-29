@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          initialRoute: AppRoutes.splashScreen,
+          initialRoute: AppRoutes.choosePlanScreen,
           navigatorKey: Get.key,
           getPages: AppRoutes.routes,
         );

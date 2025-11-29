@@ -22,16 +22,17 @@ class EnterEmailScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(23),
+          padding: EdgeInsets.all(22),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                SizedBox(height: 95.h),
+                const SizedBox(height: 40),
+
                 SizedBox(
                   child:Container(
-                    width: 225.w,
-                    height: 112.h,
+                    width: 225,
+                    height: 112,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(ImageManager.splashScreenLogo),
@@ -41,34 +42,39 @@ class EnterEmailScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 21),
-                SizedBox(
-                  width: 392,
-                  child: Text(
-                    'Enter your email to continue',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.w700,
-                      height: 1.12,
+               Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 392,
+                    child: Text(
+                      'Enter your email to continue',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.w700,
+                        height: 1.12,
+                      ),
                     ),
                   ),
-                ),
 
-                SizedBox(height: 28.h),
-                SizedBox(
-                  width: 392,
-                  child: Text(
-                    'Log in to your Route Pilot account. If you don’t have one, you will be prompted to create one.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.w500,
-                      height: 1.56,
+                  SizedBox(height: 28.h),
+                  SizedBox(
+                    width: 392,
+                    child: Text(
+                      'Log in to your Route Pilot account. If you don’t have one, you will be prompted to create one.',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.w500,
+                        height: 1.56,
+                      ),
                     ),
                   ),
-                ),
+                ],
+               ),
                 SizedBox(height: 28.h),
                 Container(
                   width: 393,

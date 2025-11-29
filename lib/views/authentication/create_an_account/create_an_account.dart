@@ -27,152 +27,170 @@ class CreateAnAccount extends StatelessWidget {
           ),
         ),
 
-        child: SafeArea(
-          child: Column(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(23),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// Logo
-                        Center(child: _buildLogo()),
-                        SizedBox(height: 20.h),
+        child: Column(
+          children: [
+            SizedBox(height: 40),
+            /// ================= Sticky Logo ================
+            Center(child: _buildLogo()),
 
-                        /// Main Title
-                        SizedBox(
-                          width: 379.w,
-                          child: Text(
-                            'Create an account to continue',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 22,
-                              fontFamily: 'Lato',
-                              fontWeight: FontWeight.w700,
-                              height: 1.12,
-                            ),
-                          ),
-                        ),
-
-                        SizedBox(height: 18.h),
-
-                        /// Subtitle
-                        Text(
-                          'Creating an account gives you full functionality, '
-                          'access to your route history, account settings and subscription status.',
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.all(23),
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// Main Title
+                      SizedBox(
+                        width: 379.w,
+                        child: Text(
+                          'Create an account to continue',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 22,
                             fontFamily: 'Lato',
-                            fontWeight: FontWeight.w400,
-                            height: 1.44,
+                            fontWeight: FontWeight.w700,
+                            height: 1.12,
                           ),
                         ),
+                      ),
 
-                        SizedBox(height: 17.h),
+                      SizedBox(height: 18.h),
 
-                        /// Email Display
-                        _buildEmailDisplay(),
-                        SizedBox(height: 32.h),
-
-                        /// Password Field
-                        _buildPasswordField(),
-
-                        SizedBox(height: 12.h),
-
-                        /// progress bar
-                        _buildProgressBar(),
-
-                        SizedBox(height: 16.h),
-
-                        /// Password Rules
-                        Obx(
-                          () => Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _ruleTile(
-                                controller.isSixChars.value,
-                                "Use a minimum of six characters ( Case sensitive )",
-                              ),
-                              SizedBox(height: 12.h),
-                              _ruleTile(
-                                controller.hasNumberOrSpecial.value,
-                                "Use letters with at least one number or special character",
-                              ),
-                            ],
-                          ),
+                      /// Subtitle
+                      Text(
+                        'Creating an account gives you full functionality, '
+                        'access to your route history, account settings and subscription status.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.w400,
+                          height: 1.44,
                         ),
+                      ),
 
-                        SizedBox(height: 18),
+                      SizedBox(height: 17.h),
 
-                        /// Touch ID Switch
-                        Obx(
-                          () => Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              // 👉 Switch বামে
-                              Transform.scale(
-                                scaleX: 0.87,
-                                scaleY: 0.77,
-                                child: Switch(
-                                  padding: EdgeInsets.only(left: -6),
-                                  value: controller.useTouchId.value,
-                                  activeThumbColor: AppColors.orange,
-                                  activeTrackColor: AppColors.orange
-                                      .withOpacity(0.5),
-                                  inactiveThumbColor: Colors.grey,
-                                  inactiveTrackColor: Colors.grey.withOpacity(
-                                    0.3,
-                                  ),
-                                  onChanged: (v) =>
-                                      controller.useTouchId.value = v,
+                      /// Email Display
+                      _buildEmailDisplay(),
+                      SizedBox(height: 32.h),
+
+                      /// Password Field
+                      _buildPasswordField(),
+
+                      SizedBox(height: 12.h),
+
+                      /// progress bar
+                      _buildProgressBar(),
+
+                      SizedBox(height: 16.h),
+
+                      /// Password Rules
+                      Obx(
+                        () => Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _ruleTile(
+                              controller.isSixChars.value,
+                              "Use a minimum of six characters ( Case sensitive )",
+                            ),
+                            SizedBox(height: 12.h),
+                            _ruleTile(
+                              controller.hasNumberOrSpecial.value,
+                              "Use letters with at least one number or special character",
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      SizedBox(height: 18),
+
+                      /// Touch ID Switch
+                      Obx(
+                        () => Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // 👉 Switch বামে
+                            Transform.scale(
+                              scaleX: 0.87,
+                              scaleY: 0.77,
+                              child: Switch(
+                                padding: EdgeInsets.only(left: -6),
+                                value: controller.useTouchId.value,
+                                activeThumbColor: AppColors.orange,
+                                activeTrackColor: AppColors.orange
+                                    .withOpacity(0.5),
+                                inactiveThumbColor: Colors.grey,
+                                inactiveTrackColor: Colors.grey.withOpacity(
+                                  0.3,
                                 ),
+                                onChanged: (v) =>
+                                    controller.useTouchId.value = v,
                               ),
-                              SizedBox(width: 5.w),
+                            ),
+                            SizedBox(width: 5.w),
 
-                              // 👉 Text ডানে
-                              Text(
-                                "Use touch ID",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontFamily: 'Lato',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                            // 👉 Text ডানে
+                            Text(
+                              "Use touch ID",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w500,
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
+                      ),
 
-                        SizedBox(height: 21.h),
+                      SizedBox(height: 21.h),
 
-                        /// Terms Checkbox
-                        Obx(() => _buildTermsCheckbox()),
+                      /// Terms Checkbox
+                      Obx(() => _buildTermsCheckbox()),
 
-                        SizedBox(height: 12.h),
+                      SizedBox(height: 12.h),
 
-                        /// Privacy Checkbox
-                        Obx(() => _buildPrivacyCheckbox()),
+                      /// Privacy Checkbox
+                      Obx(() => _buildPrivacyCheckbox()),
 
-                        SizedBox(height: 37),
+                      SizedBox(height: 37),
 
-                        /// Continue Button
-                        Obx(() => _buildContinueButton()),
+                      /// Continue Button
+                      Obx(() => _buildContinueButton()),
 
-                        SizedBox(height: 40.h),
-                      ],
-                    ),
+                      SizedBox(height: 40.h),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
+
+  /// ================= Logo ======================
+  Widget _buildLogo() {
+    return Container(
+      width: 225,
+      height: 112,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(ImageManager.splashScreenLogo),
+          fit: BoxFit.contain,
+        ),
+      ),
+    );
+  }
+
+
+
+
+
 
   /// ================= Dynamic Progress Bar ======================
   Widget _buildProgressBar() {
@@ -233,20 +251,6 @@ class CreateAnAccount extends StatelessWidget {
     });
   }
 
-  /// ================= Logo ======================
-  Widget _buildLogo() {
-    return Container(
-      width: 225.w,
-      height: 112.h,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(ImageManager.splashScreenLogo),
-          fit: BoxFit.contain,
-        ),
-      ),
-    );
-  }
-
   /// ================= Email Display ======================
   Widget _buildEmailDisplay() {
     return Column(
@@ -304,7 +308,6 @@ class CreateAnAccount extends StatelessWidget {
       () => Container(
         width: 388,
         height: 48,
-        padding: EdgeInsets.only(top: 0),
         decoration: ShapeDecoration(
           color: AppColors.medGray,
           shape: RoundedRectangleBorder(
@@ -316,6 +319,7 @@ class CreateAnAccount extends StatelessWidget {
             SizedBox(width: 16.w),
             Expanded(
               child: TextField(
+
                 controller: controller.passwordController,
                 obscureText: controller.isPasswordHidden.value,
                 onChanged: (v) => controller.password.value = v,
@@ -338,7 +342,6 @@ class CreateAnAccount extends StatelessWidget {
                     height: 1.75,
                   ),
                   border: InputBorder.none,
-                  contentPadding: EdgeInsets.zero,
                 ),
               ),
             ),
@@ -584,7 +587,7 @@ class CreateAnAccount extends StatelessWidget {
         height: 55,
         decoration: BoxDecoration(
           gradient: isEnabled
-              ? LinearGradient(colors: [Color(0xFFFF6B35), Color(0xFFFF8C42)])
+              ? LinearGradient(colors: [Color(0xffF58842), Color(0xffF58842)])
               : null,
           color: isEnabled ? null : Color(0xFF4A4A6B),
           borderRadius: BorderRadius.circular(10.r),
