@@ -153,7 +153,7 @@ class ChooseYourPlan extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 24),
-                      ButtonReusable(text: 'SUBSCRIBE', onPressed: () {}),
+                      ButtonReusable(text: 'SUBSCRIBE', onPressed: () {}, width: 250, height: 55,),
                       SizedBox(height: 6),
                       TextButton(
                         onPressed: () {
