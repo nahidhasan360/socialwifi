@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          initialRoute: AppRoutes.choosePlanScreen,
+          initialRoute: AppRoutes.individualTeam,
           navigatorKey: Get.key,
           getPages: AppRoutes.routes,
         );

@@ -6,8 +6,8 @@ import 'package:right_routes/global_widgets/custom_buttons.dart';
 import '../../../utils/assets_manager.dart';
 import '../../global_widgets/button_reusable.dart';
 
-class ChoosePlanScreen extends StatelessWidget {
-  const ChoosePlanScreen({super.key});
+class IndividualTeam extends StatelessWidget {
+  const IndividualTeam({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class ChoosePlanScreen extends StatelessWidget {
               fontSize: 24,
               onPressed: () {
                 // planController.selectIndividual();
-                Get.toNamed(AppRoutes.enterEmailScreen);
+                Get.toNamed(AppRoutes.chooseYourPlan);
               },
             ),
             SizedBox(height: 16.h),
@@ -96,7 +96,7 @@ class ChoosePlanScreen extends StatelessWidget {
               fontSize: 24,
               onPressed: () {
                 // planController.selectIndividual();
-                Get.toNamed(AppRoutes.enterEmailScreen);
+                Get.toNamed(AppRoutes.chooseYourPlan);
               },
             ),
             Spacer(),
@@ -139,5 +139,16 @@ class ChoosePlanScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class IndividualTeamController extends GetxController {
+  var selectedPlan = ''.obs;
+
+  void selectIndividual() => selectedPlan.value = 'individual';
+  void selectTeam() => selectedPlan.value = 'team';
+
+  void restoreSubscription() {
+    // Implement restore logic here
   }
 }
