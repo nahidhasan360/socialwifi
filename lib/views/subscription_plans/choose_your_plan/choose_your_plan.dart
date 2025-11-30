@@ -199,10 +199,11 @@ class ChooseYourPlan extends StatelessWidget {
                               'RESTORE SUBSCRIPTION',
                               style: TextStyle(
                                 color: const Color(0xFF9DACF5),
-                                fontSize: 19.sp,
+                                fontSize: 20,
                                 fontFamily: 'League Gothic',
                                 fontWeight: FontWeight.w400,
                                 height: 1.40,
+                                letterSpacing: 1,
                               ),
                             ),
                           ],

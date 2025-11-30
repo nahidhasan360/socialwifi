@@ -45,7 +45,7 @@ class ChooseATeamPlan extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 29),
+              SizedBox(height: 18),
 
               /// 🔥 SCROLLABLE CONTENT (everything below logo)
               Expanded(
@@ -86,129 +86,69 @@ class ChooseATeamPlan extends StatelessWidget {
 
                       SizedBox(height: 19),
 
-
-                      Obx(
-                            () => _planTile(
-                          title: "UP TO 5 DRIVERS",
-                          price: "\$69/MO",
-                          badge: null,
-                          selected: controller.selected.value == "annual",
-                          onTap: () => controller.selected.value = "annual",
-                        ),
-                      ),
-
+                      /// 🔹 Plan Tiles (Set 1)
+                      Obx(() => _planTile(
+                        title: "UP TO 5 DRIVERS",
+                        price: "\$69/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan5",
+                        onTap: () => controller.selected.value = "plan5",
+                      )),
                       SizedBox(height: 12),
 
-                      Obx(
-                            () => _planTile(
-                          title: "UP TO 10 DRIVERS",
-                          price: "\$119/MO",
-                          badge: null,
-                          selected: controller.selected.value == "monthly",
-                          onTap: () => controller.selected.value = "monthly",
-                        ),
-                      ),
-
-
-                      Obx(
-                            () => _planTile(
-                          title: "UP TO 25 DRIVERS",
-                          price: "\$249/MO",
-                          badge: null,
-                          selected: controller.selected.value == "monthly",
-                          onTap: () => controller.selected.value = "monthly",
-                        ),
-                      ),
-
-   Obx(
-                            () => _planTile(
-                          title: "UP TO 5 DRIVERS",
-                          price: "\$69/MO",
-                          badge: null,
-                          selected: controller.selected.value == "annual",
-                          onTap: () => controller.selected.value = "annual",
-                        ),
-                      ),
-
+                      Obx(() => _planTile(
+                        title: "UP TO 10 DRIVERS",
+                        price: "\$119/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan10",
+                        onTap: () => controller.selected.value = "plan10",
+                      )),
                       SizedBox(height: 12),
 
-                      Obx(
-                            () => _planTile(
-                          title: "UP TO 10 DRIVERS",
-                          price: "\$119/MO",
-                          badge: null,
-                          selected: controller.selected.value == "monthly",
-                          onTap: () => controller.selected.value = "monthly",
-                        ),
-                      ),
-
-
-                      Obx(
-                            () => _planTile(
-                          title: "UP TO 25 DRIVERS",
-                          price: "\$249/MO",
-                          badge: null,
-                          selected: controller.selected.value == "monthly",
-                          onTap: () => controller.selected.value = "monthly",
-                        ),
-                      ),
-
-   Obx(
-                            () => _planTile(
-                          title: "UP TO 5 DRIVERS",
-                          price: "\$69/MO",
-                          badge: null,
-                          selected: controller.selected.value == "annual",
-                          onTap: () => controller.selected.value = "annual",
-                        ),
-                      ),
-
+                      Obx(() => _planTile(
+                        title: "UP TO 25 DRIVERS",
+                        price: "\$249/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan25",
+                        onTap: () => controller.selected.value = "plan25",
+                      )),
+                      SizedBox(height: 12),
+                      /// 🔹 Plan Tiles (Set 2) – optional duplicate, different keys
+                      Obx(() => _planTile(
+                        title: "UP TO 50 DRIVERS",
+                        price: "\$69/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan50",
+                        onTap: () => controller.selected.value = "plan50",
+                      )),
                       SizedBox(height: 12),
 
-                      Obx(
-                            () => _planTile(
-                          title: "UP TO 10 DRIVERS",
-                          price: "\$119/MO",
-                          badge: null,
-                          selected: controller.selected.value == "monthly",
-                          onTap: () => controller.selected.value = "monthly",
-                        ),
-                      ),
+                      Obx(() => _planTile(
+                        title: "UP TO 100 DRIVERS",
+                        price: "\$119/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan100",
+                        onTap: () => controller.selected.value = "plan100",
+                      )),
+                      SizedBox(height: 12),
 
+                      Obx(() => _planTile(
+                        title: "UP TO 500 DRIVERS",
+                        price: "\$249/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan500",
+                        onTap: () => controller.selected.value = "plan500"
+                            "",
+                      )),
+                      SizedBox(height: 12),
 
-                      Obx(
-                            () => _planTile(
-                          title: "UP TO 25 DRIVERS",
-                          price: "\$249/MO",
-                          badge: null,
-                          selected: controller.selected.value == "monthly",
-                          onTap: () => controller.selected.value = "monthly",
-                        ),
-                      ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                      Obx(() => _planTile(
+                        title: "UP TO 1000 DRIVERS",
+                        price: "\$249/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan1000",
+                        onTap: () => controller.selected.value = "plan1000",
+                      )),
 
 
                       SizedBox(height: 9),
@@ -241,7 +181,7 @@ class ChooseATeamPlan extends StatelessWidget {
                               ),
                             ),
 
-                            SizedBox(height: 24),
+                            SizedBox(height: 23),
 
                             /// SUBSCRIBE BUTTON
                             ButtonReusable(
@@ -253,21 +193,21 @@ class ChooseATeamPlan extends StatelessWidget {
 
                             SizedBox(height: 6),
 
-                            TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                'RIGHT ROUTE SUBSCRIBER AGREEMENT',
-                                style: TextStyle(
-                                  color: AppColors.purple,
-                                  fontSize: 20.sp,
-                                  fontFamily: 'League Gothic',
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.50,
-                                ),
-                              ),
-                            ),
+                            // TextButton(
+                            //   onPressed: () {},
+                            //   child: Text(
+                            //     'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                            //     style: TextStyle(
+                            //       color: AppColors.purple,
+                            //       fontSize: 20.sp,
+                            //       fontFamily: 'League Gothic',
+                            //       fontWeight: FontWeight.w400,
+                            //       height: 1.50,
+                            //     ),
+                            //   ),
+                            // ),
 
-                            SizedBox(height: 85),
+                            SizedBox(height: 47),
 
                             /// RESTORE SUBSCRIPTION
                             TextButton(
@@ -278,7 +218,7 @@ class ChooseATeamPlan extends StatelessWidget {
                                     'Already a subscriber?',
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 15.sp,
+                                      fontSize: 16,
                                       fontFamily: 'Lato',
                                       fontWeight: FontWeight.w500,
                                       height: 1.75,
@@ -287,18 +227,19 @@ class ChooseATeamPlan extends StatelessWidget {
                                   Text(
                                     'RESTORE SUBSCRIPTION',
                                     style: TextStyle(
-                                      color: Color(0xFF9DACF5),
-                                      fontSize: 19.sp,
+                                      color: const Color(0xFF9DACF5),
+                                      fontSize: 20,
                                       fontFamily: 'League Gothic',
                                       fontWeight: FontWeight.w400,
                                       height: 1.40,
+                                      letterSpacing: 1,
                                     ),
                                   ),
                                 ],
                               ),
                             ),
 
-                            SizedBox(height: 49),
+                            SizedBox(height: 140),
                           ],
                         ),
                       ),
