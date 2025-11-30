@@ -254,7 +254,7 @@ Widget _planTile({
               border: selected
                   ? Border.all(color: Colors.white, width: 2)
                   : null,
-              color: selected ? Colors.transparent : Colors.grey.shade500,
+              color: selected ? AppColors.checkBoxColor: Colors.grey.shade500,
             ),
             child: selected
                 ? const Icon(Icons.check, size: 18, color: Colors.white)

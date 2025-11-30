@@ -7,6 +7,7 @@ import '../../views/authentication/get_started_screen/get_started_screen.dart';
 import '../../views/authentication/login_account/login_account.dart';
 import '../../views/authentication/we_willbe_login/we_logged_you.dart';
 import '../../views/splash_screen/splash_screen.dart';
+import '../../views/subscription_plans/choose_team_plan/choose_team_plan.dart';
 import '../../views/subscription_plans/choose_your_plan/choose_your_plan.dart';
 import '../../views/subscription_plans/individualTeam.dart';
 
@@ -19,12 +20,9 @@ class AppRoutes {
   static const String loginAccount = "/LoginAccount";
   static const String otpVerificationScreen = "/OtpVerificationScreen";
   static const String weLoggedYou = "/WeLoggedYou";
-  static const String individualTeam= "/IndividualTeam";
-  static const String chooseYourPlan= "/ChooseYourPlan";
-
-
-
-
+  static const String individualTeam = "/IndividualTeam";
+  static const String chooseYourPlan = "/ChooseYourPlan";
+  static const String chooseATeamPlan = "/ChooseATeamPlan";
 
   static const String welcomeScreen2 = "/WelcomeScreen2";
   static const String welcomePage = "/WelcomePage";
@@ -44,6 +42,7 @@ class AppRoutes {
     GetPage(name: weLoggedYou, page: () => WeLoggedYou()),
     GetPage(name: individualTeam, page: () => IndividualTeam()),
     GetPage(name: chooseYourPlan, page: () => ChooseYourPlan()),
+    GetPage(name: chooseATeamPlan, page: () => ChooseATeamPlan()),
 
 
     // // ====================== welcome screen =============================

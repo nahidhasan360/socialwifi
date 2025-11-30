@@ -1,0 +1,412 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:right_routes/utils/colors.dart';
+
+import '../../../global_widgets/button_reusable.dart';
+import '../../../utils/assets_manager.dart';
+
+class ChooseTeamPlanController extends GetxController {
+  RxString selected = "".obs;
+}
+
+class ChooseATeamPlan extends StatelessWidget {
+  const ChooseATeamPlan({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = Get.put(ChooseTeamPlanController());
+
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(ImageManager.mapBackground),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(22),
+          child: Column(
+            children: [
+              SizedBox(height: 44),
+
+              /// 🔥 FIXED LOGO (STICKY – does not scroll)
+              Container(
+                width: 225,
+                height: 112,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(ImageManager.splashScreenLogo),
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 29),
+
+              /// 🔥 SCROLLABLE CONTENT (everything below logo)
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      /// TITLE
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        child: Text(
+                          'CHOOSE A TEAM PLAN',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                            fontFamily: 'League Gothic',
+                            fontWeight: FontWeight.w400,
+                            height: 0.88,
+                            letterSpacing: 1,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+
+                      SizedBox(height: 21),
+
+                      /// Subtitle
+                      Text(
+                        'Plans include in-app Team Manager\ncontrol panel. Cancel anytime.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.w500,
+                          height: 1.44,
+                        ),
+                      ),
+
+                      SizedBox(height: 19),
+
+
+                      Obx(
+                            () => _planTile(
+                          title: "UP TO 5 DRIVERS",
+                          price: "\$69/MO",
+                          badge: null,
+                          selected: controller.selected.value == "annual",
+                          onTap: () => controller.selected.value = "annual",
+                        ),
+                      ),
+
+                      SizedBox(height: 12),
+
+                      Obx(
+                            () => _planTile(
+                          title: "UP TO 10 DRIVERS",
+                          price: "\$119/MO",
+                          badge: null,
+                          selected: controller.selected.value == "monthly",
+                          onTap: () => controller.selected.value = "monthly",
+                        ),
+                      ),
+
+
+                      Obx(
+                            () => _planTile(
+                          title: "UP TO 25 DRIVERS",
+                          price: "\$249/MO",
+                          badge: null,
+                          selected: controller.selected.value == "monthly",
+                          onTap: () => controller.selected.value = "monthly",
+                        ),
+                      ),
+
+   Obx(
+                            () => _planTile(
+                          title: "UP TO 5 DRIVERS",
+                          price: "\$69/MO",
+                          badge: null,
+                          selected: controller.selected.value == "annual",
+                          onTap: () => controller.selected.value = "annual",
+                        ),
+                      ),
+
+                      SizedBox(height: 12),
+
+                      Obx(
+                            () => _planTile(
+                          title: "UP TO 10 DRIVERS",
+                          price: "\$119/MO",
+                          badge: null,
+                          selected: controller.selected.value == "monthly",
+                          onTap: () => controller.selected.value = "monthly",
+                        ),
+                      ),
+
+
+                      Obx(
+                            () => _planTile(
+                          title: "UP TO 25 DRIVERS",
+                          price: "\$249/MO",
+                          badge: null,
+                          selected: controller.selected.value == "monthly",
+                          onTap: () => controller.selected.value = "monthly",
+                        ),
+                      ),
+
+   Obx(
+                            () => _planTile(
+                          title: "UP TO 5 DRIVERS",
+                          price: "\$69/MO",
+                          badge: null,
+                          selected: controller.selected.value == "annual",
+                          onTap: () => controller.selected.value = "annual",
+                        ),
+                      ),
+
+                      SizedBox(height: 12),
+
+                      Obx(
+                            () => _planTile(
+                          title: "UP TO 10 DRIVERS",
+                          price: "\$119/MO",
+                          badge: null,
+                          selected: controller.selected.value == "monthly",
+                          onTap: () => controller.selected.value = "monthly",
+                        ),
+                      ),
+
+
+                      Obx(
+                            () => _planTile(
+                          title: "UP TO 25 DRIVERS",
+                          price: "\$249/MO",
+                          badge: null,
+                          selected: controller.selected.value == "monthly",
+                          onTap: () => controller.selected.value = "monthly",
+                        ),
+                      ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                      SizedBox(height: 9),
+
+                      /// AGREEMENT + BUTTONS
+                      TextButton(
+                        onPressed: () {},
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'By clicking "Subscribe", you agree to the',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 19.sp,
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w500,
+                                height: 1.67,
+                              ),
+                            ),
+
+                            Text(
+                              'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                              style: TextStyle(
+                                color: AppColors.purple,
+                                fontSize: 20,
+                                fontFamily: 'League Gothic',
+                                fontWeight: FontWeight.w400,
+                                height: 1.50,
+                              ),
+                            ),
+
+                            SizedBox(height: 24),
+
+                            /// SUBSCRIBE BUTTON
+                            ButtonReusable(
+                              text: 'SUBSCRIBE',
+                              onPressed: () {},
+                              width: 250,
+                              height: 55,
+                            ),
+
+                            SizedBox(height: 6),
+
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                                style: TextStyle(
+                                  color: AppColors.purple,
+                                  fontSize: 20.sp,
+                                  fontFamily: 'League Gothic',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.50,
+                                ),
+                              ),
+                            ),
+
+                            SizedBox(height: 85),
+
+                            /// RESTORE SUBSCRIPTION
+                            TextButton(
+                              onPressed: () {},
+                              child: Column(
+                                children: [
+                                  Text(
+                                    'Already a subscriber?',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15.sp,
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.75,
+                                    ),
+                                  ),
+                                  Text(
+                                    'RESTORE SUBSCRIPTION',
+                                    style: TextStyle(
+                                      color: Color(0xFF9DACF5),
+                                      fontSize: 19.sp,
+                                      fontFamily: 'League Gothic',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.40,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            SizedBox(height: 49),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// PLAN TILE WIDGET
+Widget _planTile({
+  required String title,
+  required String price,
+  required bool selected,
+  required VoidCallback onTap,
+  String? badge,
+}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      width: 392,
+      height: 53,
+      padding: EdgeInsets.symmetric(horizontal: 8.w),
+      decoration: BoxDecoration(
+        color: selected ? AppColors.orange : AppColors.darkGray,
+        border: Border.all(width: 1, color: AppColors.medGray),
+      ),
+      child: Row(
+        children: [
+          /// CHECK CIRCLE
+          Container(
+            width: 24,
+            height: 24,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: selected
+                  ? Border.all(color: Colors.white, width: 2)
+                  : null,
+              color: selected
+                  ? AppColors.checkBoxColor
+                  : Colors.grey.shade500,
+            ),
+            child: selected
+                ? const Icon(Icons.check, size: 18, color: Colors.white)
+                : null,
+          ),
+
+          SizedBox(width: 7),
+
+          /// TITLE
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontFamily: 'League Gothic',
+              fontWeight: FontWeight.w400,
+              letterSpacing: 1,
+              height: 1.17,
+            ),
+          ),
+
+          Spacer(),
+
+          /// PRICE + BADGE
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                price,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 32,
+                  fontFamily: 'League Gothic',
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: 1,
+                ),
+              ),
+
+              if (badge != null)
+                Container(
+                  margin: EdgeInsets.only(top: 6),
+                  padding: EdgeInsets.symmetric(horizontal: 9),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    badge,
+                    style: TextStyle(
+                      color: AppColors.medGray,
+                      fontSize: 16,
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
