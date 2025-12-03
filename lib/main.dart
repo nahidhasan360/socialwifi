@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          initialRoute: AppRoutes.homeNewRoutes           ,
+          initialRoute: AppRoutes.splashScreen           ,
           navigatorKey: Get.key,
           getPages: AppRoutes.routes,
         );

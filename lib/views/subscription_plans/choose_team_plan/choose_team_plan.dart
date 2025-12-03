@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/utils/colors.dart';
 
 import '../../../global_widgets/button_reusable.dart';
@@ -186,7 +187,9 @@ class ChooseATeamPlan extends StatelessWidget {
                             /// SUBSCRIBE BUTTON
                             ButtonReusable(
                               text: 'SUBSCRIBE',
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(AppRoutes.homeNewRoutes);
+                              },
                               width: 250,
                               height: 55,
                             ),

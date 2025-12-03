@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/utils/colors.dart';
 
+import '../../../core/routes/all_routes.dart';
 import '../../../global_widgets/button_reusable.dart';
 import '../../../utils/assets_manager.dart';
 
@@ -153,7 +154,7 @@ class ChooseYourPlan extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 24),
-                      ButtonReusable(text: 'SUBSCRIBE', onPressed: () {}, width: 250, height: 55,),
+                      ButtonReusable(text: 'SUBSCRIBE', onPressed: () {  Get.toNamed(AppRoutes.homeNewRoutes);}, width: 250, height: 55,),
                       SizedBox(height: 6),
                       TextButton(
                         onPressed: () {

@@ -589,7 +589,7 @@ class CreateAnAccount extends StatelessWidget {
           gradient: isEnabled
               ? LinearGradient(colors: [Color(0xffF58842), Color(0xffF58842)])
               : null,
-          color: isEnabled ? null : Color(0xFF4A4A6B),
+          color: isEnabled ? null : AppColors.orange,
           borderRadius: BorderRadius.circular(10.r),
         ),
         child: Center(

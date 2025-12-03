@@ -81,6 +81,7 @@ class WeLoggedYou extends StatelessWidget {
                     //   TermsModal(),
                     //   barrierDismissible: true,
                     // );
+                    Get.toNamed(AppRoutes.individualTeam);
                     print('Its clicked ');
                   },
                   child: Container(
