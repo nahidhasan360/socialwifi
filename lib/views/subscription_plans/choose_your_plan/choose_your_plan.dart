@@ -133,7 +133,7 @@ class ChooseYourPlan extends StatelessWidget {
                               'By clicking "Subscribe", you agree to the',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 19.sp,
+                                fontSize: 17.sp,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.67,
@@ -176,7 +176,7 @@ class ChooseYourPlan extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 85,),
+                      SizedBox(height: 65,),
                       TextButton(
                         onPressed: () {
                           // planController.restoreSubscription();

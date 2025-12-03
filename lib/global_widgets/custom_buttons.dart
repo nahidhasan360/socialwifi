@@ -10,6 +10,7 @@ class CustomButton extends StatelessWidget {
   final Color? textColor;
   final double? fontSize;
   final double? borderRadius;
+  final Icon? icon; // <-- Only Icon is enough
 
   const CustomButton({
     Key? key,
@@ -20,7 +21,7 @@ class CustomButton extends StatelessWidget {
     this.fontSize,
     this.backgroundColor = AppColors.orange,
     this.textColor = Colors.white,
-    this.borderRadius = 10,
+    this.borderRadius = 10, this.icon,
   }) : super(key: key);
 
   @override
@@ -54,6 +55,11 @@ class button extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 10,
             children: [
+
+
+
+
+
               Text(
                 'GET STARTED',
                 textAlign: TextAlign.center,

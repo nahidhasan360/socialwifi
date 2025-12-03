@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
+import 'package:right_routes/views/home/home_new_routes/home_new_routes.dart';
 
 import 'core/routes/all_routes.dart';
 
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          initialRoute: AppRoutes.individualTeam,
+          initialRoute: AppRoutes.homeNewRoutes           ,
           navigatorKey: Get.key,
           getPages: AppRoutes.routes,
         );

@@ -28,6 +28,7 @@ class SvgManager {
   //================== this is a basePath ==============================//
   // svg for onboarding one
   static const String logo = "$basePath/heart.svg";
+  static const String questionSvg = "$basePath/Question.svg";
 
   //==============================================================================================//
   // define more animation if need (only the animation .json or something else)
