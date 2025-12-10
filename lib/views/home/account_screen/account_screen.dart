@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/colors.dart';
-
 import '../../../utils/assets_manager.dart';
 import '../../authentication/login_account/login_account.dart';
 
@@ -114,7 +114,7 @@ class RRRightArrowTile extends StatelessWidget {
 // MAIN SCREEN
 // -----------------------------------------------------------------------------
 class AccountScreen extends StatelessWidget {
-  AccountScreen({super.key});
+   AccountScreen({super.key});
 
   final c = Get.put(ManageAccountController());
 
@@ -130,41 +130,50 @@ class AccountScreen extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
+        child: Column(
+      children: [
+      SizedBox(height: 50.h),
+
+      // Sticky Logo (Always stays at the top)
+      _buildLogo(),
+
+      // Scrollable Body
+      Expanded(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 22.w),
-          child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 50.h),
-                _buildLogo(),
-                SizedBox(height: 20.h),
-                _buildSectionTitle("Manage Account"),
-                _buildDivider(),
-                _buildEmailSection(),
-                SizedBox(height: 1.h),
-                _buildPasswordSection(),
-                SizedBox(height: 17.h,),
-                _buildRouteHistory(),
-                SizedBox(height: 13.h,),
-                _buildDivider(),
-
-                _buildCurrentPlan(),
-                _buildDivider(),
-                _buildCustomerCare(),
-                _buildDivider(),
-                _buildLegalSection(),
-                _buildDivider(),
-                SizedBox(height: 12.h),
-                _buildVersion(),
-                SizedBox(height: 18.h),
-                _buildExitButton(),
-                SizedBox(height: 60.h),
-              ],
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20.h),
+              _buildSectionTitle("Manage Account"),
+              _buildDivider(),
+              _buildEmailSection(),
+              SizedBox(height: 1.h),
+              _buildPasswordSection(),
+              SizedBox(height: 17.h),
+              _buildRouteHistory(),
+              SizedBox(height: 13.h),
+              _buildDivider(),
+              _buildCurrentPlan(),
+              _buildDivider(),
+              _buildCustomerCare(),
+              _buildDivider(),
+              _buildLegalSection(),
+              _buildDivider(),
+              SizedBox(height: 12.h),
+              _buildVersion(),
+              SizedBox(height: 18.h),
+              _buildExitButton(),
+              SizedBox(height: 60.h),
+            ],
           ),
         ),
       ),
+      ],
+    ),
+
+    ),
+      bottomNavigationBar: CustomNavbar(),
     );
   }
 
@@ -268,7 +277,7 @@ class AccountScreen extends StatelessWidget {
             c.showPassword.value ? "mypassword123" : "***************",
             style: TextStyle(
               color: Colors.white,
-              fontSize: 32,
+              fontSize: 31.h,
               fontFamily: 'Lato',
               fontWeight: FontWeight.w700,
               height: 0.88,

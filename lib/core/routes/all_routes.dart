@@ -7,6 +7,7 @@ import '../../views/authentication/get_started_screen/get_started_screen.dart';
 import '../../views/authentication/login_account/login_account.dart';
 import '../../views/authentication/we_willbe_login/we_logged_you.dart';
 import '../../views/home/account_screen/account_screen.dart';
+import '../../views/home/history_screen/history_screen.dart';
 import '../../views/home/home_new_routes/home_new_routes.dart';
 import '../../views/splash_screen/splash_screen.dart';
 import '../../views/subscription_plans/choose_team_plan/choose_team_plan.dart';
@@ -28,14 +29,8 @@ class AppRoutes {
 
   // ================= home teamManager ===========================
   static const String homeNewRoutes = "/HomeNewRoutes";
-
-
-
   static const String accountScreen = "/AccountScreen";
-
-
-
-
+  static const String historyScreen = "/HistoryScreen";
 
   static const String welcomeScreen2 = "/WelcomeScreen2";
   static const String welcomePage = "/WelcomePage";
@@ -43,9 +38,7 @@ class AppRoutes {
   // ================ login Screen part ================================
 
   // bridge
-
   static List<GetPage> routes = [
-    ///=========================== onboarding Part 1  =======================//
     GetPage(name: splashScreen, page: () => SplashScreen()),
     GetPage(name: getStartedScreen, page: () => GetStartedScreen()),
     GetPage(name: enterEmailScreen, page: () => EnterEmailScreen()),
@@ -56,31 +49,10 @@ class AppRoutes {
     GetPage(name: individualTeam, page: () => IndividualTeam()),
     GetPage(name: chooseYourPlan, page: () => ChooseYourPlan()),
     GetPage(name: chooseATeamPlan, page: () => ChooseATeamPlan()),
+
+    // HOME ROUTES
     GetPage(name: homeNewRoutes, page: () => HomeNewRoutes()),
-
-
-    // account
     GetPage(name: accountScreen, page: () => AccountScreen()),
-
-
-    // // ====================== welcome screen =============================
-    // GetPage(name: welcomeScreen, page: () => WelcomeScreen()),
-    // GetPage(name: welcomeScreen2, page: () => WelcomeScreen2()),
-    // GetPage(name: welcomePage, page: () => WelcomePage()),
-    //
-    //
-    // //=========================== Login ==============================
-    // GetPage(name: login, page: () => LoginScreen()),
-    // //================ otp screen ===============
-    // GetPage(name: otpScreen, page: () => OtpScreen()),
-    // GetPage(name: confirmScreen, page: () => ConfirmScreen()),
-    //
-    // /// ===================  forget password part ===========================
-    // GetPage(name: forgetPasswordScreen, page: () => ForgetPassword()),
-    // //=========================== forget otp screen ================ =========
-    // GetPage(name: forgetPassOtp, page: () => ForgetPassOtp()),
-    // GetPage(name: continueScreen, page: () => ContinueScreen()),
-    // GetPage(name: setNewPassword, page: () => SetNewPassword()),
-    // GetPage(name: successScreen, page: () => SuccessScreen()),
+    GetPage(name: historyScreen, page: () => HistoryScreen()),
   ];
 }

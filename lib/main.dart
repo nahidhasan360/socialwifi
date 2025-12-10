@@ -3,26 +3,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
-import 'package:right_routes/views/home/home_new_routes/home_new_routes.dart';
-
 import 'core/routes/all_routes.dart';
 
 void main() {
   // 🔥 TRANSPARENT STATUS BAR WITH WHITE ICONS
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,            // ✅ Transparent background (body দেখাবে)
+      statusBarColor: Colors.transparent,            // ✅ Transparent background (body will be visible)
       statusBarIconBrightness: Brightness.light,     // ✅ Android white icons
       statusBarBrightness: Brightness.dark,          // ✅ iOS white icons
     ),
   );
 
+  // Run the app with DevicePreview enabled only in debug mode
   runApp(
     DevicePreview(
       enabled: !kReleaseMode,
-      builder: (context) => const MyApp(),
+      builder: (context) =>  MyApp(),
     ),
   );
 }
@@ -39,8 +37,8 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           title: 'Right Routes',
-          locale: DevicePreview.locale(context),
-          builder: DevicePreview.appBuilder,
+          locale: DevicePreview.locale(context), // For device preview locale handling
+          builder: DevicePreview.appBuilder, // DevicePreview builder to adjust screen sizes
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -52,9 +50,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          initialRoute: AppRoutes.accountScreen           ,
-          navigatorKey: Get.key,
-          getPages: AppRoutes.routes,
+          initialRoute: AppRoutes.historyScreen, // Ensure this route is defined in your AppRoutes
+          navigatorKey: Get.key, // Global navigator key for GetX
+          getPages: AppRoutes.routes, // Define your pages here
         );
       },
     );
