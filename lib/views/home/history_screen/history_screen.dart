@@ -75,7 +75,9 @@ class HistoryController extends GetxController {
 
   // Delete selected routes
   void deleteSelected() {
-    final selectedCount = routes.where((route) => route.isSelected.value).length;
+    final selectedCount = routes
+        .where((route) => route.isSelected.value)
+        .length;
 
     if (selectedCount == 0) {
       Get.snackbar(
@@ -94,9 +96,7 @@ class HistoryController extends GetxController {
         backgroundColor: AppColors.darkGray,
 
         // 👉 BORDER RADIUS CONTROL
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
 
         title: Text('Delete Routes', style: TextStyle(color: Colors.white)),
         content: Text(
@@ -106,7 +106,13 @@ class HistoryController extends GetxController {
         actions: [
           TextButton(
             onPressed: () => Get.back(),
-            child: Text('Cancel',style: TextStyle(fontWeight: FontWeight.bold,color:AppColors.white.withValues(alpha: 90)),),
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: AppColors.white.withValues(alpha: 90),
+              ),
+            ),
           ),
           TextButton(
             onPressed: () {
@@ -121,19 +127,21 @@ class HistoryController extends GetxController {
                 snackPosition: SnackPosition.BOTTOM,
               );
             },
-            child: Text('Delete', style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),),
+            child: Text(
+              'Delete',
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
     );
-
   }
-
-
 
   // Duplicate selected route (only one at a time)
   void duplicateSelected() {
-    final selectedRoutes = routes.where((route) => route.isSelected.value).toList();
+    final selectedRoutes = routes
+        .where((route) => route.isSelected.value)
+        .toList();
 
     if (selectedRoutes.isEmpty) {
       Get.snackbar(
@@ -264,7 +272,10 @@ class HistoryController extends GetxController {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('ID: ${route.id}', style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              'ID: ${route.id}',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
             SizedBox(height: 8),
             Text('Date: ${route.date}'),
             SizedBox(height: 8),
@@ -272,10 +283,7 @@ class HistoryController extends GetxController {
           ],
         ),
         actions: [
-          TextButton(
-            onPressed: () => Get.back(),
-            child: Text('Close'),
-          ),
+          TextButton(onPressed: () => Get.back(), child: Text('Close')),
           TextButton(
             onPressed: () {
               Get.back();
@@ -335,8 +343,6 @@ class HistoryScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-
                 /// -------------------------------------------------------------------
                 /// LOGO
                 /// -------------------------------------------------------------------
@@ -375,28 +381,34 @@ class HistoryScreen extends StatelessWidget {
                 Row(
                   children: [
                     // Select All Checkbox
-                    Obx(() => GestureDetector(
-                      onTap: controller.toggleSelectAll,
-                      child: Container(
-                        width: 24.w,
-                        height: 24.w,
-                        decoration: BoxDecoration(
-                          color: controller.selectAll.value
-                              ? Color(0xFFFF6B35)
-                              : Colors.transparent,
-                          border: Border.all(
+                    Obx(
+                      () => GestureDetector(
+                        onTap: controller.toggleSelectAll,
+                        child: Container(
+                          width: 24.w,
+                          height: 24.w,
+                          decoration: BoxDecoration(
                             color: controller.selectAll.value
                                 ? Color(0xFFFF6B35)
-                                : Colors.white.withOpacity(0.5),
-                            width: 2,
+                                : AppColors.medGray,
+                            border: Border.all(
+                              color: controller.selectAll.value
+                                  ? Color(0xFFFF6B35)
+                                  : AppColors.medGray,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(4.r),
                           ),
-                          borderRadius: BorderRadius.circular(4.r),
+                          child: controller.selectAll.value
+                              ? Icon(
+                                  Icons.check,
+                                  color: Colors.white,
+                                  size: 16.sp,
+                                )
+                              : null,
                         ),
-                        child: controller.selectAll.value
-                            ? Icon(Icons.check, color: Colors.white, size: 16.sp)
-                            : null,
                       ),
-                    )),
+                    ),
 
                     SizedBox(width: 12.w),
 
@@ -405,11 +417,18 @@ class HistoryScreen extends StatelessWidget {
                     Wrap(
                       spacing: 8.w, // Horizontal space between buttons
                       runSpacing: 4.h, // Vertical space if buttons wrap
-                      alignment: WrapAlignment.start, // Align buttons to the start
+                      alignment:
+                          WrapAlignment.start, // Align buttons to the start
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
-                        _smallButton("Delete", onTap: controller.deleteSelected),
-                        _smallButton("Duplicate", onTap: controller.duplicateSelected),
+                        _smallButton(
+                          "Delete",
+                          onTap: controller.deleteSelected,
+                        ),
+                        _smallButton(
+                          "Duplicate",
+                          onTap: controller.duplicateSelected,
+                        ),
                         _smallButton("Cancel", onTap: controller.cancel),
                         _smallButton("Exit", onTap: () => Get.back()),
                       ],
@@ -418,7 +437,7 @@ class HistoryScreen extends StatelessWidget {
                 ),
 
                 SizedBox(height: 15.h),
-                Divider( color: AppColors.white, thickness: 1,),
+                Divider(color: AppColors.white, thickness: 1),
                 SizedBox(height: 5.h),
 
                 /// -------------------------------------------------------------------
@@ -430,16 +449,19 @@ class HistoryScreen extends StatelessWidget {
                     Container(
                       width: 38.w,
                       height: 40.h,
-                      decoration: BoxDecoration(
+                      decoration: BoxDecoration(),
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 24.sp,
                       ),
-                      child: Icon(Icons.search, color: Colors.white, size: 24.sp),
                     ),
 
                     SizedBox(width: 1.w),
                     Container(
-                      height: 25,
+                      height: 25.h,
                       width: 195,
-                      padding: EdgeInsets.symmetric(horizontal: 14.w),
+                      padding: EdgeInsets.symmetric(horizontal: 14.w,),
                       decoration: BoxDecoration(
                         color: AppColors.medGray,
                         borderRadius: BorderRadius.circular(3.r),
@@ -448,22 +470,23 @@ class HistoryScreen extends StatelessWidget {
                       child: TextField(
                         controller: searchController,
                         style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                        cursorColor:Colors.white,
+                        cursorColor: Colors.white,
                         cursorWidth: 1.2,
+                        cursorHeight: 15,
                         textAlign: TextAlign.start, // Input text alignment
                         decoration: InputDecoration(
                           hintText: "Beethoven",
                           // Added alignment property to center the hint text
                           hintStyle: TextStyle(
                             color: Colors.white,
-                            fontSize: 14.sp,
+                            fontSize: 14,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w500,
-                            height: 2.29,
+                            height: 2,
                           ),
                           border: InputBorder.none,
                           // Set content padding to vertically center text
-                          contentPadding: EdgeInsets.symmetric(vertical: 7,),
+                          contentPadding: EdgeInsets.symmetric(vertical: 7),
                         ),
                         onChanged: controller.updateSearch,
                       ),
@@ -475,7 +498,7 @@ class HistoryScreen extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         height: 25,
-                        width: 50.w,
+                        width: 33,
                         decoration: BoxDecoration(
                           color: AppColors.medGray,
                           borderRadius: BorderRadius.circular(2.r),
@@ -484,10 +507,10 @@ class HistoryScreen extends StatelessWidget {
                           "GO",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16.sp,
+                            fontSize: 16,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w700,
-                            height: 2,
+                            height: 1,
                           ),
                         ),
                       ),
@@ -501,10 +524,12 @@ class HistoryScreen extends StatelessWidget {
                 /// ROUTE LIST
                 /// -------------------------------------------------------------------
                 Expanded(
-                  child: Obx(() => ListView.builder(
-                    itemCount: controller.routes.length,
-                    itemBuilder: (context, index) => _routeItem(index),
-                  )),
+                  child: Obx(
+                    () => ListView.builder(
+                      itemCount: controller.routes.length,
+                      itemBuilder: (context, index) => _routeItem(index),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -522,24 +547,25 @@ class HistoryScreen extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 28.h, // Adjusted height for better visibility
-        width: 72.w, // Adjusted width for better visibility
-        alignment: Alignment.center, // Center the text within the container
-        padding: EdgeInsets.zero, // Removed unnecessary padding
+        padding: EdgeInsets.symmetric(
+          horizontal: 7.w, // Text অনুযায়ী width auto হবে
+          vertical: 1.h, // Height responsive
+        ),
         decoration: BoxDecoration(
           color: AppColors.orange,
-          borderRadius: BorderRadius.circular(6.r),
+          borderRadius: BorderRadius.circular(3.r),
         ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 14.sp, // Adjusted font size
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w800,
-            // Removed height property to rely on container alignment
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.sp, // Responsive text
+              fontFamily: 'Lato',
+              fontWeight: FontWeight.w800,
+            ),
           ),
-          textAlign: TextAlign.center,
         ),
       ),
     );
@@ -557,7 +583,7 @@ class HistoryScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.w),
+            padding: EdgeInsets.symmetric(vertical: 12.h,),
             decoration: BoxDecoration(
               color: route.isSelected.value
                   ? Color(0xFF3A4A6B).withOpacity(0.3)
@@ -628,9 +654,7 @@ class HistoryScreen extends StatelessWidget {
                   onTap: () => controller.openRouteDetails(index),
                   child: Icon(
                     Icons.arrow_forward_ios,
-                    color: route.highlighted
-                        ? Colors.white
-                        : AppColors.white,
+                    color: route.highlighted ? Colors.white : AppColors.white,
                     size: 24.sp,
                   ),
                 ),
@@ -640,11 +664,7 @@ class HistoryScreen extends StatelessWidget {
 
           /// Divider
           if (index < controller.routes.length - 1)
-            Divider(
-              color:AppColors.dividerColor ,
-              thickness: 1,
-              height: 1,
-            ),
+            Divider(color: AppColors.dividerColor, thickness: 1, height: 1),
         ],
       );
     });
