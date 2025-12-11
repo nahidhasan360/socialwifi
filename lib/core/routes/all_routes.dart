@@ -1,5 +1,8 @@
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
+import '../../views/account/change_email.dart';
+import '../../views/account/contact_support.dart';
 import '../../views/authentication/OtpVerification_Screen/OtpVerification_Screen.dart';
 import '../../views/authentication/create_an_account/create_an_account.dart';
 import '../../views/authentication/enter_email_screen/enter_email_screen.dart';
@@ -35,6 +38,10 @@ class AppRoutes {
   static const String welcomeScreen2 = "/WelcomeScreen2";
   static const String welcomePage = "/WelcomePage";
 
+  // account all routes
+  static const String contactSupport ="/ContactSupport";
+  static const String changeEmail ="/ChangeEmail";
+
   // ================ login Screen part ================================
 
   // bridge
@@ -54,5 +61,9 @@ class AppRoutes {
     GetPage(name: homeNewRoutes, page: () => HomeNewRoutes()),
     GetPage(name: accountScreen, page: () => AccountScreen()),
     GetPage(name: historyScreen, page: () => HistoryScreen()),
+
+    // accounts all screen route
+    GetPage(name: contactSupport, page:() => ContactSupport(),),
+    GetPage(name: changeEmail, page:() => ChangeEmail(),)
   ];
 }

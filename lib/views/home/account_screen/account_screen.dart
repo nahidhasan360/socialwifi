@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/colors.dart';
 import '../../../utils/assets_manager.dart';
@@ -230,7 +231,7 @@ class AccountScreen extends StatelessWidget {
           title: "tanvirhasancr890890@gmail.com",
           onTap: () {
             // Navigate to email management page or show more options
-            Get.to(() => LoginAccount());
+           Get.toNamed(AppRoutes.changeEmail);
           },
         ),
         SizedBox(height: 8.h),
@@ -458,7 +459,7 @@ class AccountScreen extends StatelessWidget {
           title: "Contact Support",
           onTap: () {
             // Navigate to support page
-            Get.to(() => LoginAccount());
+           Get.toNamed(AppRoutes.contactSupport);
           },
         ),
         RRRightArrowTile(

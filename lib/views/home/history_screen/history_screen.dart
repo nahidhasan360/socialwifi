@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
 
@@ -90,11 +91,11 @@ class HistoryController extends GetxController {
 
     Get.dialog(
       AlertDialog(
-        backgroundColor: AppColors.medGray,
+        backgroundColor: AppColors.darkGray,
 
         // 👉 BORDER RADIUS CONTROL
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8), // এখানে radius কমাও
+          borderRadius: BorderRadius.circular(8),
         ),
 
         title: Text('Delete Routes', style: TextStyle(color: Colors.white)),
@@ -150,7 +151,10 @@ class HistoryController extends GetxController {
       // Show error dialog - can only duplicate one route at a time
       Get.dialog(
         AlertDialog(
-          backgroundColor: Colors.red.shade700,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8), // dialog round
+          ),
+          backgroundColor: AppColors.darkGray,
           title: Row(
             children: [
               Icon(Icons.warning, color: Colors.white),
@@ -185,13 +189,13 @@ class HistoryController extends GetxController {
 
     routes.add(newRoute);
 
-    Get.snackbar(
-      'Success',
-      'Route duplicated successfully',
-      backgroundColor: Colors.green.shade400,
-      colorText: Colors.white,
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    // Get.snackbar(
+    //   'Success',
+    //   'Route duplicated successfully',
+    //   backgroundColor: Colors.green.shade400,
+    //   colorText: Colors.white,
+    //   snackPosition: SnackPosition.BOTTOM,
+    // );
   }
 
   // Cancel - Clear all selections and reset highlighted route
@@ -331,7 +335,7 @@ class HistoryScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 20.h),
+
 
                 /// -------------------------------------------------------------------
                 /// LOGO
@@ -502,23 +506,12 @@ class HistoryScreen extends StatelessWidget {
                     itemBuilder: (context, index) => _routeItem(index),
                   )),
                 ),
-
-                SizedBox(height: 10.h),
-
-                /// Bottom Navigation Hint
-                Text(
-                  'Tap route arrow to open details',
-                  style: TextStyle(
-                    color: Colors.white54,
-                    fontSize: 11.sp,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
               ],
             ),
           ),
         ),
       ),
+      bottomNavigationBar: CustomNavbar(),
     );
   }
 
@@ -560,6 +553,8 @@ class HistoryScreen extends StatelessWidget {
 
     return Obx(() {
       return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.w),
@@ -570,21 +565,23 @@ class HistoryScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /// Checkbox
                 GestureDetector(
                   onTap: () => controller.toggleRoute(index),
                   child: Container(
-                    width: 22.w,
-                    height: 22.w,
+                    width: 24.w,
+                    height: 24.w,
                     decoration: BoxDecoration(
                       color: route.isSelected.value
                           ? Color(0xFFFF6B35)
-                          : Colors.transparent,
+                          : AppColors.medGray,
                       border: Border.all(
                         color: route.isSelected.value
                             ? Color(0xFFFF6B35)
-                            : Colors.white.withOpacity(0.5),
+                            : Colors.transparent,
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(4.r),
@@ -632,7 +629,7 @@ class HistoryScreen extends StatelessWidget {
                   child: Icon(
                     Icons.arrow_forward_ios,
                     color: route.highlighted
-                        ? Color(0xFFFF6B35)
+                        ? Colors.white
                         : AppColors.white,
                     size: 24.sp,
                   ),
