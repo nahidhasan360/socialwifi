@@ -178,6 +178,11 @@ class AccountScreen extends StatelessWidget {
     );
   }
 
+
+
+
+
+
   // =====================================   logo ================================
   Widget _buildLogo() {
     return Center(
@@ -295,6 +300,10 @@ class AccountScreen extends StatelessWidget {
       ],
     );
   }
+
+
+
+
 
   Widget _buildCurrentPlan() {
     return Column(
