@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
           ),
-          initialRoute: AppRoutes.historyScreen, // Ensure this route is defined in your AppRoutes
+          initialRoute: AppRoutes.help, // Ensure this route is defined in your AppRoutes
           navigatorKey: Get.key, // Global navigator key for GetX
           getPages: AppRoutes.routes, // Define your pages here
         );

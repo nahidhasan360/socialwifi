@@ -30,6 +30,7 @@ class SvgManager {
   static const String logo = "$basePath/heart.svg";
   static const String questionSvg = "$basePath/Question.svg";
   static const String arrowWhite = "$basePath/Forward-Arrow-white.svg";
+  static const String blueIcon = "$basePath/Check-Circle-blue-white 2.svg";
 
 
 

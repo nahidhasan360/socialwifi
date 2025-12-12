@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/button_reusable.dart';
 import 'package:right_routes/global_widgets/custom_buttons.dart';
 
@@ -104,7 +105,7 @@ class ChangeEmail extends StatelessWidget {
                     SizedBox(height: 19),
 
                     ButtonReusable(
-                      onPressed: () => '',
+                      onPressed: () => AppRoutes.emailSaved,
                       text: 'SAVE & CONTINUE',
                       width: 500.w,
                     ),

@@ -1,8 +1,15 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
+import '../../global_widget/global_widgets.dart';
+import '../../views/account/account_delete.dart';
+import '../../views/account/are_you_sure_delete_this_account.dart';
 import '../../views/account/change_email.dart';
+import '../../views/account/change_password.dart';
 import '../../views/account/contact_support.dart';
+import '../../views/account/email_saved.dart';
+import '../../views/account/help.dart';
+import '../../views/account/password_saved.dart';
 import '../../views/authentication/OtpVerification_Screen/OtpVerification_Screen.dart';
 import '../../views/authentication/create_an_account/create_an_account.dart';
 import '../../views/authentication/enter_email_screen/enter_email_screen.dart';
@@ -41,6 +48,13 @@ class AppRoutes {
   // account all routes
   static const String contactSupport ="/ContactSupport";
   static const String changeEmail ="/ChangeEmail";
+  static const String emailSaved ="/EmailSaved";
+  static const String changePassword ="/ChangePassword";
+  static const String passwordStrengthBar ="/PasswordStrengthBar";
+  static const String passwordSaved ="/PasswordSaved";
+  static const String areYouSureDeleteThisAccount ="/AreYouSureDeleteThisAccount";
+  static const String accountDelete ="/AccountDelete";
+  static const String help ="/Help";
 
   // ================ login Screen part ================================
 
@@ -62,8 +76,17 @@ class AppRoutes {
     GetPage(name: accountScreen, page: () => AccountScreen()),
     GetPage(name: historyScreen, page: () => HistoryScreen()),
 
+
     // accounts all screen route
     GetPage(name: contactSupport, page:() => ContactSupport(),),
-    GetPage(name: changeEmail, page:() => ChangeEmail(),)
+    GetPage(name: changeEmail, page:() => ChangeEmail(),),
+    GetPage(name: emailSaved, page: () => EmailSaved()),
+    GetPage(name: changePassword, page: () => ChangePassword()),
+    GetPage(name: passwordSaved, page: () => PasswordSaved()),
+    GetPage(name: areYouSureDeleteThisAccount, page: () => AreYouSureDeleteThisAccount()),
+    GetPage(name: accountDelete, page: () => AccountDelete()),
+    GetPage(name: help, page: () => Help()),
+
+
   ];
 }
