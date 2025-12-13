@@ -1018,7 +1018,7 @@ class TeamManager extends StatelessWidget {
                           ? Icon(
                               Icons.check,
                               color: TeamManagerColors.primaryWhite,
-                              size: 14.sp,
+                              size:14.sp,
                             )
                           : null,
                     ),
@@ -1409,16 +1409,19 @@ class TeamManager extends StatelessWidget {
         Row(
           children: [
             Expanded(
+              flex: 1,
               child: _buildActionButton('Import', controller.importUsers),
             ),
             SizedBox(width: 12.w),
             Expanded(
+              flex: 1,
               child: _buildActionButton('Cancel', () {
                 controller.emailInputController.clear();
               }),
             ),
             SizedBox(width: 12.w),
-            Expanded(child: _buildActionButton('Add', controller.addUserEmail)),
+            Expanded(flex:1,
+                child: _buildActionButton('Add', controller.addUserEmail)),
           ],
         ),
       ],
