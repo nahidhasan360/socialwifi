@@ -352,7 +352,7 @@ class UserModel {
 enum UserStatus { active, pending, resend, remove }
 
 // ============================================================
-// CUSTOM SCROLL INDICATOR - 50h x 8w
+// CUSTOM SCROLL INDICATOR
 // ============================================================
 class CustomScrollIndicator extends StatefulWidget {
   final ScrollController scrollController;
@@ -675,7 +675,7 @@ class TeamManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true, // ✅ Keyboard shows above input
+      resizeToAvoidBottomInset: true,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -937,12 +937,11 @@ class TeamManager extends StatelessWidget {
     });
   }
 
-  // ✅ UPDATED HEADER: medGray background, checkbox moved right beside Status
   Widget _buildTableHeader() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
       decoration: BoxDecoration(
-        color: AppColors.darkGray, // ✅ medGray background
+        color: AppColors.darkGray,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(8.r),
           topRight: Radius.circular(8.r),
@@ -950,7 +949,6 @@ class TeamManager extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Name
           Expanded(
             flex: 2,
             child: Text(
@@ -963,7 +961,6 @@ class TeamManager extends StatelessWidget {
               ),
             ),
           ),
-          // Email
           Expanded(
             flex: 3,
             child: Text(
@@ -976,7 +973,6 @@ class TeamManager extends StatelessWidget {
               ),
             ),
           ),
-          // Status column (checkbox removed from here)
           Expanded(
             flex: 2,
             child: Text(
@@ -989,13 +985,11 @@ class TeamManager extends StatelessWidget {
               ),
             ),
           ),
-          // Actions column with Checkbox + Help Icon
           SizedBox(
-            width: 100.w, //  Increased width for checkbox + icon
+            width: 100.w,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                //  Select All Checkbox moved here (left of question icon)
                 Obx(
                   () => GestureDetector(
                     onTap: () {
@@ -1018,14 +1012,13 @@ class TeamManager extends StatelessWidget {
                           ? Icon(
                               Icons.check,
                               color: TeamManagerColors.primaryWhite,
-                              size:14.sp,
+                              size: 14.sp,
                             )
                           : null,
                     ),
                   ),
                 ),
                 SizedBox(width: 10.w),
-                // Question icon
                 GestureDetector(
                   onTap: () {
                     _showUserManagementHelp();
@@ -1117,13 +1110,9 @@ class TeamManager extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h),
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(
-                color: AppColors.medGray,
-                width: 1,
-              ),
+              bottom: BorderSide(color: AppColors.medGray, width: 1),
             ),
           ),
-
           child: Row(
             children: [
               Expanded(
@@ -1169,7 +1158,7 @@ class TeamManager extends StatelessWidget {
               ),
               SizedBox(width: 8.w),
               SizedBox(
-                width: 100.w, // ✅ Match header width
+                width: 100.w,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -1241,10 +1230,6 @@ class TeamManager extends StatelessWidget {
     );
   }
 
-  // ✅ UPDATED BUTTONS: Content-based width with padding + new style
-  // ============================================================
-  // ACTION BUTTONS ROW - FULL WIDTH WITH EQUAL SPACING
-  // ============================================================
   Widget _buildActionButtons() {
     return Row(
       children: [
@@ -1271,17 +1256,16 @@ class TeamManager extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 1), // ✅ Reduced padding
+        padding: const EdgeInsets.symmetric(vertical: 1),
         decoration: BoxDecoration(
           color: TeamManagerColors.primaryOrange,
-          borderRadius: BorderRadius.circular(5), // ✅ Border radius 5
+          borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
           child: Text(
             label,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              // ✅ Exact text style
               color: Colors.white,
               fontSize: 16,
               fontFamily: 'Lato',
@@ -1294,47 +1278,33 @@ class TeamManager extends StatelessWidget {
     );
   }
 
-  //   indicator ar height
-  // UPDATED: Question icon 73 left from ADD/EDIT USERS
+  // ✅ INPUT LEFT, BUTTONS RIGHT LAYOUT
   Widget _buildAddEditUsersSection() {
     final containerHeight = 265.h;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          padding: EdgeInsets.symmetric(vertical: 12.h),
           child: Row(
             children: [
               Text(
+                textAlign: TextAlign.start,
                 'ADD / EDIT USERS',
                 style: GoogleFonts.leagueGothic(
                   color: AppColors.orange,
                   fontSize: 24,
-
                   fontWeight: FontWeight.w400,
                   height: 1.17,
                   letterSpacing: 1.50,
                 ),
               ),
-              SizedBox(width: 73.w),
-
-              // ========================  ADD / USERS AR SECTION =========================
+              SizedBox(width: 93.w),
               GestureDetector(
                 onTap: () {
                   CustomDialogs.showHelpDialog();
                 },
-                // child: Container(
-                //   width: 24.w,
-                //   height: 24.h,
-                //   decoration: BoxDecoration(
-                //     color: TeamManagerColors.primaryOrange,
-                //     shape: BoxShape.circle,
-                //     border: Border.all(
-                //       color: TeamManagerColors.primaryWhite, // White border
-                //       width: 1.5,
-                //     ),
-                //   ),
                 child: Center(
                   child: SvgPicture.asset("assets/icons/Question-Box-gray.svg"),
                 ),
@@ -1342,6 +1312,7 @@ class TeamManager extends StatelessWidget {
             ],
           ),
         ),
+        // ✅ Input Section (Full Width)
         Stack(
           children: [
             Container(
@@ -1349,10 +1320,7 @@ class TeamManager extends StatelessWidget {
               padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8.r),
-                  bottomRight: Radius.circular(8.r),
-                ),
+                borderRadius: BorderRadius.circular(8.r),
                 border: Border.all(
                   color: TeamManagerColors.borderColor,
                   width: 1,
@@ -1366,8 +1334,7 @@ class TeamManager extends StatelessWidget {
                       controller: controller.emailInputScrollController,
                       child: TextField(
                         controller: controller.emailInputController,
-                        focusNode:
-                            controller.emailInputFocusNode, // ✅ Focus node
+                        focusNode: controller.emailInputFocusNode,
                         maxLines: null,
                         minLines: 10,
                         style: GoogleFonts.lato(
@@ -1386,7 +1353,6 @@ class TeamManager extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // ✅ Divider above +215
                   Divider(color: AppColors.darkGray, thickness: 1),
                   Text(
                     '+ 215',
@@ -1406,22 +1372,26 @@ class TeamManager extends StatelessWidget {
           ],
         ),
         SizedBox(height: 16.h),
+        // ✅ Buttons Section (Horizontal Row like screenshot)
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              flex: 1,
+            SizedBox(
+              width: 84,
               child: _buildActionButton('Import', controller.importUsers),
             ),
             SizedBox(width: 12.w),
-            Expanded(
-              flex: 1,
+            SizedBox(
+              width: 84,
               child: _buildActionButton('Cancel', () {
                 controller.emailInputController.clear();
               }),
             ),
             SizedBox(width: 12.w),
-            Expanded(flex:1,
-                child: _buildActionButton('Add', controller.addUserEmail)),
+            SizedBox(
+              width: 64,
+              child: _buildActionButton('Add', controller.addUserEmail),
+            ),
           ],
         ),
       ],
