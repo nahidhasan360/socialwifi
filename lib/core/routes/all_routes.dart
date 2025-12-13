@@ -19,6 +19,9 @@ import '../../views/authentication/subscriber_agreement/subscriber_agreement.dar
 import '../../views/authentication/we_willbe_login/we_logged_you.dart';
 import '../../views/home/account_screen/account_screen.dart';
 import '../../views/home/history_screen/history_screen.dart';
+import '../../views/home/home_new_routes/CreateRouteAllFile/enter_directions.dart';
+import '../../views/home/home_new_routes/CreateRouteAllFile/import_your_permit.dart';
+import '../../views/home/home_new_routes/CreateRouteAllFile/import_your_photo_permit.dart';
 import '../../views/home/home_new_routes/home_new_routes.dart';
 import '../../views/home/team_manager/check.dart';
 import '../../views/home/team_manager/team_manager.dart';
@@ -30,7 +33,6 @@ import '../../views/subscription_plans/individualTeam.dart';
 class AppRoutes {
   // dialog box
   static const String subscriberAgreement = "/SubscriberAgreement";
-
 
   static const String splashScreen = "/SplashScreen";
   static const String getStartedScreen = "/GetStartedScreen";
@@ -54,25 +56,29 @@ class AppRoutes {
   static const String welcomePage = "/WelcomePage";
 
   // account all routes
-  static const String contactSupport ="/ContactSupport";
-  static const String changeEmail ="/ChangeEmail";
-  static const String emailSaved ="/EmailSaved";
-  static const String changePassword ="/ChangePassword";
-  static const String passwordStrengthBar ="/PasswordStrengthBar";
-  static const String passwordSaved ="/PasswordSaved";
-  static const String areYouSureDeleteThisAccount ="/AreYouSureDeleteThisAccount";
-  static const String accountDelete ="/AccountDelete";
-  static const String help ="/Help";
-  static const String userManagementScreen ="/TeamManager";
+  static const String contactSupport = "/ContactSupport";
+  static const String changeEmail = "/ChangeEmail";
+  static const String emailSaved = "/EmailSaved";
+  static const String changePassword = "/ChangePassword";
+  static const String passwordStrengthBar = "/PasswordStrengthBar";
+  static const String passwordSaved = "/PasswordSaved";
+  static const String areYouSureDeleteThisAccount =
+      "/AreYouSureDeleteThisAccount";
+  static const String accountDelete = "/AccountDelete";
+  static const String help = "/Help";
+
+  static const String importYourPermit = "/ImportYourPermit";
+  static const String importYourPhotoPermit = "/ImportYourPhotoPermit";
+  static const String enterDirections = "/EnterDirections";
+
+  // static const String teamManager ="/TeamManager";
 
   // ================ login Screen part ================================
 
   // bridge
   static List<GetPage> routes = [
     // dialog box
-
     GetPage(name: subscriberAgreement, page: () => SubscriberAgreement()),
-
 
     GetPage(name: splashScreen, page: () => SplashScreen()),
     GetPage(name: getStartedScreen, page: () => GetStartedScreen()),
@@ -85,26 +91,30 @@ class AppRoutes {
     GetPage(name: chooseYourPlan, page: () => ChooseYourPlan()),
     GetPage(name: chooseATeamPlan, page: () => ChooseATeamPlan()),
 
-
     // HOME ROUTES
     GetPage(name: homeNewRoutes, page: () => HomeNewRoutes()),
     GetPage(name: teamManager, page: () => TeamManager()),
     GetPage(name: accountScreen, page: () => AccountScreen()),
     GetPage(name: historyScreen, page: () => HistoryScreen()),
 
+    // create route all file route
+    GetPage(name: importYourPermit, page: () => ImportYourPermit()),
+    GetPage(name: importYourPhotoPermit, page: () => ImportYourPhotoPermit()),
+    GetPage(name: enterDirections, page: () => EnterDirections()),
 
     // accounts all screen route
-    GetPage(name: contactSupport, page:() => ContactSupport(),),
-    GetPage(name: changeEmail, page:() => ChangeEmail(),),
+    GetPage(name: contactSupport, page: () => ContactSupport()),
+    GetPage(name: changeEmail, page: () => ChangeEmail()),
     GetPage(name: emailSaved, page: () => EmailSaved()),
     GetPage(name: changePassword, page: () => ChangePassword()),
     GetPage(name: passwordSaved, page: () => PasswordSaved()),
-    GetPage(name: areYouSureDeleteThisAccount, page: () => AreYouSureDeleteThisAccount()),
+    GetPage(
+      name: areYouSureDeleteThisAccount,
+      page: () => AreYouSureDeleteThisAccount(),
+    ),
     GetPage(name: accountDelete, page: () => AccountDelete()),
     GetPage(name: help, page: () => Help()),
-    GetPage(name: userManagementScreen, page: () => TeamManager()),
 
-
-
+    // GetPage(name: teamManager, page: () => TeamManager()),
   ];
-  }
+}

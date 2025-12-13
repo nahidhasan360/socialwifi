@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/views/home/home_all_widgets/dialog/dialog_document.dart';
 import 'package:right_routes/views/home/home_all_widgets/dialog/dialog_map.dart';
 import '../../../global_widgets/custom_navbar.dart';
@@ -73,7 +76,9 @@ class HomeNewRoutes extends StatelessWidget {
                 SizedBox(height: 16),
                 SimpleImportButton(
                   text: "IMPORT DOCUMENT",
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.importYourPermit);
+                  },
                   leftIcon: "assets/icons/Import_white.svg",
                   rightIcon: 'assets/images/question.png',
                   onTab: () => showPermitDialog(context),
@@ -81,7 +86,9 @@ class HomeNewRoutes extends StatelessWidget {
                 SizedBox(height: 13),
                 SimpleImportButton(
                   text: "iMPORT DOC IMAGE",
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.importYourPhotoPermit);
+                  },
                   leftIcon: "assets/icons/Camera-white.svg",
                   rightIcon: 'assets/images/question.png',
                   onTab: () => dialogCamera(context),
@@ -89,7 +96,9 @@ class HomeNewRoutes extends StatelessWidget {
                 SizedBox(height: 13),
                 SimpleImportButton(
                   text: "TYPE IN DIRECTIONS",
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.enterDirections);
+                  },
                   leftIcon: "assets/icons/Edit-Pencil-white.svg",
                   rightIcon: 'assets/images/question.png',
                   onTab: () => dialogDirection(context),
@@ -97,7 +106,9 @@ class HomeNewRoutes extends StatelessWidget {
                 SizedBox(height: 13),
                 SimpleImportButton(
                   text: "READ IN DIRECTIONS",
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.importYourPermit);
+                  },
                   leftIcon: "assets/icons/Mic-white.svg",
                   rightIcon: 'assets/images/question.png',
                   onTab: () => dialogReadInDirection(context),
@@ -105,7 +116,9 @@ class HomeNewRoutes extends StatelessWidget {
                 SizedBox(height: 13),
                 SimpleImportButton(
                   text: "PLACE PINS ON MAP",
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.importYourPermit);
+                  },
                   leftIcon: "assets/icons/Vector-hand.svg",
                   rightIcon: 'assets/images/question.png',
                   onTab: () => dialogMap(context),

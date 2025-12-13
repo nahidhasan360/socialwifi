@@ -30,7 +30,7 @@ class CustomNavbar extends StatelessWidget {
             index: 1,
             icon: Icons.group_rounded,
             label: "Teams",
-            route: AppRoutes.homeNewRoutes,
+            route: AppRoutes.teamManager,
           ),
           navItem(
             index: 2,
