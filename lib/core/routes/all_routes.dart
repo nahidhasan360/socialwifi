@@ -19,6 +19,9 @@ import '../../views/authentication/subscriber_agreement/subscriber_agreement.dar
 import '../../views/authentication/we_willbe_login/we_logged_you.dart';
 import '../../views/home/account_screen/account_screen.dart';
 import '../../views/home/history_screen/history_screen.dart';
+import '../../views/home/home_new_routes/CreateRouteAllFile/PlotYourRoute/PlotYourRoute.dart';
+import '../../views/home/home_new_routes/CreateRouteAllFile/PlotYourRoute/pins_making.dart';
+import '../../views/home/home_new_routes/CreateRouteAllFile/edit_confirm_start_your_route/edit_confirm_start_your_route.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/enter_directions.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/import_your_permit.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/import_your_photo_permit.dart';
@@ -71,6 +74,15 @@ class AppRoutes {
   static const String importYourPhotoPermit = "/ImportYourPhotoPermit";
   static const String enterDirections = "/EnterDirections";
 
+  //====================
+  static const String plotYourRoute = "/PlotYourRoute";
+  static const String pinsMaking = "/PinsMaking";
+
+  // =============  edit - confirm - start route section ================
+  static const String editConfirmStartYourRoute = "/EditConfirmStartYourRoute";
+
+
+
   // static const String teamManager ="/TeamManager";
 
   // ================ login Screen part ================================
@@ -101,6 +113,11 @@ class AppRoutes {
     GetPage(name: importYourPermit, page: () => ImportYourPermit()),
     GetPage(name: importYourPhotoPermit, page: () => ImportYourPhotoPermit()),
     GetPage(name: enterDirections, page: () => EnterDirections()),
+    // ===============================
+    GetPage(name: plotYourRoute, page: () => PlotYourRoute()),
+    GetPage(name: pinsMaking, page: () => PinsMaking()),
+    // =============  edit - confirm - start route section ================
+    GetPage(name: editConfirmStartYourRoute, page: () => EditConfirmStartYourRoute()),
 
     // accounts all screen route
     GetPage(name: contactSupport, page: () => ContactSupport()),

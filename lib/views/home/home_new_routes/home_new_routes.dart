@@ -107,7 +107,7 @@ class HomeNewRoutes extends StatelessWidget {
                 SimpleImportButton(
                   text: "READ IN DIRECTIONS",
                   onTap: () {
-                    Get.toNamed(AppRoutes.importYourPermit);
+                    Get.toNamed(AppRoutes.enterDirections);
                   },
                   leftIcon: "assets/icons/Mic-white.svg",
                   rightIcon: 'assets/images/question.png',
@@ -117,7 +117,7 @@ class HomeNewRoutes extends StatelessWidget {
                 SimpleImportButton(
                   text: "PLACE PINS ON MAP",
                   onTap: () {
-                    Get.toNamed(AppRoutes.importYourPermit);
+                    Get.toNamed(AppRoutes.plotYourRoute);
                   },
                   leftIcon: "assets/icons/Vector-hand.svg",
                   rightIcon: 'assets/images/question.png',
