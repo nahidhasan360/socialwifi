@@ -1112,99 +1112,111 @@ class TeamManager extends StatelessWidget {
       final user = controller.filteredUserList[index];
 
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: Text(
-                user.name,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.lato(
-                  color: _getTextColor(user.status),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                ),
+        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h),
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: AppColors.medGray,
+                width: 1,
               ),
             ),
-            SizedBox(width: 8.w),
-            Expanded(
-              flex: 3,
-              child: Text(
-                user.email,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.lato(
-                  color: _getTextColor(user.status),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
+          ),
+
+          child: Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Text(
+                  user.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.lato(
+                    color: _getTextColor(user.status),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 8.w),
-            Expanded(
-              flex: 2,
-              child: Text(
-                _getStatusText(user.status),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: GoogleFonts.lato(
-                  color: _getTextColor(user.status),
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
+              SizedBox(width: 8.w),
+              Expanded(
+                flex: 3,
+                child: Text(
+                  user.email,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.lato(
+                    color: _getTextColor(user.status),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
               ),
-            ),
-            SizedBox(width: 8.w),
-            SizedBox(
-              width: 100.w, // ✅ Match header width
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      controller.toggleUserSelection(index);
-                    },
-                    child: Container(
-                      width: 24.w,
-                      height: 24.h,
-                      decoration: BoxDecoration(
-                        color: user.isSelected
-                            ? TeamManagerColors.primaryOrange
-                            : Colors.transparent,
-                        border: Border.all(
-                          color: TeamManagerColors.primaryWhite,
-                          width: 1.5,
+              SizedBox(width: 8.w),
+              Expanded(
+                flex: 2,
+                child: Text(
+                  _getStatusText(user.status),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.lato(
+                    color: _getTextColor(user.status),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8.w),
+              SizedBox(
+                width: 100.w, // ✅ Match header width
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        controller.toggleUserSelection(index);
+                      },
+                      child: Container(
+                        width: 24.w,
+                        height: 24.h,
+                        decoration: BoxDecoration(
+                          color: user.isSelected
+                              ? TeamManagerColors.primaryOrange
+                              : Colors.transparent,
+                          border: Border.all(
+                            color: TeamManagerColors.primaryWhite,
+                            width: 1.5,
+                          ),
+                          borderRadius: BorderRadius.circular(4.r),
                         ),
-                        borderRadius: BorderRadius.circular(4.r),
-                      ),
-                      child: user.isSelected
-                          ? Icon(
-                              Icons.close,
-                              color: TeamManagerColors.primaryWhite,
-                              size: 16.sp,
-                            )
-                          : null,
-                    ),
-                  ),
-                  SizedBox(width: 12.w),
-                  GestureDetector(
-                    onTap: () {
-                      controller.editUser(user);
-                    },
-                    child: Center(
-                      child: SvgPicture.asset(
-                        "assets/icons/Edit-Pencil-white.svg",
-                        width: 24,
-                        height: 24,
+                        child: user.isSelected
+                            ? Icon(
+                                Icons.close,
+                                color: TeamManagerColors.primaryWhite,
+                                size: 16.sp,
+                              )
+                            : null,
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(width: 12.w),
+                    GestureDetector(
+                      onTap: () {
+                        controller.editUser(user);
+                      },
+                      child: Center(
+                        child: SvgPicture.asset(
+                          "assets/icons/Edit-Pencil-white.svg",
+                          width: 24,
+                          height: 24,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     });
