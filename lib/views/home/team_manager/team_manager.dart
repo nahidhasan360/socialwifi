@@ -25,7 +25,7 @@ class TeamManagerColors {
 class TeamManagerController extends GetxController {
   final searchController = TextEditingController();
   final emailInputController = TextEditingController();
-  final emailInputFocusNode = FocusNode(); // For keyboard control
+  final emailInputFocusNode = FocusNode();
 
   var userList = <UserModel>[].obs;
   var filteredUserList = <UserModel>[].obs;
@@ -43,7 +43,6 @@ class TeamManagerController extends GetxController {
       filterUsers(searchController.text);
     });
 
-    // Initialize email input scroll to 20% position
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (emailInputScrollController.hasClients) {
         final maxScroll = emailInputScrollController.position.maxScrollExtent;
@@ -115,9 +114,9 @@ class TeamManagerController extends GetxController {
       filteredUserList.value = userList
           .where(
             (user) =>
-                user.name.toLowerCase().contains(query.toLowerCase()) ||
-                user.email.toLowerCase().contains(query.toLowerCase()),
-          )
+        user.name.toLowerCase().contains(query.toLowerCase()) ||
+            user.email.toLowerCase().contains(query.toLowerCase()),
+      )
           .toList();
     }
   }
@@ -602,7 +601,7 @@ class CustomDialogs {
               _buildInstructionText(
                 title: 'Single entry:',
                 content:
-                    'Tap inside field below, type first/last name and email separated by a comma. ',
+                'Tap inside field below, type first/last name and email separated by a comma. ',
               ),
               _buildInstructionText(
                 title: 'Example:',
@@ -613,7 +612,7 @@ class CustomDialogs {
               _buildInstructionText(
                 title: 'Multiple entries:',
                 content:
-                    'Tap Import. List must be comma delineated in .CSV format, one user per line.',
+                'Tap Import. List must be comma delineated in .CSV format, one user per line.',
               ),
               SizedBox(height: 12.h),
               Text(
@@ -665,7 +664,7 @@ class CustomDialogs {
 }
 
 // ============================================================
-// MAIN SCREEN
+// MAIN SCREEN WITH STICKY LOGO
 // ============================================================
 class TeamManager extends StatelessWidget {
   TeamManager({super.key});
@@ -686,12 +685,22 @@ class TeamManager extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22.w, vertical: 20.h),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
+          child: CustomScrollView(
+            slivers: [
+              // ✅ STICKY LOGO SECTION WITH BACKGROUND
+              SliverAppBar(
+                pinned: true,
+                backgroundColor: const Color(0xFF1A1A1A).withOpacity(0.95), // ✅ Dark background
+                elevation: 0,
+                toolbarHeight: 144.h,
+                flexibleSpace: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(ImageManager.mapBackground),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Center(
                     child: Container(
                       width: 225.w,
                       height: 112.h,
@@ -703,47 +712,55 @@ class TeamManager extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 32.h),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Team Manager',
-                        style: GoogleFonts.lato(
-                          color: Colors.white,
-                          fontSize: 32.sp,
-                          fontWeight: FontWeight.w700,
-                          letterSpacing: 1,
-                          height: 0.88,
-                        ),
-                      ),
-                      SizedBox(height: 13.h),
-                      Divider(color: AppColors.dividerColor, thickness: 1.h),
-                      SizedBox(height: 17.h),
-                      _buildSubscriptionInfo(),
-                      SizedBox(height: 20.h),
-                      Divider(color: AppColors.dividerColor, thickness: 1.h),
-                      SizedBox(height: 20.h),
-                      _buildUsersSection(),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'Manage Account',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: const Color(0xFF9DACF5),
-                            fontSize: 18,
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.w500,
-                            height: 1.78,
+                ),
+              ),
+              // ✅ SCROLLABLE CONTENT
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate([
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Team Manager',
+                          style: GoogleFonts.lato(
+                            color: Colors.white,
+                            fontSize: 32.sp,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 1,
+                            height: 0.88,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(height: 13.h),
+                        Divider(color: AppColors.dividerColor, thickness: 1.h),
+                        SizedBox(height: 17.h),
+                        _buildSubscriptionInfo(),
+                        SizedBox(height: 20.h),
+                        Divider(color: AppColors.dividerColor, thickness: 1.h),
+                        SizedBox(height: 20.h),
+                        _buildUsersSection(),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            'Manage Account',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              color: const Color(0xFF9DACF5),
+                              fontSize: 18,
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.w500,
+                              height: 1.78,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20.h),
+                      ],
+                    ),
+                  ]),
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),
@@ -920,7 +937,7 @@ class TeamManager extends StatelessWidget {
                     child: Column(
                       children: List.generate(
                         controller.filteredUserList.length,
-                        (index) => _buildTableRow(index),
+                            (index) => _buildTableRow(index),
                       ),
                     ),
                   ),
@@ -991,7 +1008,7 @@ class TeamManager extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Obx(
-                  () => GestureDetector(
+                      () => GestureDetector(
                     onTap: () {
                       controller.toggleAllSelection();
                     },
@@ -1010,10 +1027,10 @@ class TeamManager extends StatelessWidget {
                       ),
                       child: controller.isAllSelected.value
                           ? Icon(
-                              Icons.check,
-                              color: TeamManagerColors.primaryWhite,
-                              size: 14.sp,
-                            )
+                        Icons.check,
+                        color: TeamManagerColors.primaryWhite,
+                        size: 14.sp,
+                      )
                           : null,
                     ),
                   ),
@@ -1082,9 +1099,9 @@ class TeamManager extends StatelessWidget {
               SizedBox(height: 16.h),
               Text(
                 '• Click the checkbox to select individual users\n'
-                '• Click the checkbox in the header to select/deselect all users\n'
-                '• Click the pencil icon to edit a user\'s information\n'
-                '• Select users and click action buttons to perform bulk operations',
+                    '• Click the checkbox in the header to select/deselect all users\n'
+                    '• Click the pencil icon to edit a user\'s information\n'
+                    '• Select users and click action buttons to perform bulk operations',
                 style: GoogleFonts.lato(
                   color: Colors.white,
                   fontSize: 14.sp,
@@ -1181,10 +1198,10 @@ class TeamManager extends StatelessWidget {
                         ),
                         child: user.isSelected
                             ? Icon(
-                                Icons.close,
-                                color: TeamManagerColors.primaryWhite,
-                                size: 16.sp,
-                              )
+                          Icons.close,
+                          color: TeamManagerColors.primaryWhite,
+                          size: 16.sp,
+                        )
                             : null,
                       ),
                     ),
@@ -1278,7 +1295,6 @@ class TeamManager extends StatelessWidget {
     );
   }
 
-  // ✅ INPUT LEFT, BUTTONS RIGHT LAYOUT
   Widget _buildAddEditUsersSection() {
     final containerHeight = 265.h;
 
@@ -1312,7 +1328,6 @@ class TeamManager extends StatelessWidget {
             ],
           ),
         ),
-        // ✅ Input Section (Full Width)
         Stack(
           children: [
             Container(
@@ -1372,7 +1387,6 @@ class TeamManager extends StatelessWidget {
           ],
         ),
         SizedBox(height: 16.h),
-        // ✅ Buttons Section (Horizontal Row like screenshot)
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
