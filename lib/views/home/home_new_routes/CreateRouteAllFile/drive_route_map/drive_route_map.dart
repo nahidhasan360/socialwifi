@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
+import 'dart:ui' as ui; // ✅ Added
 
 class DriveRouteMap extends StatefulWidget {
   const DriveRouteMap({super.key});
@@ -17,7 +18,8 @@ class DriveRouteMap extends StatefulWidget {
   State<DriveRouteMap> createState() => _DriveRouteMapState();
 }
 
-class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProviderStateMixin {
+class _DriveRouteMapState extends State<DriveRouteMap>
+    with SingleTickerProviderStateMixin {
   MaplibreMapController? _mapController;
 
   double _vehicleLat = 23.8103;
@@ -46,12 +48,37 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
   ];
 
   final List<Map<String, dynamic>> _pointsOfInterest = [
-    {'name': 'Gas Station', 'lat': 23.8110, 'lng': 90.4130, 'color': Colors.red},
+    {
+      'name': 'Gas Station',
+      'lat': 23.8110,
+      'lng': 90.4130,
+      'color': Colors.red,
+    },
     {'name': 'Rest Area', 'lat': 23.8135, 'lng': 90.4165, 'color': Colors.blue},
-    {'name': 'Truck Stop', 'lat': 23.8160, 'lng': 90.4195, 'color': Colors.orange},
-    {'name': 'Restaurant', 'lat': 23.8175, 'lng': 90.4210, 'color': Colors.green},
-    {'name': 'Weighing Station', 'lat': 23.8190, 'lng': 90.4235, 'color': Colors.purple},
-    {'name': 'Port of Entry', 'lat': 23.8195, 'lng': 90.4245, 'color': Colors.teal},
+    {
+      'name': 'Truck Stop',
+      'lat': 23.8160,
+      'lng': 90.4195,
+      'color': Colors.orange,
+    },
+    {
+      'name': 'Restaurant',
+      'lat': 23.8175,
+      'lng': 90.4210,
+      'color': Colors.green,
+    },
+    {
+      'name': 'Weighing Station',
+      'lat': 23.8190,
+      'lng': 90.4235,
+      'color': Colors.purple,
+    },
+    {
+      'name': 'Port of Entry',
+      'lat': 23.8195,
+      'lng': 90.4245,
+      'color': Colors.teal,
+    },
   ];
 
   @override
@@ -82,31 +109,49 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
   double _calculateBearing(double lat1, double lon1, double lat2, double lon2) {
     final dLon = (lon2 - lon1) * math.pi / 180;
     final y = math.sin(dLon) * math.cos(lat2 * math.pi / 180);
-    final x = math.cos(lat1 * math.pi / 180) * math.sin(lat2 * math.pi / 180) -
-        math.sin(lat1 * math.pi / 180) * math.cos(lat2 * math.pi / 180) * math.cos(dLon);
+    final x =
+        math.cos(lat1 * math.pi / 180) * math.sin(lat2 * math.pi / 180) -
+        math.sin(lat1 * math.pi / 180) *
+            math.cos(lat2 * math.pi / 180) *
+            math.cos(dLon);
     final bearing = math.atan2(y, x) * 180 / math.pi;
     return (bearing + 360) % 360;
   }
 
   void _updateBearing(double newBearing) {
     double diff = newBearing - _vehicleBearing;
-    if (diff > 180) diff -= 360;
-    else if (diff < -180) diff += 360;
+    if (diff > 180)
+      diff -= 360;
+    else if (diff < -180)
+      diff += 360;
     _targetBearing = _vehicleBearing + diff;
-    _rotationAnimation = Tween<double>(
-      begin: _vehicleBearing,
-      end: _targetBearing,
-    ).animate(CurvedAnimation(
-      parent: _rotationController,
-      curve: Curves.easeInOut,
-    ));
+    _rotationAnimation =
+        Tween<double>(begin: _vehicleBearing, end: _targetBearing).animate(
+          CurvedAnimation(parent: _rotationController, curve: Curves.easeInOut),
+        );
     _rotationController.forward(from: 0);
     setState(() => _vehicleBearing = _targetBearing);
   }
 
+  // ✅ Load and Resize to Medium Size
   Future<Uint8List> _loadCarImage() async {
-    final ByteData data = await rootBundle.load('assets/images/truck_icon.png',);
-    return data.buffer.asUint8List();
+    final ByteData data = await rootBundle.load('assets/images/truck_icon.png');
+    final Uint8List bytes = data.buffer.asUint8List();
+
+    // ✅ Resize to medium size (100x100)
+    final ui.Codec codec = await ui.instantiateImageCodec(
+      bytes,
+      targetWidth: 200, // ✅ Medium size
+      targetHeight: 300, // ✅ Medium size
+    );
+
+    final ui.FrameInfo frameInfo = await codec.getNextFrame();
+    final ui.Image resizedImage = frameInfo.image;
+
+    final ByteData? resizedData = await resizedImage.toByteData(
+      format: ui.ImageByteFormat.png,
+    );
+    return resizedData!.buffer.asUint8List();
   }
 
   Future<void> _requestPermission() async {
@@ -161,11 +206,17 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
         newBearing = position.heading;
       } else if (_previousLat != null && _previousLng != null) {
         double distance = Geolocator.distanceBetween(
-          _previousLat!, _previousLng!, position.latitude, position.longitude,
+          _previousLat!,
+          _previousLng!,
+          position.latitude,
+          position.longitude,
         );
         if (distance > 3) {
           newBearing = _calculateBearing(
-            _previousLat!, _previousLng!, position.latitude, position.longitude,
+            _previousLat!,
+            _previousLng!,
+            position.latitude,
+            position.longitude,
           );
         }
       }
@@ -179,7 +230,10 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
       _updateVehicleMarker();
       for (var waypoint in _routeWaypoints) {
         double distance = Geolocator.distanceBetween(
-          _vehicleLat, _vehicleLng, waypoint['lat'], waypoint['lng'],
+          _vehicleLat,
+          _vehicleLng,
+          waypoint['lat'],
+          waypoint['lng'],
         );
         if (distance < 50) {
           _speak(waypoint['instruction']);
@@ -207,18 +261,12 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
     }
   }
 
-  // ✅ Fixed Recenter - শুধু center এ নিবে এবং tracking ON করবে
   void _recenter() {
-    // ✅ Tracking automatic ON করবে
     setState(() => _isTracking = true);
-
-    // ✅ শুধু current location এ center করবে
     _mapController?.animateCamera(
       CameraUpdate.newLatLngZoom(LatLng(_vehicleLat, _vehicleLng), 17.0),
       duration: Duration(milliseconds: 1000),
     );
-
-    // ✅ Notification
     Get.snackbar(
       'Tracking ON',
       'Map centered to your location',
@@ -262,7 +310,7 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
                 SymbolOptions(
                   geometry: LatLng(_vehicleLat, _vehicleLng),
                   iconImage: 'car-icon',
-                  iconSize: 0.5,
+                  iconSize: 0.6, // ✅ Medium size on map
                   iconRotate: _vehicleBearing,
                   iconAnchor: 'center',
                 ),
@@ -317,13 +365,19 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
                   children: [
                     Icon(Icons.gps_fixed, color: Colors.white, size: 20.sp),
                     SizedBox(width: 8.w),
-                    Text('Tracking', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w600)),
+                    Text(
+                      'Tracking',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
 
-          // ✅ Buttons - No Icons, Only Text
           Positioned(
             bottom: 28.h,
             left: 12.w,
@@ -333,9 +387,15 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
               children: [
                 _btn('Back', () => Get.back()),
                 _btn('Download', () {
-                  Get.snackbar('Download', 'Route downloaded', backgroundColor: Color(0xFF4A4A4A), colorText: Colors.white, duration: Duration(seconds: 2));
+                  Get.snackbar(
+                    'Download',
+                    'Route downloaded',
+                    backgroundColor: Color(0xFF4A4A4A),
+                    colorText: Colors.white,
+                    duration: Duration(seconds: 2),
+                  );
                 }),
-                _btn('Recenter', _recenter), // ✅ Fixed recenter
+                _btn('Recenter', _recenter),
                 _btn('Cancel', () {
                   _flutterTts.stop();
                   Get.back();
@@ -349,7 +409,6 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
     );
   }
 
-  // ✅ Button Widget - Icon Removed
   Widget _btn(String text, VoidCallback onTap) {
     return Flexible(
       child: GestureDetector(
@@ -365,7 +424,7 @@ class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProvider
                 color: Colors.black.withOpacity(0.25),
                 blurRadius: 8,
                 offset: Offset(0, 4),
-              )
+              ),
             ],
           ),
           child: Center(
