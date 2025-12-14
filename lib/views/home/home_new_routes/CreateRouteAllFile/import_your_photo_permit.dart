@@ -49,32 +49,30 @@ class ImportYourPhotoPermit extends StatelessWidget {
                     children: [
                       // ========== Title with Info Icon ==========
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
                             'IMPORT A PHOTO OF YOUR PERMIT',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 32,
+                              fontSize: 31.sp,
                               fontFamily: 'League Gothic',
                               fontWeight: FontWeight.w400,
                               height: 0.88,
                               letterSpacing: 1.50,
                             ),
                           ),
-                          SizedBox(width: 8.w),
-
-                          // ========== Info Icon Button ==========
-                          // Purpose: Trigger info dialog
-                          // Action: Show import information popup
+                          SizedBox(width: 6.w),
                           GestureDetector(
                             onTap: () {
-                              // ✅ Show dialog when tapped
                               showImportPermitInfoDialog(context);
                             },
-                            child: Container(
-                              child: SvgPicture.asset(
-                                "assets/icons/Question-Box-gray.svg",
-                              ),
+                            child: SvgPicture.asset(
+                              "assets/icons/Question-Box-gray.svg",
+                              width: 20.w,
+                              height: 20.h,
                             ),
                           ),
                         ],
@@ -86,7 +84,7 @@ class ImportYourPhotoPermit extends StatelessWidget {
                         "Place your permit on a flat surface and use this device's camera to take a photo in vertical format. Take a photo of only one permit at a time. Be sure the permit fills the entire screen and is in focus.\nSave it then return here to Import.",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                         ),
@@ -97,7 +95,7 @@ class ImportYourPhotoPermit extends StatelessWidget {
                         'After importing, edit as needed or import your next permit image before tapping Continue.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                           height: 1.44,
@@ -324,7 +322,7 @@ void showImportPermitInfoDialog(BuildContext context) {
                 "To import the image of your permit, tap Import then navigate to your device's photo library, select the image and tap the button to import it into this app.\nThis app will automatically extract the directions from the image which will appear in the field below.",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.w500,
                   height: 1.44,

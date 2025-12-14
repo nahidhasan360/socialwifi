@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
@@ -362,7 +363,7 @@ class PinsMaking extends StatelessWidget {
                                 // Background: Orange
                                 GestureDetector(
                                   onTap: () {
-                                    // TODO: Save waypoints and navigate
+                                     Get.toNamed(AppRoutes.editConfirmStartYourRoute);
                                     print('Continue tapped');
                                   },
                                   child: Container(
