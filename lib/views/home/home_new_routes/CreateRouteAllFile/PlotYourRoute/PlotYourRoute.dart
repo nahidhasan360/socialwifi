@@ -26,8 +26,6 @@ class PlotYourRoute extends StatelessWidget {
           child: Column(
             children: [
               // ========== Fixed Logo Section ==========
-              // Purpose: Company branding logo at top
-              // Size: 225x112 (fixed)
               Center(
                 child: Container(
                   width: 225,
@@ -40,123 +38,113 @@ class PlotYourRoute extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height: 28.h),
 
               // ========== Scrollable Content Section ==========
-              // Purpose: Main content area with map and instructions
-              // Padding: 22.w horizontal
               Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 22.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // ========== Title with Info Icon ==========
-                      // Purpose: Page heading "PLOT YOUR ROUTE"
-                      // Font: League Gothic, 32sp, White
-                      // Layout: Title text + info icon
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Center(
-                              child: Text(
-                                'PLOT YOUR ROUTE',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                  fontFamily: 'League Gothic',
-                                  fontWeight: FontWeight.w400,
-                                  height: 0.88,
-                                  letterSpacing: 1.50,
+                      // ========== Content WITH Padding ==========
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 22.w),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // ========== Title ==========
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      'PLOT YOUR ROUTE',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 32,
+                                        fontFamily: 'League Gothic',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0.88,
+                                        letterSpacing: 1.50,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 16.h),
+
+                            // ========== Instruction Text ==========
+                            Text(
+                              'Tap Start to begin. This will center the map',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w500,
+                                height: 1.44,
+                              ),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'to your current location.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.44,
+                                  ),
+                                ),
+                                SizedBox(width: 8.w),
+                                GestureDetector(
+                                  onTap: () {
+                                    showPlotRouteInfoDialog(context);
+                                  },
+                                  child: SvgPicture.asset(
+                                    "assets/icons/Question-Box-gray.svg",
+                                    width: 24.w,
+                                    height: 24.h,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20.h),
+
+                            // ========== Start Button ==========
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.pinsMaking);
+                                print('Start button tapped - Centering map...');
+                              },
+                              child: Container(
+                                width: 64,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  color: AppColors.orange,
+                                  borderRadius: BorderRadius.circular(5.r),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Start',
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 16.h),
-
-                      // ========== Instruction Text with Info Icon ==========
-                      // Purpose: Explain Start button functionality
-                      // Font: Lato, 18sp, White
-                      // Layout: Text + info icon in a row
-                      Text(
-                        'Tap Start to begin. This will center the map',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.w500,
-                          height: 1.44,
+                            SizedBox(height: 20.h),
+                          ],
                         ),
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'to your current location.',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'Lato',
-                              fontWeight: FontWeight.w500,
-                              height: 1.44,
-                            ),
-                          ),
-                          SizedBox(width: 8.w),
-                          // ========== Info Icon Button ==========
-                          // Purpose: Show map usage instructions dialog
-                          GestureDetector(
-                            onTap: () {
-                              showPlotRouteInfoDialog(context);
-                            },
-                            child: SvgPicture.asset(
-                              "assets/icons/Question-Box-gray.svg",
-                              width: 24.w,
-                              height: 24.h,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20.h),
 
-                      // ========== Start Button ==========
-                      // Purpose: Initialize map centering to user location
-                      // Size: 64w x 24h
-                      // Background: Orange (AppColors.orange)
-                      // Border radius: 5.r
-                      GestureDetector(
-                        onTap: () {
-                           Get.toNamed(AppRoutes.pinsMaking);
-                          print('Start button tapped - Centering map...');
-                        },
-                        child: Container(
-                          width: 64,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: AppColors.orange,
-                            borderRadius: BorderRadius.circular(5.r),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Start',
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20.h),
-
-                      // ========== Interactive Map Container ==========
-                      // Purpose: Display Google Map for route plotting
-                      // Design: Full width, fixed height, map background
-                      // Features: Zoom, pan, place waypoints, GPS centering
-                      // Height: Calculated to fit screen properly
+                      // ========== MAP CONTAINER (FULL WIDTH - NO PADDING) ==========
                       Container(
                         width: double.infinity,
                         height: 383,
@@ -172,17 +160,12 @@ class PlotYourRoute extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                           child: Stack(
                             children: [
-                              // ========== Map Placeholder ==========
-                              // Purpose: Google Map will be integrated here
-                              // For now: Static map image as placeholder
-                              // TODO: Replace with GoogleMap widget
                               Image.asset(
                                 'assets/images/map_image.png',
                                 width: double.infinity,
                                 height: double.infinity,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
-                                  // Fallback if image not found
                                   return Container(
                                     color: Color(0xFFE8F4F8),
                                     child: Center(
@@ -219,16 +202,12 @@ class PlotYourRoute extends StatelessWidget {
                                 },
                               ),
 
-                              // ========== Map Controls Overlay (Optional) ==========
-                              // Purpose: Zoom in/out buttons overlay on map
-                              // Position: Top-right corner
-                              // Can be added for better UX
+                              // Zoom controls
                               Positioned(
                                 top: 10.h,
                                 right: 10.w,
                                 child: Column(
                                   children: [
-                                    // Zoom In button
                                     Container(
                                       width: 36.w,
                                       height: 36.h,
@@ -250,7 +229,6 @@ class PlotYourRoute extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(height: 8.h),
-                                    // Zoom Out button
                                     Container(
                                       width: 36.w,
                                       height: 36.h,
@@ -278,39 +256,41 @@ class PlotYourRoute extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 20.h),
 
-                      // ========== Back Button ==========
-                      // Purpose: Navigate to previous screen
-                      // Size: 57w x 24h
-                      // Background: Orange
-                      // Border radius: 5.r
-                      GestureDetector(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Container(
-                          width: 57,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: AppColors.orange,
-                            borderRadius: BorderRadius.circular(5.r),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Back',
-                              style: TextStyle(
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                letterSpacing: 0.5,
+                      // ========== Back Button WITH Padding ==========
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 22.w),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 20.h),
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Container(
+                                width: 57,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  color: AppColors.orange,
+                                  borderRadius: BorderRadius.circular(5.r),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Back',
+                                    style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            SizedBox(height: 40.h),
+                          ],
                         ),
                       ),
-
-                      SizedBox(height: 40.h), // Bottom spacing
                     ],
                   ),
                 ),
@@ -324,10 +304,7 @@ class PlotYourRoute extends StatelessWidget {
   }
 }
 
-// ========== INFO DIALOG FUNCTION ==========
-// Purpose: Explain map interaction features
-// Trigger: When user taps info icon (?)
-// Content: Map zoom, pan, waypoint placement instructions
+// ========== DIALOG ==========
 void showPlotRouteInfoDialog(BuildContext context) {
   showDialog(
     context: context,
@@ -335,7 +312,6 @@ void showPlotRouteInfoDialog(BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        // ========== Dialog Positioning ==========
         insetPadding: EdgeInsets.only(
           top: 60.h,
           bottom: 100.h,
@@ -343,10 +319,6 @@ void showPlotRouteInfoDialog(BuildContext context) {
           right: 20.w,
         ),
         child: Container(
-          // ========== Dialog Container ==========
-          // Background: Dark gray (#4A4A4A)
-          // Padding: 20.w all around
-          // Border radius: 12.r
           padding: EdgeInsets.all(20.w),
           decoration: BoxDecoration(
             color: Color(0xFF4A4A4A),
@@ -357,18 +329,14 @@ void showPlotRouteInfoDialog(BuildContext context) {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ========== Header: Map Icon + Close ==========
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Map/Location icon
                     SvgPicture.asset(
                       "assets/icons/Vector-hand.svg",
                       width: 24,
                       height: 24,
                     ),
-
-                    // ========== Close Button ==========
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: SvgPicture.asset(
@@ -380,10 +348,6 @@ void showPlotRouteInfoDialog(BuildContext context) {
                   ],
                 ),
                 SizedBox(height: 16.h),
-
-                // ========== Dialog Content - Paragraph 1 ==========
-                // Purpose: Explain map interaction features
-                // Font: Lato, 18sp, White, height 1.44
                 Text(
                   'Make sure you are at the starting point of your route before tapping start because this app uses your current geo location for plotting the first waypoint.',
                   style: TextStyle(
@@ -395,11 +359,6 @@ void showPlotRouteInfoDialog(BuildContext context) {
                   ),
                 ),
                 SizedBox(height: 16.h),
-
-                // ========== Dialog Content - Paragraph 2 ==========
-                // Purpose: Explain Start button functionality
-                // Font: Lato, 18sp, White, height 1.44
-                // Note: Contains bold text "Start" and "See screen 688"
                 RichText(
                   text: TextSpan(
                     style: TextStyle(
@@ -416,7 +375,7 @@ void showPlotRouteInfoDialog(BuildContext context) {
                       TextSpan(
                         text: 'Start',
                         style: TextStyle(
-                          fontWeight: FontWeight.w700, // Bold
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                       TextSpan(
@@ -425,7 +384,7 @@ void showPlotRouteInfoDialog(BuildContext context) {
                       TextSpan(
                         text: 'See screen 688',
                         style: TextStyle(
-                          fontWeight: FontWeight.w700, // Bold
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ],

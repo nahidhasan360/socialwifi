@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
@@ -93,7 +94,7 @@ class ConfirmRouteController extends GetxController {
           Get.snackbar(
             'Notice',
             'You must have at least one waypoint',
-            backgroundColor: Colors.orange,
+            backgroundColor: AppColors.darkGray,
             colorText: Colors.white,
           );
         }
@@ -101,7 +102,7 @@ class ConfirmRouteController extends GetxController {
         Get.snackbar(
           'Notice',
           'Please select a waypoint first',
-          backgroundColor: Colors.orange,
+          backgroundColor: AppColors.darkGray,
           colorText: Colors.white,
         );
       }
@@ -370,8 +371,8 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       controller.deleteSelectedWaypoint();
                                     },
                                     child: Container(
-                                      width: 88.w,
-                                      height: 24.h,
+                                      width: 88,
+                                      height: 24,
                                       decoration: BoxDecoration(
                                         color: AppColors.orange,
                                         borderRadius: BorderRadius.circular(
@@ -382,7 +383,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                         child: Text(
                                           'Delete Pin',
                                           style: TextStyle(
-                                            fontSize: 15.sp,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w700,
                                             color: Colors.white,
                                             letterSpacing: 0.5,
@@ -400,8 +401,8 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       controller.updateRoute();
                                     },
                                     child: Container(
-                                      width: 72.w,
-                                      height: 24.h,
+                                      width: 72,
+                                      height: 24,
                                       decoration: BoxDecoration(
                                         color: AppColors.orange,
                                         borderRadius: BorderRadius.circular(
@@ -412,7 +413,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                         child: Text(
                                           'Update',
                                           style: TextStyle(
-                                            fontSize: 15.sp,
+                                            fontSize: 15,
                                             fontWeight: FontWeight.w700,
                                             color: Colors.white,
                                             letterSpacing: 0.5,
@@ -547,6 +548,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                               // ========== Bottom GO Button ==========
                               GestureDetector(
                                 onTap: () {
+                                  Get.toNamed(AppRoutes.driveRouteMap);
                                   FocusScope.of(context).unfocus();
                                   try {
                                     Get.snackbar(
@@ -566,7 +568,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                 },
                                 child: Container(
                                   width: double.infinity,
-                                  height: 48.h,
+                                  height: 55.h,
                                   decoration: BoxDecoration(
                                     color: AppColors.orange,
                                     borderRadius: BorderRadius.circular(10.r),

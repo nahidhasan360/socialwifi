@@ -21,6 +21,7 @@ import '../../views/home/account_screen/account_screen.dart';
 import '../../views/home/history_screen/history_screen.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/PlotYourRoute/PlotYourRoute.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/PlotYourRoute/pins_making.dart';
+import '../../views/home/home_new_routes/CreateRouteAllFile/drive_route_map/drive_route_map.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/edit_confirm_start_your_route/edit_confirm_start_your_route.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/enter_directions.dart';
 import '../../views/home/home_new_routes/CreateRouteAllFile/import_your_permit.dart';
@@ -80,6 +81,7 @@ class AppRoutes {
 
   // =============  edit - confirm - start route section ================
   static const String editConfirmStartYourRoute = "/EditConfirmStartYourRoute";
+  static const String driveRouteMap = "/DriveRouteMap";
 
 
 
@@ -118,6 +120,7 @@ class AppRoutes {
     GetPage(name: pinsMaking, page: () => PinsMaking()),
     // =============  edit - confirm - start route section ================
     GetPage(name: editConfirmStartYourRoute, page: () => EditConfirmStartYourRoute()),
+    GetPage(name: driveRouteMap, page: () => DriveRouteMap()),
 
     // accounts all screen route
     GetPage(name: contactSupport, page: () => ContactSupport()),
