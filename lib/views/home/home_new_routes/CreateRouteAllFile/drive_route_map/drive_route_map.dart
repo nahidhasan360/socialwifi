@@ -1,288 +1,399 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'dart:math' as math;
+import 'dart:typed_data';
+import 'package:flutter/services.dart';
+import 'package:maplibre_gl/maplibre_gl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
-import 'package:right_routes/utils/assets_manager.dart';
-import 'package:right_routes/utils/colors.dart';
 
-// ========== GetX Controller ==========
-// Purpose: Manage map state, vehicle position, navigation
-class DriveRouteController extends GetxController {
-  // Vehicle position tracking
-  RxDouble vehicleLat = 0.0.obs;
-  RxDouble vehicleLng = 0.0.obs;
-
-  // Map center position
-  RxDouble mapCenterLat = 0.0.obs;
-  RxDouble mapCenterLng = 0.0.obs;
-
-  // Navigation state
-  RxBool isNavigating = true.obs;
-  RxBool isOfflineMode = false.obs;
-
-  // Recenter vehicle to map center
-  void recenterVehicle() {
-    try {
-      // TODO: Implement map recentering logic
-      // Center map camera to vehicle position
-      mapCenterLat.value = vehicleLat.value;
-      mapCenterLng.value = vehicleLng.value;
-
-      Get.snackbar(
-        'Recenter',
-        'Vehicle re-centered',
-        backgroundColor: AppColors.darkGray,
-        colorText: Colors.white,
-        duration: Duration(seconds: 2),
-      );
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to recenter vehicle',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
-  }
-
-  // Download route for offline use
-  void downloadRoute() {
-    try {
-      // TODO: Implement offline map download
-      isOfflineMode.value = true;
-
-      Get.snackbar(
-        'Download',
-        'Route downloaded for offline use',
-        backgroundColor: AppColors.darkGray,
-        colorText: Colors.white,
-        duration: Duration(seconds: 2),
-      );
-    } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to download route',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
-  }
-
-  // Cancel navigation
-  void cancelNavigation() {
-    try {
-      isNavigating.value = false;
-      Get.back(); // Go back to create route screen
-    } catch (e) {
-      debugPrint('Error canceling navigation: $e');
-    }
-  }
-}
-
-class DriveRouteMap extends StatelessWidget {
+class DriveRouteMap extends StatefulWidget {
   const DriveRouteMap({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final controller = Get.put(DriveRouteController());
+  State<DriveRouteMap> createState() => _DriveRouteMapState();
+}
 
-    return Scaffold(
-      // ========== No resize to avoid white background ==========
-      resizeToAvoidBottomInset: false,
+class _DriveRouteMapState extends State<DriveRouteMap> with SingleTickerProviderStateMixin {
+  MaplibreMapController? _mapController;
 
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: SafeArea(
-          child: Stack(
-            children: [
-              // ========== FULL SCREEN MAP ==========
-              // Purpose: Live navigation map showing route and vehicle
-              // Features: Roads, POIs, route line, vehicle marker
-              Positioned.fill(
-                child: Container(
-                  color: Color(0xFFE8F4F8), // Light blue background
-                  child: Stack(
-                    children: [
-                      // ========== Map Image Placeholder ==========
-                      // TODO: Replace with GoogleMap widget
-                      Image.asset(
-                        'assets/images/map_image.png',
-                        width: double.infinity,
-                        height: double.infinity,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.map_outlined,
-                                  size: 64.sp,
-                                  color: Color(0xFF1A2332),
-                                ),
-                                SizedBox(height: 12.h),
-                                Text(
-                                  'Navigation Map',
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: Color(0xFF1A2332),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
+  double _vehicleLat = 23.8103;
+  double _vehicleLng = 90.4125;
+  double _vehicleBearing = 0.0;
+  double _targetBearing = 0.0;
 
-                      // ========== Vehicle Marker (Center) ==========
-                      // Purpose: Show truck/vehicle position on map
-                      // Position: Center of screen
-                      Center(
-                        child: Icon(
-                          Icons.local_shipping,
-                          size: 40.sp,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+  double? _previousLat;
+  double? _previousLng;
 
-              // ========== TOP BUTTONS ROW ==========
-              // Purpose: Navigation controls
-              // Layout: Back, Download, Recenter, Cancel
-              Positioned(
-                top: 12.h,
-                left: 0,
-                right: 0,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      // ========== Back Button ==========
-                      // Function: Goes back to edit route (08f)
-                      _buildTopButton(
-                        text: 'Back',
-                        onTap: () {
-                          Get.back();
-                        },
-                      ),
+  Symbol? _vehicleSymbol;
+  Line? _routeLine;
+  List<Symbol> _poiSymbols = [];
 
-                      // ========== Download Button ==========
-                      // Function: Download route for offline use
-                      _buildTopButton(
-                        text: 'Download',
-                        onTap: () {
-                          controller.downloadRoute();
-                        },
-                      ),
+  bool _isTracking = true;
 
-                      // ========== Recenter Button ==========
-                      // Function: Re-center vehicle to center of screen
-                      _buildTopButton(
-                        text: 'Recenter',
-                        onTap: () {
-                          controller.recenterVehicle();
-                        },
-                      ),
+  FlutterTts _flutterTts = FlutterTts();
 
-                      // ========== Cancel Button ==========
-                      // Function: Goes back to create route (08)
-                      _buildTopButton(
-                        text: 'Cancel',
-                        onTap: () {
-                          controller.cancelNavigation();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+  late AnimationController _rotationController;
+  late Animation<double> _rotationAnimation;
 
-              // ========== BOTTOM INFO BOX ==========
-              // Purpose: Display offline mode information
-              // Position: Above bottom navbar
-              Positioned(
-                bottom: 70.h, // Above navbar
-                left: 12.w,
-                right: 12.w,
-                child: Container(
-                  padding: EdgeInsets.all(12.w),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.95),
-                    borderRadius: BorderRadius.circular(8.r),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.15),
-                        blurRadius: 8,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    'Automatically sets the map code to convert to offline use if the user drives into an area with no cell service. See PDF docs in our package for info on this.',
-                    style: TextStyle(
-                      color: Color(0xFF1A1A1A),
-                      fontSize: 13.sp,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.w400,
-                      height: 1.5,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+  final List<Map<String, dynamic>> _routeWaypoints = [
+    {'lat': 23.8103, 'lng': 90.4125, 'instruction': 'Starting point'},
+    {'lat': 23.8150, 'lng': 90.4180, 'instruction': 'Continue straight'},
+    {'lat': 23.8200, 'lng': 90.4250, 'instruction': 'Destination reached'},
+  ];
+
+  final List<Map<String, dynamic>> _pointsOfInterest = [
+    {'name': 'Gas Station', 'lat': 23.8110, 'lng': 90.4130, 'color': Colors.red},
+    {'name': 'Rest Area', 'lat': 23.8135, 'lng': 90.4165, 'color': Colors.blue},
+    {'name': 'Truck Stop', 'lat': 23.8160, 'lng': 90.4195, 'color': Colors.orange},
+    {'name': 'Restaurant', 'lat': 23.8175, 'lng': 90.4210, 'color': Colors.green},
+    {'name': 'Weighing Station', 'lat': 23.8190, 'lng': 90.4235, 'color': Colors.purple},
+    {'name': 'Port of Entry', 'lat': 23.8195, 'lng': 90.4245, 'color': Colors.teal},
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _rotationController = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    );
+    _rotationAnimation = Tween<double>(begin: 0, end: 0).animate(
+      CurvedAnimation(parent: _rotationController, curve: Curves.easeInOut),
+    );
+    _initTTS();
+    _requestPermission();
+  }
+
+  Future<void> _initTTS() async {
+    await _flutterTts.setLanguage("en-US");
+    await _flutterTts.setSpeechRate(0.5);
+    await _flutterTts.setVolume(1.0);
+    await _flutterTts.setPitch(1.0);
+  }
+
+  Future<void> _speak(String text) async {
+    await _flutterTts.speak(text);
+  }
+
+  double _calculateBearing(double lat1, double lon1, double lat2, double lon2) {
+    final dLon = (lon2 - lon1) * math.pi / 180;
+    final y = math.sin(dLon) * math.cos(lat2 * math.pi / 180);
+    final x = math.cos(lat1 * math.pi / 180) * math.sin(lat2 * math.pi / 180) -
+        math.sin(lat1 * math.pi / 180) * math.cos(lat2 * math.pi / 180) * math.cos(dLon);
+    final bearing = math.atan2(y, x) * 180 / math.pi;
+    return (bearing + 360) % 360;
+  }
+
+  void _updateBearing(double newBearing) {
+    double diff = newBearing - _vehicleBearing;
+    if (diff > 180) diff -= 360;
+    else if (diff < -180) diff += 360;
+    _targetBearing = _vehicleBearing + diff;
+    _rotationAnimation = Tween<double>(
+      begin: _vehicleBearing,
+      end: _targetBearing,
+    ).animate(CurvedAnimation(
+      parent: _rotationController,
+      curve: Curves.easeInOut,
+    ));
+    _rotationController.forward(from: 0);
+    setState(() => _vehicleBearing = _targetBearing);
+  }
+
+  Future<Uint8List> _loadCarImage() async {
+    final ByteData data = await rootBundle.load('assets/images/truck_icon.png',);
+    return data.buffer.asUint8List();
+  }
+
+  Future<void> _requestPermission() async {
+    final status = await Permission.location.request();
+    if (status.isGranted) {
+      _getCurrentLocation();
+      _startTracking();
+    } else {
+      Get.snackbar(
+        'Permission Required',
+        'Please enable location permission',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+  }
+
+  Future<void> _getCurrentLocation() async {
+    try {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
+      );
+      double initialBearing = position.heading >= 0 ? position.heading : 0;
+      setState(() {
+        _vehicleLat = position.latitude;
+        _vehicleLng = position.longitude;
+        _vehicleBearing = initialBearing;
+        _targetBearing = initialBearing;
+        _previousLat = position.latitude;
+        _previousLng = position.longitude;
+      });
+      await Future.delayed(Duration(milliseconds: 500));
+      _mapController?.animateCamera(
+        CameraUpdate.newLatLngZoom(LatLng(_vehicleLat, _vehicleLng), 17.0),
+        duration: Duration(milliseconds: 1000),
+      );
+      _speak("Navigation started");
+    } catch (e) {
+      print('❌ Location error: $e');
+    }
+  }
+
+  void _startTracking() {
+    Geolocator.getPositionStream(
+      locationSettings: LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 2,
       ),
+    ).listen((position) {
+      double newBearing = _vehicleBearing;
+      if (position.heading >= 0) {
+        newBearing = position.heading;
+      } else if (_previousLat != null && _previousLng != null) {
+        double distance = Geolocator.distanceBetween(
+          _previousLat!, _previousLng!, position.latitude, position.longitude,
+        );
+        if (distance > 3) {
+          newBearing = _calculateBearing(
+            _previousLat!, _previousLng!, position.latitude, position.longitude,
+          );
+        }
+      }
+      _updateBearing(newBearing);
+      setState(() {
+        _vehicleLat = position.latitude;
+        _vehicleLng = position.longitude;
+        _previousLat = position.latitude;
+        _previousLng = position.longitude;
+      });
+      _updateVehicleMarker();
+      for (var waypoint in _routeWaypoints) {
+        double distance = Geolocator.distanceBetween(
+          _vehicleLat, _vehicleLng, waypoint['lat'], waypoint['lng'],
+        );
+        if (distance < 50) {
+          _speak(waypoint['instruction']);
+          break;
+        }
+      }
+      if (_isTracking && _mapController != null) {
+        _mapController!.animateCamera(
+          CameraUpdate.newLatLng(LatLng(_vehicleLat, _vehicleLng)),
+          duration: Duration(milliseconds: 500),
+        );
+      }
+    });
+  }
 
-      // ========== BOTTOM NAVBAR ==========
-      // Icons: New Route, Team, History, Account
+  void _updateVehicleMarker() {
+    if (_vehicleSymbol != null && _mapController != null) {
+      _mapController!.updateSymbol(
+        _vehicleSymbol!,
+        SymbolOptions(
+          geometry: LatLng(_vehicleLat, _vehicleLng),
+          iconRotate: _vehicleBearing,
+        ),
+      );
+    }
+  }
+
+  // ✅ Fixed Recenter - শুধু center এ নিবে এবং tracking ON করবে
+  void _recenter() {
+    // ✅ Tracking automatic ON করবে
+    setState(() => _isTracking = true);
+
+    // ✅ শুধু current location এ center করবে
+    _mapController?.animateCamera(
+      CameraUpdate.newLatLngZoom(LatLng(_vehicleLat, _vehicleLng), 17.0),
+      duration: Duration(milliseconds: 1000),
+    );
+
+    // ✅ Notification
+    Get.snackbar(
+      'Tracking ON',
+      'Map centered to your location',
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          MaplibreMap(
+            styleString: 'https://tiles.openfreemap.org/styles/liberty',
+            initialCameraPosition: CameraPosition(
+              target: LatLng(_vehicleLat, _vehicleLng),
+              zoom: 17.0,
+            ),
+            onMapCreated: (controller) async {
+              _mapController = controller;
+            },
+            onStyleLoadedCallback: () async {
+              List<LatLng> routePoints = _routeWaypoints
+                  .map((wp) => LatLng(wp['lat'], wp['lng']))
+                  .toList();
+              _routeLine = await _mapController?.addLine(
+                LineOptions(
+                  geometry: routePoints,
+                  lineColor: '#FF6B35',
+                  lineWidth: 10.0,
+                  lineOpacity: 0.95,
+                ),
+              );
+
+              final carImage = await _loadCarImage();
+              await _mapController?.addImage('car-icon', carImage);
+
+              _vehicleSymbol = await _mapController?.addSymbol(
+                SymbolOptions(
+                  geometry: LatLng(_vehicleLat, _vehicleLng),
+                  iconImage: 'car-icon',
+                  iconSize: 0.5,
+                  iconRotate: _vehicleBearing,
+                  iconAnchor: 'center',
+                ),
+              );
+
+              for (var poi in _pointsOfInterest) {
+                final symbol = await _mapController?.addSymbol(
+                  SymbolOptions(
+                    geometry: LatLng(poi['lat'], poi['lng']),
+                    iconImage: 'marker-15',
+                    iconSize: 1.8,
+                    iconColor: _colorToHex(poi['color']),
+                    textField: poi['name'],
+                    textSize: 12.0,
+                    textOffset: Offset(0, -2),
+                    textColor: '#000000',
+                    textHaloColor: '#FFFFFF',
+                    textHaloWidth: 2.0,
+                  ),
+                );
+                if (symbol != null) _poiSymbols.add(symbol);
+              }
+            },
+            myLocationEnabled: false,
+            myLocationTrackingMode: MyLocationTrackingMode.none,
+            compassEnabled: false,
+            rotateGesturesEnabled: true,
+            scrollGesturesEnabled: true,
+            tiltGesturesEnabled: true,
+            zoomGesturesEnabled: true,
+          ),
+
+          if (_isTracking)
+            Positioned(
+              top: 50.h,
+              right: 16.w,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  color: Color(0xFF4CAF50),
+                  borderRadius: BorderRadius.circular(24.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 8,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.gps_fixed, color: Colors.white, size: 20.sp),
+                    SizedBox(width: 8.w),
+                    Text('Tracking', style: TextStyle(color: Colors.white, fontSize: 15.sp, fontWeight: FontWeight.w600)),
+                  ],
+                ),
+              ),
+            ),
+
+          // ✅ Buttons - No Icons, Only Text
+          Positioned(
+            bottom: 28.h,
+            left: 12.w,
+            right: 12.w,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _btn('Back', () => Get.back()),
+                _btn('Download', () {
+                  Get.snackbar('Download', 'Route downloaded', backgroundColor: Color(0xFF4A4A4A), colorText: Colors.white, duration: Duration(seconds: 2));
+                }),
+                _btn('Recenter', _recenter), // ✅ Fixed recenter
+                _btn('Cancel', () {
+                  _flutterTts.stop();
+                  Get.back();
+                }),
+              ],
+            ),
+          ),
+        ],
+      ),
       bottomNavigationBar: CustomNavbar(),
     );
   }
 
-  // ========== Top Button Widget ==========
-  // Purpose: Reusable orange button for top controls
-  // Size: Auto width, 32.h height
-  Widget _buildTopButton({
-    required String text,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 12.w,
-          vertical: 6.h,
-        ),
-        decoration: BoxDecoration(
-          color: AppColors.orange,
-          borderRadius: BorderRadius.circular(5.r),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 4,
-              offset: Offset(0, 2),
+  // ✅ Button Widget - Icon Removed
+  Widget _btn(String text, VoidCallback onTap) {
+    return Flexible(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 4.w),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          decoration: BoxDecoration(
+            color: Color(0xFFFF6B35),
+            borderRadius: BorderRadius.circular(12.r),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                blurRadius: 8,
+                offset: Offset(0, 4),
+              )
+            ],
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                letterSpacing: 0.4,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
             ),
-          ],
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-            letterSpacing: 0.3,
           ),
         ),
       ),
     );
+  }
+
+  String _colorToHex(Color color) {
+    return '#${color.value.toRadixString(16).substring(2).toUpperCase()}';
+  }
+
+  @override
+  void dispose() {
+    _rotationController.dispose();
+    _flutterTts.stop();
+    super.dispose();
   }
 }

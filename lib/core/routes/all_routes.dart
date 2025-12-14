@@ -121,7 +121,6 @@ class AppRoutes {
     // =============  edit - confirm - start route section ================
     GetPage(name: editConfirmStartYourRoute, page: () => EditConfirmStartYourRoute()),
     GetPage(name: driveRouteMap, page: () => DriveRouteMap()),
-
     // accounts all screen route
     GetPage(name: contactSupport, page: () => ContactSupport()),
     GetPage(name: changeEmail, page: () => ChangeEmail()),

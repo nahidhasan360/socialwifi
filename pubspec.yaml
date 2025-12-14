@@ -18,6 +18,21 @@ dependencies:
   cupertino_icons: ^1.0.8
   pin_code_fields: ^8.0.1
 
+  ## maps
+  # Map Packages
+  maplibre_gl:
+
+  # Map voice guidance
+  flutter_tts: ^4.2.0
+
+  # Location & GPS
+  geolocator: ^11.0.0
+  permission_handler: ^11.3.0
+
+  # Optional (for better location handling)
+  location: ^5.0.3
+
+
 
 dev_dependencies:
   flutter_test:
