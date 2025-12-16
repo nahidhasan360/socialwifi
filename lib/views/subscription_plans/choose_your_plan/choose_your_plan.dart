@@ -33,7 +33,7 @@ class ChooseYourPlan extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 44),
+                SizedBox(height: 40.h),
 
                 /// Logo
                 Container(
@@ -73,7 +73,7 @@ class ChooseYourPlan extends StatelessWidget {
                         'Start your 7-day free trial and begin\nautomating your routes. Cancel anytime.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                           height: 1.56,
@@ -134,20 +134,25 @@ class ChooseYourPlan extends StatelessWidget {
                               'By clicking "Subscribe", you agree to the',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 17.sp,
+                                fontSize: 18,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.67,
                               ),
                             ),
-                            Text(
-                              'RIGHT ROUTE SUBSCRIBER AGREEMENT',
-                              style: TextStyle(
-                                color: AppColors.purple,
-                                fontSize: 20,
-                                fontFamily: 'League Gothic',
-                                fontWeight: FontWeight.w400,
-                                height: 1.50,
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.subscriberAgreement);
+                              },
+                              child: Text(
+                                'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                                style: TextStyle(
+                                  color: AppColors.purple,
+                                  fontSize: 20,
+                                  fontFamily: 'League Gothic',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.50,
+                                ),
                               ),
                             ),
                           ],
@@ -168,7 +173,7 @@ class ChooseYourPlan extends StatelessWidget {
                               'RIGHT ROUTE SUBSCRIBER AGREEMENT',
                               style: TextStyle(
                                 color: AppColors.purple,
-                                fontSize: 20.sp,
+                                fontSize: 20,
                                 fontFamily: 'League Gothic',
                                 fontWeight: FontWeight.w400,
                                 height: 1.50,
@@ -190,7 +195,7 @@ class ChooseYourPlan extends StatelessWidget {
                               'Already a subscriber?',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 15.sp,
+                                fontSize: 16,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.75,
@@ -289,7 +294,7 @@ Widget _planTile({
                 price,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 32,
+                  fontSize: 30,
                   fontFamily: 'League Gothic',
                   fontWeight: FontWeight.w400,
                   height: 0.88,

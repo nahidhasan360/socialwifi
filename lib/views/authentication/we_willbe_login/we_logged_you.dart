@@ -58,7 +58,6 @@ class WeLoggedYou extends StatelessWidget {
                 ),
                 SizedBox(height: 19.h),
                 SizedBox(
-                  width: 392,
                   child: Text(
                     'You can now continue to Right Route. If you ve forgotten your password, you can choose a new one now or update it from your account Settings another time.',
                     style: TextStyle(
@@ -66,7 +65,6 @@ class WeLoggedYou extends StatelessWidget {
                       fontSize: 18,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w500,
-                      height: 1.44,
                     ),
                   ),
                 ),
@@ -111,7 +109,7 @@ class WeLoggedYou extends StatelessWidget {
 
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(AppRoutes.weLoggedYou);
+                    Get.toNamed(AppRoutes.changePassword);
                   },
                   child: Container(
                     width: 392,

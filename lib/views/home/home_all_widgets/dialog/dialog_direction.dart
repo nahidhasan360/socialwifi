@@ -26,15 +26,15 @@ void dialogDirection (BuildContext context) {
                   /// Left SVG PDF icon
                   SvgPicture.asset(
                     "assets/icons/edit.svg",
-                    width: 23,
-                    height: 23,
+                    width: 20,
+                    height: 20,
                     color: Colors.white,
                   ),
 
                   /// Close button
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg"),
+                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",height: 30,width: 30,),
                   ),
                 ],
               ),
@@ -45,7 +45,7 @@ void dialogDirection (BuildContext context) {
                   "This option allows you to type in the directions from your permit using your device's keyboard.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     height: 1.4,
                   ),
                 ),

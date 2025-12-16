@@ -193,12 +193,14 @@ class EditConfirmStartYourRoute extends StatelessWidget {
           ),
           child: SafeArea(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // ========== Fixed Logo Section ==========
                 Center(
                   child: Container(
-                    width: 225.w,
-                    height: 112.h,
+                    width: 225,
+                    height: 112,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(ImageManager.splashScreenLogo),
@@ -207,7 +209,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 28.h),
+                SizedBox(height: 28),
 
                 // ========== Scrollable Content Section ==========
                 Expanded(
@@ -221,7 +223,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                       children: [
                         // ========== Content with Padding ==========
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 22.w),
+                          padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -234,7 +236,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                         'CONFIRM YOUR ROUTE',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 32.sp,
+                                          fontSize: 30,
                                           fontFamily: 'League Gothic',
                                           fontWeight: FontWeight.w400,
                                           height: 0.88,
@@ -245,17 +247,16 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 16.h),
+                              SizedBox(height: 16),
 
                               // ========== Instruction Text ==========
                               Text(
-                                'Check your waypoints. Tap the map to move pins or scroll down to edit the directions in the fields below. Tap Update to confirm changes. Tap Go to.',
+                                'Check your waypoints.Tap the map to move pins or scroll down to edit the directions in the fields below. Tap Update to confirm changes. Tap Go to.',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18.sp,
+                                  fontSize: 16,
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.w500,
-                                  height: 1.44,
                                 ),
                               ),
 
@@ -267,13 +268,13 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                     "start.",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18.sp,
+                                      fontSize: 15,
                                       fontFamily: 'Lato',
                                       fontWeight: FontWeight.w500,
                                       height: 1.44,
                                     ),
                                   ),
-                                  SizedBox(width: 8.w),
+                                  SizedBox(width: 5),
                                   GestureDetector(
                                     onTap: () {
                                       FocusScope.of(context).unfocus();
@@ -281,13 +282,13 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/Question-Box-gray.svg",
-                                      width: 24.w,
-                                      height: 24.h,
+                                      width: 15,
+                                      height: 15,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 20.h),
+                              SizedBox(height: 20),
                             ],
                           ),
                         ),
@@ -340,9 +341,10 @@ class EditConfirmStartYourRoute extends StatelessWidget {
 
                         // ========== Route Info Section (With Padding) ==========
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 22.w),
+                          padding: EdgeInsets.symmetric(horizontal: 22),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(height: 20.h),
 
@@ -471,6 +473,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
 
                               // ========== Waypoints Header ==========
                               Row(
+
                                 children: [
                                   Text(
                                     'Waypoints',
@@ -501,13 +504,11 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                               // ========== DYNAMIC WAYPOINTS LIST ==========
                               Obx(() {
                                 if (controller.waypoints.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      'No waypoints added',
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(0.5),
-                                        fontSize: 16,
-                                      ),
+                                  return Text(
+                                    'No waypoints added',
+                                    style: TextStyle(
+                                      color: Colors.white.withOpacity(0.5),
+                                      fontSize: 16,
                                     ),
                                   );
                                 }
@@ -523,20 +524,22 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                         return SizedBox.shrink();
                                       }
 
-                                      return Column(
-                                        children: [
-                                          _buildWaypointItem(
-                                            controller,
-                                            index,
-                                            context,
-                                          ),
-                                          // ✅ Add button after EVERY item (including last one)
-                                          _buildAddButton(
-                                            controller,
-                                            index,
-                                            context,
-                                          ),
-                                        ],
+                                      return Center(
+                                        child: Column(
+                                          children: [
+                                            _buildWaypointItem(
+                                              controller,
+                                              index,
+                                              context,
+                                            ),
+                                            // ✅ Add button after EVERY item (including last one)
+                                            _buildAddButton(
+                                              controller,
+                                              index,
+                                              context,
+                                            ),
+                                          ],
+                                        ),
                                       );
                                     },
                                   ),
@@ -566,23 +569,25 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                     );
                                   }
                                 },
-                                child: Container(
-                                  width: double.infinity,
-                                  height: 55.h,
-                                  decoration: BoxDecoration(
-                                    color: AppColors.orange,
-                                    borderRadius: BorderRadius.circular(10.r),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'GO',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontFamily: 'Bebas Neue',
-                                        fontWeight: FontWeight.w400,
-                                        height: 1.17,
-                                        letterSpacing: 2,
+                                child: Center(
+                                  child: Container(
+                                    width: 389,
+                                    height: 55,
+                                    decoration: BoxDecoration(
+                                      color: AppColors.orange,
+                                      borderRadius: BorderRadius.circular(10.r),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'GO',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 24,
+                                          fontFamily: 'Bebas Neue',
+                                          fontWeight: FontWeight.w400,
+                                          height: 1.17,
+                                          letterSpacing: 2,
+                                        ),
                                       ),
                                     ),
                                   ),

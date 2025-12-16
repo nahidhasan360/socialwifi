@@ -185,7 +185,7 @@ class OtpVerificationScreen extends StatelessWidget {
 
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRoutes.weLoggedYou);
+                        Get.back();
 
                       },
                       child: Container(
@@ -197,7 +197,7 @@ class OtpVerificationScreen extends StatelessWidget {
                         ),
                         alignment: Alignment.center,
                         child: Text(
-                          'LOG IN',
+                          'CANCEL',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -229,7 +229,7 @@ class OtpVerificationScreen extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // controller.resendOtp();
+                            Get.toNamed(AppRoutes.otpVerificationScreen);
                           },
                           child: Text(
                             "Resend",

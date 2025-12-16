@@ -38,7 +38,7 @@ class PlotYourRoute extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 28.h),
+              SizedBox(height: 27),
 
               // ========== Scrollable Content Section ==========
               Expanded(
@@ -48,7 +48,7 @@ class PlotYourRoute extends StatelessWidget {
                     children: [
                       // ========== Content WITH Padding ==========
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22.w),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -61,7 +61,7 @@ class PlotYourRoute extends StatelessWidget {
                                       'PLOT YOUR ROUTE',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 32,
+                                        fontSize: 30,
                                         fontFamily: 'League Gothic',
                                         fontWeight: FontWeight.w400,
                                         height: 0.88,
@@ -72,14 +72,14 @@ class PlotYourRoute extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16.h),
+                            SizedBox(height: 16),
 
                             // ========== Instruction Text ==========
                             Text(
                               'Tap Start to begin. This will center the map',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 15,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.44,
@@ -92,7 +92,7 @@ class PlotYourRoute extends StatelessWidget {
                                   'to your current location.',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: 15,
                                     fontFamily: 'Lato',
                                     fontWeight: FontWeight.w500,
                                     height: 1.44,
@@ -105,13 +105,13 @@ class PlotYourRoute extends StatelessWidget {
                                   },
                                   child: SvgPicture.asset(
                                     "assets/icons/Question-Box-gray.svg",
-                                    width: 24.w,
-                                    height: 24.h,
+                                    width: 20,
+                                    height: 20,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 20),
 
                             // ========== Start Button ==========
                             GestureDetector(
@@ -139,7 +139,7 @@ class PlotYourRoute extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 20),
                           ],
                         ),
                       ),
@@ -278,7 +278,7 @@ class PlotYourRoute extends StatelessWidget {
                                   child: Text(
                                     'Back',
                                     style: TextStyle(
-                                      fontSize: 15.sp,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white,
                                       letterSpacing: 0.5,
@@ -334,15 +334,15 @@ void showPlotRouteInfoDialog(BuildContext context) {
                   children: [
                     SvgPicture.asset(
                       "assets/icons/Vector-hand.svg",
-                      width: 24,
-                      height: 24,
+                      width: 28,
+                      height: 28,
                     ),
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: SvgPicture.asset(
                         "assets/icons/Close-X-Circle.svg",
-                        width: 24,
-                        height: 24,
+                        width: 30,
+                        height: 30,
                       ),
                     ),
                   ],

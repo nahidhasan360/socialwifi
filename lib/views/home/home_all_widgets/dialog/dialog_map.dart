@@ -34,7 +34,7 @@ void dialogMap(BuildContext context) {
                   /// Close button
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg"),
+                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",height: 30,width: 30,),
                   ),
                 ],
               ),
@@ -45,7 +45,7 @@ void dialogMap(BuildContext context) {
                   "This option gives you a map where you can tap to add waypoints where each turn and exit are specified from your permit directions.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     height: 1.4,
                   ),
                 ),

@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
@@ -33,36 +36,37 @@ class ImportYourPermit extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(ImageManager.splashScreenLogo),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height: 29),
 
               // ========== Scrollable Content Section ==========
               Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 22.w),
+                  padding: EdgeInsets.symmetric(horizontal: 22),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       // ========== Title with Info Icon ==========
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'IMPORT YOUR PERMIT',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 32,
+                              fontSize: 30,
                               fontFamily: 'League Gothic',
                               fontWeight: FontWeight.w400,
                               height: 0.88,
-                              letterSpacing: 1.50,
                             ),
                           ),
-                          SizedBox(width: 8.w),
+                          SizedBox(width: 8),
 
                           // ========== Info Icon Button ==========
                           // Purpose: Trigger info dialog
@@ -73,46 +77,40 @@ class ImportYourPermit extends StatelessWidget {
                               showImportPermitInfoDialog(context);
                             },
                             child: Container(
-                              width: 24,
-                              height: 24,
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.3),
-                                shape: BoxShape.circle,
-                              ),
                               child: SvgPicture.asset(
-                                  "assets/icons/Question-Box-gray.svg"
+                                  "assets/icons/Question-Box-gray.svg",
+                                width: 15,
+                                height: 18,
                               )
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 16.h),
+                      SizedBox(height: 10),
 
                       // ========== First Instruction Paragraph ==========
                       Text(
                         'Tap the Import button and select your permit from whatever storage location it is sitting in. When selected, tap Open to start the extraction. It will take a few seconds for your directions to appear below.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 15,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
-                          height: 1.44,
                         ),
                       ),
-                      SizedBox(height: 12.h),
+                      SizedBox(height: 4),
 
                       // ========== Second Instruction Paragraph ==========
                       Text(
                         'Edit as needed or import another permit before tapping Continue.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 15,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
-                          height: 1.44,
                         ),
                       ),
-                      SizedBox(height: 24.h),
+                      SizedBox(height: 22),
 
                       // ========== Import Button ==========
                       GestureDetector(
@@ -130,10 +128,9 @@ class ImportYourPermit extends StatelessWidget {
                             child: Text(
                               'Import',
                               style: TextStyle(
-                                fontSize: 15.sp,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,
-                                letterSpacing: 0.5,
                               ),
                             ),
                           ),
@@ -150,15 +147,15 @@ class ImportYourPermit extends StatelessWidget {
                           border: Border(
                             left: BorderSide(
                               color: Color(0xFF1A2332),
-                              width: 3.w,
+                              width: 3,
                             ),
                           ),
                         ),
                         padding: EdgeInsets.only(
-                          left: 15.w,
-                          top: 17.h,
-                          bottom: 12.h,
-                          right: 16.w,
+                          left: 15,
+                          top: 17,
+                          bottom: 12,
+                          right: 16,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -206,7 +203,7 @@ class ImportYourPermit extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 13.h),
+                      SizedBox(height: 13),
 
                       // ========== Bottom Action Buttons Row ==========
                       Row(
@@ -227,7 +224,7 @@ class ImportYourPermit extends StatelessWidget {
                                 child: Text(
                                   'Back',
                                   style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                     letterSpacing: 0.5,
@@ -242,7 +239,7 @@ class ImportYourPermit extends StatelessWidget {
                           // Continue Button
                           GestureDetector(
                             onTap: () {
-                              print('Continue button tapped');
+                              Get.toNamed(AppRoutes.editConfirmStartYourRoute);
                             },
                             child: Container(
                               width: 76,
@@ -255,7 +252,7 @@ class ImportYourPermit extends StatelessWidget {
                                 child: Text(
                                   'Continue',
                                   style: TextStyle(
-                                    fontSize: 15.sp,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
                                     letterSpacing: 0.5,
@@ -267,7 +264,7 @@ class ImportYourPermit extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: 40.h),
+                      SizedBox(height: 40),
                     ],
                   ),
                 ),
@@ -290,52 +287,52 @@ void showImportPermitInfoDialog(BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.only(
-          bottom: 305.h,
-          left: 20.w,
-          right: 20.w,
-        ),
+        insetPadding: EdgeInsets.symmetric(horizontal: 16), // 🔹 Left-right padding কম করা
         child: Container(
-          padding: EdgeInsets.all(20.w),
-          decoration: BoxDecoration(
-            color: Color(0xFF4A4A4A),
-            borderRadius: BorderRadius.circular(12.r),
+          width: MediaQuery.of(context).size.width, // 🔹 Full width (minus padding)
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.6,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SvgPicture.asset(
-                    "assets/icons/Import_white.svg",
-                    width: 23,
-                    height: 23,
-                    color: Colors.white,
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: SvgPicture.asset(
-                      "assets/icons/Close-X-Circle.svg",
-                      width: 24,
-                      height: 24,
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: AppColors.medGray // AppColors.medGray
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SvgPicture.asset(
+                      "assets/icons/Import_white.svg",
+                      width: 29,
+                      height: 29,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16.h),
-              Text(
-                'To use this option, your permit must be imported from your device storage or online storage such as iCloud, Google Drive or DropBox. The permit cannot be imported directly from your email attachment.\nYou can import multiple permits one at at time. Each permit must be processed and directions appear in the editing text field before importing the next.',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: 'Lato',
-                  fontWeight: FontWeight.w500,
-                  height: 1.44,
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: SvgPicture.asset(
+                        "assets/icons/Close-X-Circle.svg",
+                        width: 30,
+                        height: 30,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 12),
+                Text(
+                  'To use this option, your permit must be imported from your device storage or online storage such as iCloud, Google Drive or DropBox. The permit cannot be imported directly from your email attachment.\n\nYou can import multiple permits one at at time. Each permit must be processed and directions appear in the editing text field before importing the next.',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.w500,
+                    height: 1.44,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       );

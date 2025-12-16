@@ -11,7 +11,7 @@ import 'package:right_routes/views/home/account_screen/account_screen.dart';
 // ============================================================
 // COLOR CONSTANTS
 // ============================================================
-class TeamManagerColors {
+class TeamManagerColors  {
   static const Color primaryOrange = Color(0xFFFF8742);
   static const Color primaryWhite = Color(0xFFFFFFFF);
   static const Color darkBackground = Color(0xFF1E1E1E);
@@ -564,36 +564,21 @@ class CustomDialogs {
         insetPadding: EdgeInsets.symmetric(horizontal: 30.w),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFF5A5A5A),
+            color: AppColors.medGray,
             borderRadius: BorderRadius.circular(8.r),
           ),
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(18),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Icon(
-                    Icons.person_add_outlined,
-                    color: Colors.white,
-                    size: 28.sp,
-                  ),
+                  SvgPicture.asset("assets/icons/dulogbox_person.svg",width: 30,height: 30,),
                   Spacer(),
                   GestureDetector(
                     onTap: () => Get.back(),
-                    child: Container(
-                      padding: EdgeInsets.all(4.w),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 20.sp,
-                      ),
-                    ),
+                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",width: 30,height: 30,),
                   ),
                 ],
               ),
@@ -608,20 +593,19 @@ class CustomDialogs {
                 content: '[sample format: Firstname Lastname, email@email.com]',
                 isExample: true,
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
               _buildInstructionText(
                 title: 'Multiple entries:',
                 content:
                 'Tap Import. List must be comma delineated in .CSV format, one user per line.',
               ),
-              SizedBox(height: 12.h),
+              SizedBox(height: 12),
               Text(
                 'After import, tap on name or email to edit. Clicking on Add moves the list to the Users list and automatically sends invite emails.',
                 style: GoogleFonts.lato(
                   color: Colors.white,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400,
-                  height: 1.5,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -641,9 +625,9 @@ class CustomDialogs {
       text: TextSpan(
         style: GoogleFonts.lato(
           color: Colors.white,
-          fontSize: 14.sp,
+          fontSize: 18,
           fontWeight: FontWeight.w400,
-          height: 1.5,
+
         ),
         children: [
           TextSpan(
@@ -674,7 +658,7 @@ class TeamManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -687,10 +671,10 @@ class TeamManager extends StatelessWidget {
         child: SafeArea(
           child: CustomScrollView(
             slivers: [
-              // ✅ STICKY LOGO SECTION WITH BACKGROUND
+              //  STICKY LOGO SECTION WITH BACKGROUND
               SliverAppBar(
                 pinned: true,
-                backgroundColor: const Color(0xFF1A1A1A).withOpacity(0.95), // ✅ Dark background
+                backgroundColor: const Color(0xFF1A1A1A).withOpacity(0.95), //Dark background
                 elevation: 0,
                 toolbarHeight: 144.h,
                 flexibleSpace: Container(
@@ -702,8 +686,8 @@ class TeamManager extends StatelessWidget {
                   ),
                   child: Center(
                     child: Container(
-                      width: 225.w,
-                      height: 112.h,
+                      width: 225,
+                      height: 112,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage(ImageManager.splashScreenLogo),
@@ -716,7 +700,7 @@ class TeamManager extends StatelessWidget {
               ),
               // ✅ SCROLLABLE CONTENT
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                padding: EdgeInsets.symmetric(horizontal: 22),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     Column(
@@ -726,19 +710,19 @@ class TeamManager extends StatelessWidget {
                           'Team Manager',
                           style: GoogleFonts.lato(
                             color: Colors.white,
-                            fontSize: 32.sp,
+                            fontSize: 32,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 1,
                             height: 0.88,
                           ),
                         ),
-                        SizedBox(height: 13.h),
+                        SizedBox(height: 13),
                         Divider(color: AppColors.dividerColor, thickness: 1.h),
-                        SizedBox(height: 17.h),
+                        SizedBox(height: 3),
                         _buildSubscriptionInfo(),
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 20),
                         Divider(color: AppColors.dividerColor, thickness: 1.h),
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 20),
                         _buildUsersSection(),
                         GestureDetector(
                           onTap: () {},
@@ -772,6 +756,17 @@ class TeamManager extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'MY CURRENT PLAN',
+          style: GoogleFonts.leagueGothic(
+            color: AppColors.orange,
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            height: 1.56,
+          ),
+        ),
+        SizedBox(height: 8,),
+
         _buildInfoText('Team [sample data: 1,000 (up to 1,000 users)]'),
         _buildInfoText('Seats used: [sample data: 785 of 1,000]'),
         _buildInfoText('Renewal Date: [sample data: Nov 29, 2025]'),
@@ -780,11 +775,12 @@ class TeamManager extends StatelessWidget {
           'Upgrade / Downgrade',
           style: GoogleFonts.lato(
             color: const Color(0xFF9DACF5),
-            fontSize: 18.sp,
+            fontSize: 18,
             fontWeight: FontWeight.w400,
             height: 1.56,
           ),
         ),
+
       ],
     );
   }
@@ -796,7 +792,7 @@ class TeamManager extends StatelessWidget {
         text,
         style: GoogleFonts.lato(
           color: Colors.white,
-          fontSize: 18.sp,
+          fontSize: 18,
           fontWeight: FontWeight.w400,
           height: 1.56,
         ),
@@ -911,19 +907,21 @@ class TeamManager extends StatelessWidget {
     );
   }
 
+  //-------------------------------------------------------------
+
+
   Widget _buildUserListTable() {
     return Obx(() {
       if (controller.filteredUserList.isEmpty) {
         return _buildEmptyState();
       }
 
-      final containerHeight = (56.h * 4);
+      final containerHeight = 224.0; // 4 rows height (56 * 4)
 
       return Container(
         decoration: BoxDecoration(
           color: AppColors.darkGray,
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(color: TeamManagerColors.borderColor, width: 1),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [
@@ -956,16 +954,18 @@ class TeamManager extends StatelessWidget {
 
   Widget _buildTableHeader() {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: AppColors.darkGray,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(8.r),
-          topRight: Radius.circular(8.r),
+          topLeft: Radius.circular(8),
+          topRight: Radius.circular(8),
         ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Name - flex: 2
           Expanded(
             flex: 2,
             child: Text(
@@ -973,23 +973,24 @@ class TeamManager extends StatelessWidget {
               style: GoogleFonts.lato(
                 color: Colors.white,
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
-                height: 1.75,
+                fontWeight: FontWeight.bold,
+
               ),
             ),
           ),
+          // Email - flex: 3
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Text(
               'Email',
               style: GoogleFonts.lato(
                 color: Colors.white,
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
-                height: 1.75,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
+          // Status - flex: 2
           Expanded(
             flex: 2,
             child: Text(
@@ -997,15 +998,16 @@ class TeamManager extends StatelessWidget {
               style: GoogleFonts.lato(
                 color: Colors.white,
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
-                height: 1.75,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
+          // Actions - fixed width
           SizedBox(
-            width: 100.w,
+            width: 70,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(
                       () => GestureDetector(
@@ -1013,40 +1015,36 @@ class TeamManager extends StatelessWidget {
                       controller.toggleAllSelection();
                     },
                     child: Container(
-                      width: 24.w,
-                      height: 24.h,
+                      width: 20,
+                      height: 20,
                       decoration: BoxDecoration(
                         color: controller.isAllSelected.value
-                            ? TeamManagerColors.primaryOrange
+                            ? AppColors.orange
                             : Colors.transparent,
                         border: Border.all(
-                          color: TeamManagerColors.primaryWhite,
+                          color: Colors.white,
                           width: 1.5,
                         ),
-                        borderRadius: BorderRadius.circular(4.r),
+                        borderRadius: BorderRadius.circular(4),
                       ),
                       child: controller.isAllSelected.value
                           ? Icon(
                         Icons.check,
-                        color: TeamManagerColors.primaryWhite,
-                        size: 14.sp,
+                        color: Colors.white,
+                        size: 16,
                       )
                           : null,
                     ),
                   ),
                 ),
-                SizedBox(width: 10.w),
+                SizedBox(width: 9),
                 GestureDetector(
                   onTap: () {
                     _showUserManagementHelp();
                   },
-                  child: Center(
-                    child: SvgPicture.asset(
-                      "assets/icons/Question-Box-gray.svg",
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
+                  child: SvgPicture.asset(
+                     "assets/icons/Question-Box-gray.svg",width: 24,height: 24,
+                  )
                 ),
               ],
             ),
@@ -1055,6 +1053,402 @@ class TeamManager extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildTableRow(int index) {
+    return Obx(() {
+      final user = controller.filteredUserList[index];
+      final textColor = _getTextColor(user.status);
+
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        decoration: BoxDecoration(
+          color: AppColors.darkGray,
+          border: Border(
+            bottom: BorderSide(
+              color: AppColors.medGray,
+              width: 1,
+            ),
+          ),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Name - flex: 2
+            Expanded(
+              flex: 2,
+              child: Text(
+                user.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.lato(
+                  color: textColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+
+                ),
+              ),
+            ),
+            // Email - flex: 3
+            Expanded(
+              flex: 4,
+              child: Text(
+                user.email,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.lato(
+                  color: textColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+
+                ),
+              ),
+            ),
+            // Status - flex: 2
+            Expanded(
+              flex: 2,
+              child: Text(
+                _getStatusText(user.status),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: GoogleFonts.lato(
+                  color: textColor,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            // Actions - fixed width
+            SizedBox(
+              width: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Checkbox
+                  GestureDetector(
+                    onTap: () {
+                      controller.toggleUserSelection(index);
+                    },
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: user.isSelected
+                            ? TeamManagerColors.primaryOrange
+                            : Colors.transparent,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1.5,
+                        ),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: user.isSelected
+                          ? Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 16,
+                      )
+                          : null,
+                    ),
+                  ),
+                  SizedBox(width: 8),
+                  // Edit Icon
+                  GestureDetector(
+                    onTap: () {
+                      controller.editUser(user);
+                    },
+                    child: Icon(
+                      Icons.edit_outlined,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+    //-------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+  // Widget _buildUserListTable() {
+  //   return Obx(() {
+  //     if (controller.filteredUserList.isEmpty) {
+  //       return _buildEmptyState();
+  //     }
+  //
+  //     final containerHeight = (50.h * 3);
+  //
+  //     return Container(
+  //       decoration: BoxDecoration(
+  //         color: AppColors.darkGray,
+  //       ),
+  //       child: Column(
+  //         children: [
+  //           _buildTableHeader(),
+  //           Stack(
+  //             children: [
+  //               Container(
+  //                 constraints: BoxConstraints(maxHeight: containerHeight),
+  //                 child: SingleChildScrollView(
+  //                   controller: controller.userListScrollController,
+  //                   child: Column(
+  //                     children: List.generate(
+  //                       controller.filteredUserList.length,
+  //                           (index) => _buildTableRow(index),
+  //                     ),
+  //                   ),
+  //                 ),
+  //               ),
+  //               CustomScrollIndicator(
+  //                 scrollController: controller.userListScrollController,
+  //                 containerHeight: containerHeight,
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //   });
+  // }
+  // Widget _buildTableRow(int index) {
+  //   return Obx(() {
+  //     final user = controller.filteredUserList[index];
+  //
+  //     return Container(
+  //       padding: EdgeInsets.symmetric(horizontal: 15,),
+  //       child: Container(
+  //         padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
+  //         decoration: BoxDecoration(
+  //           border: Border(
+  //             bottom: BorderSide(color: AppColors.medGray, width: 1),
+  //           ),
+  //         ),
+  //         child: Row(
+  //           children: [
+  //             Expanded(
+  //               child: Text(
+  //                 user.name,
+  //                 maxLines: 1,
+  //                 overflow: TextOverflow.ellipsis,
+  //                 style: GoogleFonts.lato(
+  //                   color: _getTextColor(user.status),
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.w400,
+  //                 ),
+  //               ),
+  //             ),
+  //             SizedBox(width: 8),
+  //             Expanded(
+  //
+  //               child: Text(
+  //                 user.email,
+  //                 maxLines: 1,
+  //                 overflow: TextOverflow.ellipsis,
+  //                 style: GoogleFonts.lato(
+  //                   color: _getTextColor(user.status),
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.w400,
+  //                 ),
+  //               ),
+  //             ),
+  //             SizedBox(width: 8),
+  //             Expanded(
+  //
+  //               child: Text(
+  //                 _getStatusText(user.status),
+  //                 maxLines: 1,
+  //                 overflow: TextOverflow.ellipsis,
+  //                 style: GoogleFonts.lato(
+  //                   color: _getTextColor(user.status),
+  //                   fontSize: 16,
+  //                   fontWeight: FontWeight.w400,
+  //                 ),
+  //               ),
+  //             ),
+  //             SizedBox(width: 8),
+  //             SizedBox(
+  //               width: 100,
+  //               child: Row(
+  //                 mainAxisAlignment: MainAxisAlignment.end,
+  //                 children: [
+  //                   GestureDetector(
+  //                     onTap: () {
+  //                       controller.toggleUserSelection(index);
+  //                     },
+  //                     child: Container(
+  //                       width: 24,
+  //                       height: 24,
+  //                       decoration: BoxDecoration(
+  //                         color: user.isSelected
+  //                             ? TeamManagerColors.primaryOrange
+  //                             : Colors.transparent,
+  //                         border: Border.all(
+  //                           color: TeamManagerColors.primaryWhite,
+  //                           width: 1.5,
+  //                         ),
+  //                         borderRadius: BorderRadius.circular(4),
+  //                       ),
+  //                       child: user.isSelected
+  //                           ? Icon(
+  //                         Icons.close,
+  //                         color: TeamManagerColors.primaryWhite,
+  //                         size: 16,
+  //                       )
+  //                           : null,
+  //                     ),
+  //                   ),
+  //                   SizedBox(width: 12),
+  //                   GestureDetector(
+  //                     onTap: () {
+  //                       controller.editUser(user);
+  //                     },
+  //                     child: Center(
+  //                       child: SvgPicture.asset(
+  //                         "assets/icons/Edit-Pencil-white.svg",
+  //                         width: 24,
+  //                         height: 24,
+  //                       ),
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     );
+  //   });
+  // }
+  // Widget _buildTableHeader() {
+  //   return Container(
+  //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+  //     decoration: BoxDecoration(
+  //       color: AppColors.darkGray,
+  //       borderRadius: BorderRadius.only(
+  //         topLeft: Radius.circular(8),
+  //         topRight: Radius.circular(8),
+  //       ),
+  //     ),
+  //     child: Row(
+  //       crossAxisAlignment: CrossAxisAlignment.center, // Add this
+  //       children: [
+  //         Expanded(
+  //           flex: 2,
+  //           child: Text(
+  //             'Name',
+  //             textAlign: TextAlign.start,
+  //             style: GoogleFonts.lato(
+  //               color: Colors.white,
+  //               fontSize: 16,
+  //               fontWeight: FontWeight.w700,
+  //               height: 1, // Changed from 1.75
+  //             ),
+  //           ),
+  //         ),
+  //         Expanded(
+  //           flex: 2,
+  //           child: Text(
+  //             'Email',
+  //             textAlign: TextAlign.start,
+  //             style: GoogleFonts.lato(
+  //               color: Colors.white,
+  //               fontSize: 16,
+  //               fontWeight: FontWeight.w700,
+  //               height: 1, // Changed from 1.75
+  //             ),
+  //           ),
+  //         ),
+  //
+  //         Expanded(
+  //           flex: 2,
+  //           child: Text(
+  //             'Status',
+  //             textAlign: TextAlign.start,
+  //             style: GoogleFonts.lato(
+  //               color: Colors.white,
+  //               fontSize: 16,
+  //               fontWeight: FontWeight.w700,
+  //               height: 1, // Changed from 1.75
+  //             ),
+  //           ),
+  //         ),
+  //         SizedBox(
+  //           width: 58, // Add fixed width
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.end,
+  //             crossAxisAlignment: CrossAxisAlignment.center, // Add this
+  //             children: [
+  //               Obx(
+  //                     () => GestureDetector(
+  //                   onTap: () {
+  //                     controller.toggleAllSelection();
+  //                   },
+  //                   child: Container(
+  //                     width: 24,
+  //                     height: 24,
+  //                     decoration: BoxDecoration(
+  //                       color: controller.isAllSelected.value
+  //                           ? TeamManagerColors.primaryOrange
+  //                           : Colors.transparent,
+  //                       border: Border.all(
+  //                         color: TeamManagerColors.primaryWhite,
+  //                         width: 1.5,
+  //                       ),
+  //                       borderRadius: BorderRadius.circular(4.r),
+  //                     ),
+  //                     child: controller.isAllSelected.value
+  //                         ? Icon(
+  //                       Icons.check,
+  //                       color: TeamManagerColors.primaryWhite,
+  //                       size: 14,
+  //                     )
+  //                         : null,
+  //                   ),
+  //                 ),
+  //               ),
+  //               SizedBox(width: 10),
+  //               GestureDetector(
+  //                 onTap: () {
+  //                   _showUserManagementHelp();
+  //                 },
+  //                 child: SvgPicture.asset(
+  //                   "assets/icons/Question-Box-gray.svg",
+  //                   width: 24,
+  //                   height: 24,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   void _showUserManagementHelp() {
     Get.dialog(
@@ -1073,7 +1467,9 @@ class TeamManager extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(Icons.info_outline, color: Colors.white, size: 28.sp),
+                  SvgPicture.asset(
+                    "assets/icons/Edit-Pencil-white.svg",height: 30,width: 30,
+                  ),
                   SizedBox(width: 12.w),
                   Expanded(
                     child: Text(
@@ -1090,7 +1486,7 @@ class TeamManager extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(4.w),
                       child: SvgPicture.asset(
-                        "assets/icons/Close-X-Circle.svg",
+                        "assets/icons/Close-X-Circle.svg",height: 30,width: 30,
                       ),
                     ),
                   ),
@@ -1104,7 +1500,7 @@ class TeamManager extends StatelessWidget {
                     '• Select users and click action buttons to perform bulk operations',
                 style: GoogleFonts.lato(
                   color: Colors.white,
-                  fontSize: 14.sp,
+                  fontSize: 18,
                   fontWeight: FontWeight.w400,
                   height: 1.5,
                 ),
@@ -1115,117 +1511,6 @@ class TeamManager extends StatelessWidget {
       ),
       barrierDismissible: true,
     );
-  }
-
-  Widget _buildTableRow(int index) {
-    return Obx(() {
-      final user = controller.filteredUserList[index];
-
-      return Container(
-        padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 8.h),
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: AppColors.medGray, width: 1),
-            ),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 2,
-                child: Text(
-                  user.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.lato(
-                    color: _getTextColor(user.status),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8.w),
-              Expanded(
-                flex: 3,
-                child: Text(
-                  user.email,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.lato(
-                    color: _getTextColor(user.status),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8.w),
-              Expanded(
-                flex: 2,
-                child: Text(
-                  _getStatusText(user.status),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.lato(
-                    color: _getTextColor(user.status),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-              SizedBox(width: 8.w),
-              SizedBox(
-                width: 100.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        controller.toggleUserSelection(index);
-                      },
-                      child: Container(
-                        width: 24.w,
-                        height: 24.h,
-                        decoration: BoxDecoration(
-                          color: user.isSelected
-                              ? TeamManagerColors.primaryOrange
-                              : Colors.transparent,
-                          border: Border.all(
-                            color: TeamManagerColors.primaryWhite,
-                            width: 1.5,
-                          ),
-                          borderRadius: BorderRadius.circular(4.r),
-                        ),
-                        child: user.isSelected
-                            ? Icon(
-                          Icons.close,
-                          color: TeamManagerColors.primaryWhite,
-                          size: 16.sp,
-                        )
-                            : null,
-                      ),
-                    ),
-                    SizedBox(width: 12.w),
-                    GestureDetector(
-                      onTap: () {
-                        controller.editUser(user);
-                      },
-                      child: Center(
-                        child: SvgPicture.asset(
-                          "assets/icons/Edit-Pencil-white.svg",
-                          width: 24,
-                          height: 24,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    });
   }
 
   Widget _buildEmptyState() {
@@ -1253,15 +1538,15 @@ class TeamManager extends StatelessWidget {
         Expanded(
           child: _buildActionButton('Download', controller.downloadSelected),
         ),
-        SizedBox(width: 12.w),
+        SizedBox(width: 10.w),
         Expanded(
           child: _buildActionButton('Cancel', controller.cancelSelected),
         ),
-        SizedBox(width: 12.w),
+        SizedBox(width: 10.w),
         Expanded(
           child: _buildActionButton('Resend', controller.resendSelected),
         ),
-        SizedBox(width: 12.w),
+        SizedBox(width: 10.w),
         Expanded(
           child: _buildActionButton('Remove', controller.removeSelected),
         ),
@@ -1273,9 +1558,9 @@ class TeamManager extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 1),
+        padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 3),
         decoration: BoxDecoration(
-          color: TeamManagerColors.primaryOrange,
+          color:AppColors.orange,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
@@ -1284,10 +1569,11 @@ class TeamManager extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: Colors.white,
-              fontSize: 16,
+              fontSize: 14,
               fontFamily: 'Lato',
               fontWeight: FontWeight.w800,
-              height: 2,
+
+
             ),
           ),
         ),

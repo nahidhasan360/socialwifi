@@ -40,7 +40,7 @@ class PinsMaking extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 32.h),
+              SizedBox(height:   29),
 
               // ========== Scrollable Content Section ==========
               // Purpose: Main content area with map
@@ -54,7 +54,7 @@ class PinsMaking extends StatelessWidget {
                       // ========== Content with Padding ==========
                       // Purpose: Title, instruction, buttons with 22.w padding
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22.w),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

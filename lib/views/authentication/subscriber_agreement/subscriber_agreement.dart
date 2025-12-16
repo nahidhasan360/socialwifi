@@ -56,7 +56,7 @@ class SubscriberAgreement extends StatelessWidget {
 
                     /// Title
                     Text(
-                      "Terms of Service",
+                      "Subscriber Agreement",
                       style: TextStyle(
                         fontSize: 21.sp,
                         fontFamily: 'Lato',
@@ -79,20 +79,7 @@ class SubscriberAgreement extends StatelessWidget {
 
                     /// Static Terms Content (Pixel-Perfect)
                     Text(
-                      "Real content coming later. Lorem ipsum fervidus solaria nunc et varius pellentesque auctor. "
-                          "Quisque narium vibora set ultricies finibus larentum quisque dronelis. Pellentesque habitant "
-                          "morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur flaminia set "
-                          "vero donis quavara et ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.\n\n"
-
-                          "Sed ornare quistum valeris ligula faucibus venenatis veli set amet. Integer pluvina morkal sapien "
-                          "vitae justo bibendum, id iaculis urna semper. Mauris dignissim tortor ac vespara fringilla, in porta "
-                          "leo mattis. Proin gladius urna non massa aliquet, sit amet gravida arcu tempor. Nam convallis tortor "
-                          "a lorem mattis blandit in id leo.\n\n"
-
-                          "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; vivamus "
-                          "quastra enim at felis cursus, eget tristique nulla posuere. Fusce lorem gristum dapibus semper orci, "
-                          "non ornare nisl pulvinar sit amet. Aenean sed purus quis arcu sodales fermentum nantris vehicula. "
-                          "Cras dictum velora sapien, quis aliquet nulla tempor ut.",
+                      "Content coming",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,

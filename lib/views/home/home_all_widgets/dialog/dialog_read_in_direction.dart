@@ -26,15 +26,15 @@ void dialogReadInDirection (BuildContext context) {
                   /// Left SVG PDF icon
                   SvgPicture.asset(
                     "assets/icons/Mic-white.svg",
-                    width: 23,
-                    height: 23,
+                    width: 27,
+                    height: 27,
                     color: Colors.white,
                   ),
 
                   /// Close button
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg"),
+                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",height: 30,width: 30,),
                   ),
                 ],
               ),
@@ -45,7 +45,7 @@ void dialogReadInDirection (BuildContext context) {
                   "You can use your device's microphone to read in the directions from your permit.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     height: 1.4,
                   ),
                 ),

@@ -11,6 +11,8 @@ class AppColors {
   static const Color dividerColor = Color(0xff9DACF5);
   static const Color checkBoxColor = Color(0xff4260F5);
   static const Color progressbarColor = Color(0xFFFFC700);
+  static const Color editEmailColor = Color(0xff9DACF5);
+
 
 
 

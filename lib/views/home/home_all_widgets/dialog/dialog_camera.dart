@@ -26,15 +26,16 @@ void dialogCamera (BuildContext context) {
                   /// Left SVG PDF icon
                   SvgPicture.asset(
                     "assets/icons/Camera-white.svg",
-                    width: 23,
-                    height: 23,
+                    width: 29,
+                    height: 29,
                     color: Colors.white,
                   ),
 
                   /// Close button
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg"),
+                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",width: 29,
+                      height: 29,),
                   ),
                 ],
               ),
@@ -45,7 +46,7 @@ void dialogCamera (BuildContext context) {
                   "You can take a photo of your permit and we will extract the directions from it..",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     height: 1.4,
                   ),
                 ),
@@ -59,7 +60,7 @@ void dialogCamera (BuildContext context) {
                   "Saving the photo to this device will make it available to this app.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     height: 1.4,
                   ),
                 ),

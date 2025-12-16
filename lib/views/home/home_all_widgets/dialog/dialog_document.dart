@@ -47,7 +47,7 @@ void showPermitDialog(BuildContext context) {
                   "This option scans a PDF of your permit and extracts the directions from it.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     height: 1.4,
                   ),
                 ),
@@ -61,7 +61,7 @@ void showPermitDialog(BuildContext context) {
                   "Your permit needs to be accessible from this device or available from your iCloud, Google Drive, or Dropbox storage.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 15,
+                    fontSize: 18,
                     height: 1.4,
                   ),
                 ),

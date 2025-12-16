@@ -15,7 +15,9 @@ import '../../views/authentication/create_an_account/create_an_account.dart';
 import '../../views/authentication/enter_email_screen/enter_email_screen.dart';
 import '../../views/authentication/get_started_screen/get_started_screen.dart';
 import '../../views/authentication/login_account/login_account.dart';
+import '../../views/authentication/privacy_policy/privacy_policy.dart';
 import '../../views/authentication/subscriber_agreement/subscriber_agreement.dart';
+import '../../views/authentication/terms_of_service/terms_of_service.dart';
 import '../../views/authentication/we_willbe_login/we_logged_you.dart';
 import '../../views/home/account_screen/account_screen.dart';
 import '../../views/home/history_screen/history_screen.dart';
@@ -70,6 +72,9 @@ class AppRoutes {
       "/AreYouSureDeleteThisAccount";
   static const String accountDelete = "/AccountDelete";
   static const String help = "/Help";
+  static const String privacyPolicy = "/PrivacyPolicy";
+  static const String termsModal = "/TermsModal";
+
 
   static const String importYourPermit = "/ImportYourPermit";
   static const String importYourPhotoPermit = "/ImportYourPhotoPermit";
@@ -92,7 +97,10 @@ class AppRoutes {
   // bridge
   static List<GetPage> routes = [
     // dialog box
+// accounts ar routes
     GetPage(name: subscriberAgreement, page: () => SubscriberAgreement()),
+    GetPage(name: privacyPolicy, page: () => PrivacyPolicy()),
+    GetPage(name: termsModal, page: () => TermsModal()),
 
     GetPage(name: splashScreen, page: () => SplashScreen()),
     GetPage(name: getStartedScreen, page: () => GetStartedScreen()),

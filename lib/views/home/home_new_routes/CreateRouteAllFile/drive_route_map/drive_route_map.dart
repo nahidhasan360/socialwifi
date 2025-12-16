@@ -8,8 +8,11 @@ import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:maplibre_gl/maplibre_gl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
-import 'dart:ui' as ui; // ✅ Added
+import 'dart:ui' as ui;
+
+import 'package:right_routes/utils/colors.dart'; // ✅ Added
 
 class DriveRouteMap extends StatefulWidget {
   const DriveRouteMap({super.key});
@@ -348,10 +351,10 @@ class _DriveRouteMapState extends State<DriveRouteMap>
               top: 50.h,
               right: 16.w,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w,),
                 decoration: BoxDecoration(
                   color: Color(0xFF4CAF50),
-                  borderRadius: BorderRadius.circular(24.r),
+                  borderRadius: BorderRadius.circular(5.r),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
@@ -364,13 +367,15 @@ class _DriveRouteMapState extends State<DriveRouteMap>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(Icons.gps_fixed, color: Colors.white, size: 20.sp),
-                    SizedBox(width: 8.w),
+                    SizedBox(width: 7.w),
                     Text(
                       'Tracking',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.w800,
+                        height: 2,
                       ),
                     ),
                   ],
@@ -383,14 +388,14 @@ class _DriveRouteMapState extends State<DriveRouteMap>
             left: 12.w,
             right: 12.w,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _btn('Back', () => Get.back()),
                 _btn('Download', () {
                   Get.snackbar(
                     'Download',
                     'Route downloaded',
-                    backgroundColor: Color(0xFF4A4A4A),
+                    backgroundColor: AppColors.darkGray,
                     colorText: Colors.white,
                     duration: Duration(seconds: 2),
                   );
@@ -398,7 +403,7 @@ class _DriveRouteMapState extends State<DriveRouteMap>
                 _btn('Recenter', _recenter),
                 _btn('Cancel', () {
                   _flutterTts.stop();
-                  Get.back();
+                  Get.toNamed(AppRoutes.homeNewRoutes);
                 }),
               ],
             ),
@@ -414,30 +419,29 @@ class _DriveRouteMapState extends State<DriveRouteMap>
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 4.w),
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+          height: 25, // ✅ Responsive height
+          margin: EdgeInsets.symmetric(horizontal: 4),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
-            color: Color(0xFFFF6B35),
-            borderRadius: BorderRadius.circular(12.r),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                blurRadius: 8,
-                offset: Offset(0, 4),
-              ),
-            ],
+            color: AppColors.orange,
+            borderRadius: BorderRadius.circular(5.r),
+
           ),
           child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-                letterSpacing: 0.4,
+            child: FittedBox( // ✅ Auto-resize text
+              fit: BoxFit.scaleDown,
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16, // ✅ Responsive font size
+                  fontFamily: 'Lato',
+                  fontWeight: FontWeight.w800,
+                ),
+                textAlign: TextAlign.center, // ✅ Center alignment
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
             ),
           ),
         ),

@@ -82,12 +82,12 @@ class ChangePassword extends StatelessWidget {
                     // Password Input section
                     _buildPasswordField(),
 
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
 
                     // Password strength bar section (Animated)
                     _buildProgressBar(),
 
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 10.h),
 
                     // Password criteria section with validation
                     Obx(
@@ -112,7 +112,7 @@ class ChangePassword extends StatelessWidget {
 
 
                     ButtonReusable(
-                      onPressed: () => AppRoutes.emailSaved,
+                      onPressed: () => Get.toNamed(AppRoutes.passwordSaved),
                       text: 'SAVE & CONTINUE',
                       width: 500.w,
                     ),

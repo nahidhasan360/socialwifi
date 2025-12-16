@@ -162,23 +162,29 @@ class ChooseATeamPlan extends StatelessWidget {
                           children: [
                             Text(
                               'By clicking "Subscribe", you agree to the',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 19.sp,
+                                fontSize: 18,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.67,
                               ),
                             ),
 
-                            Text(
-                              'RIGHT ROUTE SUBSCRIBER AGREEMENT',
-                              style: TextStyle(
-                                color: AppColors.purple,
-                                fontSize: 20,
-                                fontFamily: 'League Gothic',
-                                fontWeight: FontWeight.w400,
-                                height: 1.50,
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.subscriberAgreement);
+                              },
+                              child: Text(
+                                'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                                style: TextStyle(
+                                  color: AppColors.purple,
+                                  fontSize: 20,
+                                  fontFamily: 'League Gothic',
+                                  fontWeight: FontWeight.w400,
+                                  height: 1.50,
+                                ),
                               ),
                             ),
 
@@ -322,7 +328,7 @@ Widget _planTile({
                 price,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 32,
+                  fontSize: 24,
                   fontFamily: 'League Gothic',
                   fontWeight: FontWeight.w400,
                   letterSpacing: 1,

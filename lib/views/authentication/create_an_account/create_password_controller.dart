@@ -18,9 +18,9 @@ class CreatePasswordController extends GetxController {
   final RxBool agreePrivacy = false.obs;
 
   // Password Strength
-  final RxString strengthLabel = "Fair".obs;  // default
-  final RxDouble strengthProgress = 0.7.obs;
-  final Rx<Color> strengthColor = AppColors.orange.obs;
+  final RxString strengthLabel = "".obs;  // default
+  final RxDouble strengthProgress = 0.0.obs;
+  final Rx<Color> strengthColor = AppColors.medGray.obs;
 
 
 

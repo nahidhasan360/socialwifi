@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
+import '../../core/routes/all_routes.dart';
 import '../../global_widgets/button_reusable.dart';
 
 
@@ -109,7 +110,7 @@ class Help extends StatelessWidget {
                       ),
                       SizedBox(height: 89 .h),
                       ButtonReusable(
-                        onPressed: () => Get.back(),
+                        onPressed: () =>    Get.toNamed(AppRoutes.getStartedScreen),
                         text: 'DONE',
                         width: 500.w,
                       ),

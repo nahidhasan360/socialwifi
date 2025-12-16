@@ -94,16 +94,16 @@ class SimpleImportButton extends StatelessWidget {
     if (leftIcon.endsWith(".svg")) {
       return SvgPicture.asset(
         leftIcon,
-        height: 26,
-        width: 26,
+        height: 30,
+        width: 30,
         colorFilter:
         const ColorFilter.mode(Colors.white, BlendMode.srcIn),
       );
     } else {
       return Image.asset(
         leftIcon,
-        height: 26,
-        width: 26,
+        height: 30,
+        width: 30,
       );
     }
   }
