@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../utils/colors.dart';
+
 void dialogCamera (BuildContext context) {
   showDialog(
     context: context,
@@ -8,11 +10,12 @@ void dialogCamera (BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.only(bottom: 330, left: 20, right: 20,),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 1 ,),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color(0xFF4A4A4A),
+            color: AppColors.medGray,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -46,7 +49,7 @@ void dialogCamera (BuildContext context) {
                   "You can take a photo of your permit and we will extract the directions from it..",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 16,
                     height: 1.4,
                   ),
                 ),
@@ -60,7 +63,7 @@ void dialogCamera (BuildContext context) {
                   "Saving the photo to this device will make it available to this app.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 16,
                     height: 1.4,
                   ),
                 ),

@@ -27,7 +27,7 @@ class ChangeEmail extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22.w),
+          padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -57,7 +57,7 @@ class ChangeEmail extends StatelessWidget {
                         'Change Email',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28.sp,
+                          fontSize: 28,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w700,
                           height: 1,
@@ -71,7 +71,7 @@ class ChangeEmail extends StatelessWidget {
                       'This replaces the email you use to log in to this app account.',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18.sp,
+                        fontSize: 18,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
                         height: 1.44,
@@ -83,7 +83,7 @@ class ChangeEmail extends StatelessWidget {
                       'Current Right Route account email:',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20.sp,
+                        fontSize: 20,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
                         height: 1.40,
@@ -93,25 +93,25 @@ class ChangeEmail extends StatelessWidget {
                       'tanvirhasancr@gmail.com',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20.sp,
+                        fontSize: 20,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w800,
                         height: 1.40,
                       ),
                     ),
-                    SizedBox(height: 39.h),
+                    SizedBox(height: 30),
 
                     Center(child: emailInputField(changeEmailController())),
                     SizedBox(height: 19),
 
                     ButtonReusable(
-                      onPressed: () => AppRoutes.emailSaved,
+                      onPressed: () => Get.toNamed(AppRoutes.emailSaved),
                       text: 'SAVE & CONTINUE',
                       width: 500.w,
                     ),
-                    SizedBox(height: 19.h),
+                    SizedBox(height: 20),
                     ButtonReusable(
-                      onPressed: () => '',
+                      onPressed: () => Get.toNamed(AppRoutes.accountScreen),
                       text: 'CANCEL',
                       width: 500.w,
                       fontSize: 24,

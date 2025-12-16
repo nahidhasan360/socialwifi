@@ -26,7 +26,7 @@ class OtpVerificationScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22),
+          padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
 
             child: Column(
@@ -41,13 +41,13 @@ class OtpVerificationScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(ImageManager.splashScreenLogo),
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 ),
 
-                SizedBox(height: 19.h),
+                SizedBox(height: 21),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,59 +64,46 @@ class OtpVerificationScreen extends StatelessWidget {
                       ),
                     ),
 
+                    SizedBox(height: 21),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'We’ll need you to verify your email address.\nWe’ve sent a 6-digit code to ',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.w500,
 
-                    SizedBox(height: 19.h),
-                    SizedBox(
-                      width: 385,
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'We’ll need you to verify your email address. We’ve sent a 6-digit code to ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w500,
-                                height: 1.44,
-                              ),
                             ),
-                            TextSpan(
-                              text: 'tanvirhasancr8****@gmail.com',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w900,
-                                height: 1.44,
-                              ),
+                          ),
+                          TextSpan(
+                            text: 'tanvirhasancr8****@gmail.com',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.bold,
+                              height: 1.44,
                             ),
-                            TextSpan(
-                              text: ' ',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w700,
-                                height: 1.44,
-                              ),
+                          ),
+
+                          TextSpan(
+                            text: 'The code expires in 15 minutes. Please enter it below.',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.w500,
+                              height: 1.44,
                             ),
-                            TextSpan(
-                              text: 'The code expires in 15 minutes. Please enter it below.',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w500,
-                                height: 1.44,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
 
-                    SizedBox(height: 25.h),
+                    SizedBox(height: 28),
 
                     /// PIN CODE FIELD
                     PinCodeTextField(
@@ -130,9 +117,9 @@ class OtpVerificationScreen extends StatelessWidget {
 
                       pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
-                        borderRadius: BorderRadius.circular(5.r),
-                        fieldHeight: 49.h,
-                        fieldWidth: 49.w,
+                        borderRadius: BorderRadius.circular(5),
+                        fieldHeight: 49,
+                        fieldWidth: 49,
                         inactiveColor: Colors.transparent,
                         selectedColor: AppColors.orange,
                         activeColor: Colors.white,
@@ -150,7 +137,7 @@ class OtpVerificationScreen extends StatelessWidget {
                       // },
                     ),
 
-                    SizedBox(height: 25.h),
+                    SizedBox(height: 27),
 
                     /// CONTINUE BUTTON
                     GestureDetector(
@@ -181,7 +168,7 @@ class OtpVerificationScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 25.h),
+                    SizedBox(height: 27),
 
                     GestureDetector(
                       onTap: () {
@@ -210,7 +197,7 @@ class OtpVerificationScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 48.h),
+                    SizedBox(height: 55),
 
                     /// RESEND
                     Column(

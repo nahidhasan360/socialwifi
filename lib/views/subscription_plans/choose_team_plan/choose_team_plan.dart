@@ -29,11 +29,10 @@ class ChooseATeamPlan extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22),
+          padding: EdgeInsets.all(20),
           child: Column(
             children: [
               SizedBox(height: 44),
-
               /// 🔥 FIXED LOGO (STICKY – does not scroll)
               Container(
                 width: 225,
@@ -46,7 +45,7 @@ class ChooseATeamPlan extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 18),
+              SizedBox(height: 29),
 
               /// 🔥 SCROLLABLE CONTENT (everything below logo)
               Expanded(
@@ -54,20 +53,17 @@ class ChooseATeamPlan extends StatelessWidget {
                   child: Column(
                     children: [
                       /// TITLE
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Text(
-                          'CHOOSE A TEAM PLAN',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                            fontFamily: 'League Gothic',
-                            fontWeight: FontWeight.w400,
-                            height: 0.88,
-                            letterSpacing: 1,
-                          ),
-                          textAlign: TextAlign.center,
+                      Text(
+                        'CHOOSE A TEAM PLAN',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontFamily: 'League Gothic',
+                          fontWeight: FontWeight.w400,
+                          height: 0.88,
+                          letterSpacing: 1,
                         ),
+                        textAlign: TextAlign.center,
                       ),
 
                       SizedBox(height: 21),
@@ -165,7 +161,7 @@ class ChooseATeamPlan extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.67,
@@ -180,7 +176,7 @@ class ChooseATeamPlan extends StatelessWidget {
                                 'RIGHT ROUTE SUBSCRIBER AGREEMENT',
                                 style: TextStyle(
                                   color: AppColors.purple,
-                                  fontSize: 20,
+                                  fontSize: 18,
                                   fontFamily: 'League Gothic',
                                   fontWeight: FontWeight.w400,
                                   height: 1.50,

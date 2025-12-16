@@ -28,202 +28,203 @@ class ChooseYourPlan extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(22),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 40.h),
-
-                /// Logo
-                Container(
-                  width: 225,
-                  height: 112,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(ImageManager.splashScreenLogo),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+        child: Column(
+          children: [
+            SizedBox(height:60),
+            /// Logo
+            Container(
+              width: 225,
+              height: 112,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(ImageManager.splashScreenLogo),
+                  fit: BoxFit.cover,
                 ),
-                SizedBox(height: 29),
-                SingleChildScrollView(
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      /// Title
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Text(
-                          'CHOOSE YOUR PLAN',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                            fontFamily: 'League Gothic',
-                            fontWeight: FontWeight.w400,
-                            height: 0.88,
-                            letterSpacing: 1,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      SizedBox(height: 21),
-
-                      /// Subtitle
-                      Text(
-                        'Start your 7-day free trial and begin\nautomating your routes. Cancel anytime.',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.w500,
-                          height: 1.56,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 16.h),
-
-                      Text(
-                        'Individual Plan Options',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.w700,
-                          height: 1.10,
-                        ),
-                      ),
-
-                      SizedBox(height: 30.h),
-
-                      /// ANNUAL PLAN TILE
-                      Obx(
-                        () => _planTile(
-                          title: "ANNUAL PLAN",
-                          price: "\$119.99/YR",
-                          badge: "Save 33%",
-                          selected: controller.selected.value == "annual",
-                          onTap: () => controller.selected.value = "annual",
-                        ),
-                      ),
-
-                      SizedBox(height: 20.h),
-
-                      /// MONTHLY PLAN TILE
-                      Obx(
-                        () => _planTile(
-                          title: "MONTHLY PLAN",
-                          price: "\$14.99/MO",
-                          badge: null,
-                          selected: controller.selected.value == "monthly",
-                          onTap: () => controller.selected.value = "monthly",
-                        ),
-                      ),
-
-                      SizedBox(height: 9.h),
-
-                      TextButton(
-                        onPressed: () {
-                          // planController.restoreSubscription();
-                        },
+                      SingleChildScrollView(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
                           children: [
+                            /// Title
                             Text(
-                              'By clicking "Subscribe", you agree to the',
+                              'CHOOSE YOUR PLAN',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w500,
-                                height: 1.67,
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.toNamed(AppRoutes.subscriberAgreement);
-                              },
-                              child: Text(
-                                'RIGHT ROUTE SUBSCRIBER AGREEMENT',
-                                style: TextStyle(
-                                  color: AppColors.purple,
-                                  fontSize: 20,
-                                  fontFamily: 'League Gothic',
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.50,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 24),
-                      ButtonReusable(text: 'SUBSCRIBE', onPressed: () {  Get.toNamed(AppRoutes.homeNewRoutes);}, width: 250, height: 55,),
-                      SizedBox(height: 6),
-                      TextButton(
-                        onPressed: () {
-                          // planController.restoreSubscription();
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'RIGHT ROUTE SUBSCRIBER AGREEMENT',
-                              style: TextStyle(
-                                color: AppColors.purple,
-                                fontSize: 20,
+                                fontSize: 32,
                                 fontFamily: 'League Gothic',
                                 fontWeight: FontWeight.w400,
-                                height: 1.50,
+                                height: 0.88,
+                                letterSpacing: 1,
                               ),
+                              textAlign: TextAlign.center,
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: 65,),
-                      TextButton(
-                        onPressed: () {
-                          // planController.restoreSubscription();
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
+                            SizedBox(height: 21),
+
+                            /// Subtitle
                             Text(
-                              'Already a subscriber?',
+                              'Start your 7-day free trial and begin\nautomating your routes. Cancel anytime.',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
-                                height: 1.75,
+                                height: 1.56,
                               ),
+                              textAlign: TextAlign.center,
                             ),
+                            SizedBox(height: 18),
+
                             Text(
-                              'RESTORE SUBSCRIPTION',
+                              'Individual Plan Options',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
-                                color: const Color(0xFF9DACF5),
+                                color: Colors.white,
                                 fontSize: 20,
-                                fontFamily: 'League Gothic',
-                                fontWeight: FontWeight.w400,
-                                height: 1.40,
-                                letterSpacing: 1,
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w700,
+                                height: 1.10,
                               ),
                             ),
+
+                            SizedBox(height: 11),
+
+                            /// ANNUAL PLAN TILE
+                            Obx(
+                              () => _planTile(
+                                title: "ANNUAL PLAN",
+                                price: "\$119.99/YR",
+                                badge: "Save 33%",
+                                selected: controller.selected.value == "annual",
+                                onTap: () => controller.selected.value = "annual",
+                              ),
+                            ),
+
+                            SizedBox(height: 13),
+
+                            /// MONTHLY PLAN TILE
+                            Obx(
+                              () => _planTile(
+                                title: "MONTHLY PLAN",
+                                price: "\$14.99/MO",
+                                badge: null,
+                                selected: controller.selected.value == "monthly",
+                                onTap: () => controller.selected.value = "monthly",
+                              ),
+                            ),
+
+                            SizedBox(height: 10),
+
+                            TextButton(
+                              onPressed: () {
+                                // planController.restoreSubscription();
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'By clicking "Subscribe", you agree to the',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.67,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      Get.toNamed(AppRoutes.subscriberAgreement);
+                                    },
+                                    child: Text(
+                                      'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                                      style: TextStyle(
+                                        color: AppColors.purple,
+                                        fontSize: 20,
+                                        fontFamily: 'League Gothic',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.50,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 25),
+                            ButtonReusable(text: 'SUBSCRIBE', onPressed: () {  Get.toNamed(AppRoutes.homeNewRoutes);}, width: 250, height: 55,),
+                            SizedBox(height: 6),
+                            TextButton(
+                              onPressed: () {
+                                // planController.restoreSubscription();
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                                    style: TextStyle(
+                                      color: AppColors.purple,
+                                      fontSize: 20,
+                                      fontFamily: 'League Gothic',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.50,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 65,),
+                            TextButton(
+                              onPressed: () {
+                                // planController.restoreSubscription();
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Already a subscriber?',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w500,
+                                      height: 1.75,
+                                    ),
+                                  ),
+                                  Text(
+                                    'RESTORE SUBSCRIPTION',
+                                    style: TextStyle(
+                                      color: const Color(0xFF9DACF5),
+                                      fontSize: 20,
+                                      fontFamily: 'League Gothic',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.40,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            SizedBox(height: 49),
+
                           ],
                         ),
                       ),
-
-                      SizedBox(height: 49.h),
-
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -243,7 +244,7 @@ Widget _planTile({
     child: Container(
       width: 392,
       height: 76,
-      padding: EdgeInsets.symmetric(horizontal: 13.w),
+      padding: EdgeInsets.symmetric(horizontal: 13),
       decoration: BoxDecoration(
         color: selected ? AppColors.orange : AppColors.darkGray,
         // borderRadius: BorderRadius.circular(10.r),
@@ -305,16 +306,16 @@ Widget _planTile({
               if (badge != null)
                 Container(
                   margin: EdgeInsets.only(top: 6),
-                  padding: EdgeInsets.symmetric(horizontal: 9, vertical: 0),
+                  padding: EdgeInsets.symmetric(horizontal: 9, ),
 
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(5.r),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
                     badge,
                     style: TextStyle(
-                      color: AppColors.medGray,
+                      color: AppColors.darkGray,
                       fontSize: 16,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w700,

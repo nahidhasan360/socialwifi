@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../utils/colors.dart';
+
 void dialogReadInDirection (BuildContext context) {
   showDialog(
     context: context,
@@ -8,11 +10,12 @@ void dialogReadInDirection (BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.only(bottom: 370, left: 20, right: 20,),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 1 ,),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(10),
+          margin: EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
-            color: const Color(0xFF4A4A4A),
+            color: AppColors.medGray,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -26,8 +29,8 @@ void dialogReadInDirection (BuildContext context) {
                   /// Left SVG PDF icon
                   SvgPicture.asset(
                     "assets/icons/Mic-white.svg",
-                    width: 27,
-                    height: 27,
+                    width: 29,
+                    height: 29,
                     color: Colors.white,
                   ),
 

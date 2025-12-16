@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:right_routes/utils/colors.dart';
 
 void dialogDirection (BuildContext context) {
   showDialog(
@@ -8,11 +9,12 @@ void dialogDirection (BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: const EdgeInsets.only(bottom: 370, left: 10, right: 10,),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 1 ,),
         child: Container(
-          padding: const EdgeInsets.all(20),
+          margin: EdgeInsets.symmetric(horizontal: 5),
+          padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color(0xFF4A4A4A),
+            color: AppColors.medGray,
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -34,7 +36,7 @@ void dialogDirection (BuildContext context) {
                   /// Close button
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",height: 30,width: 30,),
+                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",height: 29,width: 29,),
                   ),
                 ],
               ),
@@ -45,7 +47,7 @@ void dialogDirection (BuildContext context) {
                   "This option allows you to type in the directions from your permit using your device's keyboard.",
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
+                    fontSize: 16,
                     height: 1.4,
                   ),
                 ),

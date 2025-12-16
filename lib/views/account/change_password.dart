@@ -30,12 +30,11 @@ class ChangePassword extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22.w),
+          padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(height: 40),
-
                 /// LOGO
                 Center(
                   child: Container(
@@ -49,7 +48,7 @@ class ChangePassword extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 39.h),
+                SizedBox(height: 39),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +65,7 @@ class ChangePassword extends StatelessWidget {
                       ),
                     ),
                     Divider(color: AppColors.white, thickness: 1),
-                    SizedBox(height: 12),
+                    SizedBox(height: 5),
                     Text(
                       'This replaces the password you use to log in to this app account.',
                       style: TextStyle(
@@ -78,16 +77,10 @@ class ChangePassword extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 27),
-
                     // Password Input section
                     _buildPasswordField(),
-
-                    SizedBox(height: 10.h),
-
                     // Password strength bar section (Animated)
                     _buildProgressBar(),
-
-                    SizedBox(height: 10.h),
 
                     // Password criteria section with validation
                     Obx(
@@ -107,7 +100,7 @@ class ChangePassword extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 28.h),
+                    SizedBox(height: 28),
 
 
 
@@ -116,7 +109,7 @@ class ChangePassword extends StatelessWidget {
                       text: 'SAVE & CONTINUE',
                       width: 500.w,
                     ),
-                    SizedBox(height: 19.h),
+                    SizedBox(height: 20),
                     ButtonReusable(
                       onPressed: () => '',
                       text: 'CANCEL',

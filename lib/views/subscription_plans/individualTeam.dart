@@ -24,7 +24,7 @@ class IndividualTeam extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22),
+          padding: EdgeInsets.all(20),
           child: Column(
             children: [
               SizedBox(height: 40),
@@ -35,7 +35,7 @@ class IndividualTeam extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(ImageManager.splashScreenLogo),
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -47,7 +47,7 @@ class IndividualTeam extends StatelessWidget {
 
                       /// Title
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
                         child: Text(
                           'INDIVIDUAL OR TEAM?',
                           style: TextStyle(
@@ -65,13 +65,12 @@ class IndividualTeam extends StatelessWidget {
 
                       /// Subtitle
                       Text(
-                        'Choose an option to start your 7-day free trial\nand begin automating your routes. Cancel\nanytime ',
+                        'Choose an option to start your 7-day free trial and begin automating your routes. Cancel anytime ',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 15,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
-                          height: 1.56,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -80,21 +79,21 @@ class IndividualTeam extends StatelessWidget {
                       /// Individual Button
                       ButtonReusable(
                         text: "INDIVIDUAL",
-                        width: 249.w,
-                        height: 54.h,
+                        width: 250,
+                        height: 55,
                         fontSize: 24,
                         onPressed: () {
                           // planController.selectIndividual();
                           Get.toNamed(AppRoutes.chooseYourPlan);
                         },
                       ),
-                      SizedBox(height: 16.h),
+                      SizedBox(height: 23),
 
                       /// Team Button
                       ButtonReusable(
                         text: "TEAM",
-                        width: 250.w,
-                        height: 55.h,
+                        width: 250,
+                        height: 55,
                         fontSize: 24,
                         onPressed: () {
                           // planController.selectIndividual();
@@ -126,7 +125,7 @@ class IndividualTeam extends StatelessWidget {
                               'RESTORE SUBSCRIPTION',
                               style: TextStyle(
                                 color: const Color(0xFF9DACF5),
-                                fontSize: 19.sp,
+                                fontSize: 20,
                                 fontFamily: 'League Gothic',
                                 fontWeight: FontWeight.w400,
                                 height: 1.40,

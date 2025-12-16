@@ -11,7 +11,7 @@ import 'package:right_routes/views/home/account_screen/account_screen.dart';
 // ============================================================
 // COLOR CONSTANTS
 // ============================================================
-class TeamManagerColors  {
+class TeamManagerColors {
   static const Color primaryOrange = Color(0xFFFF8742);
   static const Color primaryWhite = Color(0xFFFFFFFF);
   static const Color darkBackground = Color(0xFF1E1E1E);
@@ -114,9 +114,9 @@ class TeamManagerController extends GetxController {
       filteredUserList.value = userList
           .where(
             (user) =>
-        user.name.toLowerCase().contains(query.toLowerCase()) ||
-            user.email.toLowerCase().contains(query.toLowerCase()),
-      )
+                user.name.toLowerCase().contains(query.toLowerCase()) ||
+                user.email.toLowerCase().contains(query.toLowerCase()),
+          )
           .toList();
     }
   }
@@ -422,7 +422,7 @@ class _CustomScrollIndicatorState extends State<CustomScrollIndicator> {
       final indicatorTop = (_scrollPosition / maxScroll) * maxIndicatorTravel;
 
       return Positioned(
-        right: 5.w,
+        right: 5,
         top: indicatorTop.clamp(5, maxIndicatorTravel),
         child: GestureDetector(
           onVerticalDragUpdate: (details) {
@@ -449,11 +449,11 @@ class _CustomScrollIndicatorState extends State<CustomScrollIndicator> {
             } catch (e) {}
           },
           child: Container(
-            width: 5.w,
+            width: 9,
             height: indicatorHeight.clamp(5.h, widget.containerHeight),
             decoration: BoxDecoration(
               color: TeamManagerColors.primaryOrange,
-              borderRadius: BorderRadius.circular(10.r),
+              borderRadius: BorderRadius.circular(10),
             ),
           ),
         ),
@@ -487,7 +487,7 @@ class CustomDialogs {
                 color: Colors.white,
                 size: 32.sp,
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               Text(
                 'You are about to remove the selected User(s). Tap confirm to continue.',
                 textAlign: TextAlign.center,
@@ -561,11 +561,11 @@ class CustomDialogs {
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.symmetric(horizontal: 30.w),
+        insetPadding: EdgeInsets.symmetric(horizontal: 1),
         child: Container(
           decoration: BoxDecoration(
             color: AppColors.medGray,
-            borderRadius: BorderRadius.circular(8.r),
+            borderRadius: BorderRadius.circular(8),
           ),
           padding: EdgeInsets.all(18),
           child: Column(
@@ -574,11 +574,19 @@ class CustomDialogs {
             children: [
               Row(
                 children: [
-                  SvgPicture.asset("assets/icons/dulogbox_person.svg",width: 30,height: 30,),
+                  SvgPicture.asset(
+                    "assets/icons/dulogbox_person.svg",
+                    width: 30,
+                    height: 30,
+                  ),
                   Spacer(),
                   GestureDetector(
                     onTap: () => Get.back(),
-                    child: SvgPicture.asset("assets/icons/Close-X-Circle.svg",width: 30,height: 30,),
+                    child: SvgPicture.asset(
+                      "assets/icons/Close-X-Circle.svg",
+                      width: 30,
+                      height: 30,
+                    ),
                   ),
                 ],
               ),
@@ -586,7 +594,7 @@ class CustomDialogs {
               _buildInstructionText(
                 title: 'Single entry:',
                 content:
-                'Tap inside field below, type first/last name and email separated by a comma. ',
+                    'Tap inside field below, type first/last name and email separated by a comma. ',
               ),
               _buildInstructionText(
                 title: 'Example:',
@@ -597,7 +605,7 @@ class CustomDialogs {
               _buildInstructionText(
                 title: 'Multiple entries:',
                 content:
-                'Tap Import. List must be comma delineated in .CSV format, one user per line.',
+                    'Tap Import. List must be comma delineated in .CSV format, one user per line.',
               ),
               SizedBox(height: 12),
               Text(
@@ -627,7 +635,6 @@ class CustomDialogs {
           color: Colors.white,
           fontSize: 18,
           fontWeight: FontWeight.w400,
-
         ),
         children: [
           TextSpan(
@@ -673,10 +680,9 @@ class TeamManager extends StatelessWidget {
             slivers: [
               //  STICKY LOGO SECTION WITH BACKGROUND
               SliverAppBar(
-                pinned: true,
-                backgroundColor: const Color(0xFF1A1A1A).withOpacity(0.95), //Dark background
+                pinned: true, //Dark background
                 elevation: 0,
-                toolbarHeight: 144.h,
+                toolbarHeight: 144,
                 flexibleSpace: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -698,9 +704,9 @@ class TeamManager extends StatelessWidget {
                   ),
                 ),
               ),
-              // ✅ SCROLLABLE CONTENT
+              // SCROLLABLE CONTENT
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 22),
+                padding: EdgeInsets.symmetric(horizontal: 20),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     Column(
@@ -716,7 +722,7 @@ class TeamManager extends StatelessWidget {
                             height: 0.88,
                           ),
                         ),
-                        SizedBox(height: 13),
+                        SizedBox(height: 8),
                         Divider(color: AppColors.dividerColor, thickness: 1.h),
                         SizedBox(height: 3),
                         _buildSubscriptionInfo(),
@@ -760,12 +766,12 @@ class TeamManager extends StatelessWidget {
           'MY CURRENT PLAN',
           style: GoogleFonts.leagueGothic(
             color: AppColors.orange,
-            fontSize: 18,
+            fontSize: 24,
             fontWeight: FontWeight.w400,
             height: 1.56,
           ),
         ),
-        SizedBox(height: 8,),
+        SizedBox(height: 8),
 
         _buildInfoText('Team [sample data: 1,000 (up to 1,000 users)]'),
         _buildInfoText('Seats used: [sample data: 785 of 1,000]'),
@@ -774,25 +780,24 @@ class TeamManager extends StatelessWidget {
         Text(
           'Upgrade / Downgrade',
           style: GoogleFonts.lato(
-            color: const Color(0xFF9DACF5),
-            fontSize: 18,
+            color: AppColors.purple,
+            fontSize: 16,
             fontWeight: FontWeight.w400,
             height: 1.56,
           ),
         ),
-
       ],
     );
   }
 
   Widget _buildInfoText(String text) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 4.h),
+      padding: EdgeInsets.only(bottom: 8),
       child: Text(
         text,
         style: GoogleFonts.lato(
           color: Colors.white,
-          fontSize: 18,
+          fontSize: 16,
           fontWeight: FontWeight.w400,
           height: 1.56,
         ),
@@ -805,15 +810,15 @@ class TeamManager extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildSearchHeader(),
-        SizedBox(height: 16.h),
+        SizedBox(height: 16),
         _buildUserListTable(),
-        SizedBox(height: 16.h),
+        SizedBox(height: 16),
         _buildActionButtons(),
-        SizedBox(height: 24.h),
+        SizedBox(height: 24),
         _buildAddEditUsersSection(),
-        SizedBox(height: 25.h),
-        Divider(color: AppColors.dividerColor, thickness: 1.h),
-        SizedBox(height: 10.h),
+        SizedBox(height: 25),
+        Divider(color: AppColors.dividerColor, thickness: 1),
+        SizedBox(height: 10),
       ],
     );
   }
@@ -824,7 +829,7 @@ class TeamManager extends StatelessWidget {
         Text(
           'USERS',
           style: GoogleFonts.leagueGothic(
-            color: const Color(0xFFF58842),
+            color:AppColors.orange,
             fontSize: 24,
             fontWeight: FontWeight.w400,
             height: 1.17,
@@ -876,7 +881,7 @@ class TeamManager extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 8.w),
+            SizedBox(width: 8),
             GestureDetector(
               onTap: () {
                 controller.filterUsers(controller.searchController.text);
@@ -909,7 +914,6 @@ class TeamManager extends StatelessWidget {
 
   //-------------------------------------------------------------
 
-
   Widget _buildUserListTable() {
     return Obx(() {
       if (controller.filteredUserList.isEmpty) {
@@ -935,7 +939,7 @@ class TeamManager extends StatelessWidget {
                     child: Column(
                       children: List.generate(
                         controller.filteredUserList.length,
-                            (index) => _buildTableRow(index),
+                        (index) => _buildTableRow(index),
                       ),
                     ),
                   ),
@@ -974,7 +978,6 @@ class TeamManager extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-
               ),
             ),
           ),
@@ -1010,7 +1013,7 @@ class TeamManager extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(
-                      () => GestureDetector(
+                  () => GestureDetector(
                     onTap: () {
                       controller.toggleAllSelection();
                     },
@@ -1021,18 +1024,11 @@ class TeamManager extends StatelessWidget {
                         color: controller.isAllSelected.value
                             ? AppColors.orange
                             : Colors.transparent,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.5,
-                        ),
+                        border: Border.all(color: Colors.white, width: 1.5),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: controller.isAllSelected.value
-                          ? Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 16,
-                      )
+                          ? Icon(Icons.check, color: Colors.white, size: 16)
                           : null,
                     ),
                   ),
@@ -1043,8 +1039,10 @@ class TeamManager extends StatelessWidget {
                     _showUserManagementHelp();
                   },
                   child: SvgPicture.asset(
-                     "assets/icons/Question-Box-gray.svg",width: 24,height: 24,
-                  )
+                    "assets/icons/Question-Box-gray.svg",
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
               ],
             ),
@@ -1064,10 +1062,7 @@ class TeamManager extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.darkGray,
           border: Border(
-            bottom: BorderSide(
-              color: AppColors.medGray,
-              width: 1,
-            ),
+            bottom: BorderSide(color: AppColors.medGray, width: 1),
           ),
         ),
         child: Row(
@@ -1084,7 +1079,6 @@ class TeamManager extends StatelessWidget {
                   color: textColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-
                 ),
               ),
             ),
@@ -1099,7 +1093,6 @@ class TeamManager extends StatelessWidget {
                   color: textColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
-
                 ),
               ),
             ),
@@ -1136,18 +1129,11 @@ class TeamManager extends StatelessWidget {
                         color: user.isSelected
                             ? TeamManagerColors.primaryOrange
                             : Colors.transparent,
-                        border: Border.all(
-                          color: Colors.white,
-                          width: 1.5,
-                        ),
+                        border: Border.all(color: Colors.white, width: 1.5),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: user.isSelected
-                          ? Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 16,
-                      )
+                          ? Icon(Icons.close, color: Colors.white, size: 16)
                           : null,
                     ),
                   ),
@@ -1172,28 +1158,7 @@ class TeamManager extends StatelessWidget {
     });
   }
 
-
-
-
-
-
-
-
-
-
-
-
-    //-------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
+  //-------------------------------------------------------------
 
   // Widget _buildUserListTable() {
   //   return Obx(() {
@@ -1454,11 +1419,11 @@ class TeamManager extends StatelessWidget {
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.symmetric(horizontal: 30.w),
+        insetPadding: EdgeInsets.symmetric(horizontal: 1),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFF5A5A5A),
-            borderRadius: BorderRadius.circular(8.r),
+            color: AppColors.medGray,
+            borderRadius: BorderRadius.circular(8),
           ),
           padding: EdgeInsets.all(20.w),
           child: Column(
@@ -1468,7 +1433,9 @@ class TeamManager extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset(
-                    "assets/icons/Edit-Pencil-white.svg",height: 30,width: 30,
+                    "assets/icons/Edit-Pencil-white.svg",
+                    height: 30,
+                    width: 30,
                   ),
                   SizedBox(width: 12.w),
                   Expanded(
@@ -1476,7 +1443,7 @@ class TeamManager extends StatelessWidget {
                       'User Management',
                       style: GoogleFonts.lato(
                         color: Colors.white,
-                        fontSize: 18.sp,
+                        fontSize: 17,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -1486,21 +1453,23 @@ class TeamManager extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.all(4.w),
                       child: SvgPicture.asset(
-                        "assets/icons/Close-X-Circle.svg",height: 30,width: 30,
+                        "assets/icons/Close-X-Circle.svg",
+                        height: 30,
+                        width: 30,
                       ),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               Text(
                 '• Click the checkbox to select individual users\n'
-                    '• Click the checkbox in the header to select/deselect all users\n'
-                    '• Click the pencil icon to edit a user\'s information\n'
-                    '• Select users and click action buttons to perform bulk operations',
+                '• Click the checkbox in the header to select/deselect all users\n'
+                '• Click the pencil icon to edit a user\'s information\n'
+                '• Select users and click action buttons to perform bulk operations',
                 style: GoogleFonts.lato(
                   color: Colors.white,
-                  fontSize: 18,
+                  fontSize: 16,
                   fontWeight: FontWeight.w400,
                   height: 1.5,
                 ),
@@ -1558,9 +1527,9 @@ class TeamManager extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 3),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
         decoration: BoxDecoration(
-          color:AppColors.orange,
+          color: AppColors.orange,
           borderRadius: BorderRadius.circular(5),
         ),
         child: Center(
@@ -1572,8 +1541,6 @@ class TeamManager extends StatelessWidget {
               fontSize: 14,
               fontFamily: 'Lato',
               fontWeight: FontWeight.w800,
-
-
             ),
           ),
         ),
@@ -1608,7 +1575,7 @@ class TeamManager extends StatelessWidget {
                   CustomDialogs.showHelpDialog();
                 },
                 child: Center(
-                  child: SvgPicture.asset("assets/icons/Question-Box-gray.svg"),
+                  child: SvgPicture.asset("assets/icons/Question-Box-gray.svg",height: 24,width: 24,),
                 ),
               ),
             ],

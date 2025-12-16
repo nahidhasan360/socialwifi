@@ -62,6 +62,7 @@ class EnterDirections extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              SizedBox(height: 4),
               // ========== Fixed Logo Section ==========
               Center(
                 child: Container(
@@ -70,7 +71,7 @@ class EnterDirections extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage(ImageManager.splashScreenLogo),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
@@ -82,7 +83,7 @@ class EnterDirections extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 29),
+                      SizedBox(height: 26),
                       // ========== Title with Info Icon ==========
                       Row(
                         children: [
@@ -102,7 +103,7 @@ class EnterDirections extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 9),
 
                       // ========== First Instruction Paragraph ==========
                       Text(

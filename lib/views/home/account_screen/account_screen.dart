@@ -141,7 +141,7 @@ class AccountScreen extends StatelessWidget {
             // Scrollable Body
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                padding: EdgeInsets.symmetric(horizontal: 18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -251,13 +251,13 @@ class AccountScreen extends StatelessWidget {
             height: 1.56,
           ),
         ),
-        SizedBox(width: 6.w),
+        SizedBox(width: 6),
         Obx(() {
           return GestureDetector(
             onTap: c.togglePassword,
             child: Icon(
               c.showPassword.value ? Icons.visibility_off : Icons.visibility,
-              size: 24.sp,
+              size: 24,
               color: AppColors.white,
             ),
           );
@@ -375,21 +375,23 @@ class AccountScreen extends StatelessWidget {
                 TextSpan(
                   text: "Team Plans: ",
                   style: TextStyle(
-                    color: const Color(0xFFF58842),
+                    color: AppColors.orange,
                     fontSize: 18,
                     fontFamily: 'Lato',
                     fontWeight: FontWeight.w500,
-                    height: 1.56, overflow: TextOverflow.ellipsis
+                    height: 1.56,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   children: [
                     TextSpan(
                       text: "Upgrade or Downgrade",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 15,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
-                        height: 1.56, overflow: TextOverflow.ellipsis
+                        height: 1.56,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -424,23 +426,22 @@ class AccountScreen extends StatelessWidget {
                 TextSpan(
                   text: "Single User Plan: ",
                   style: TextStyle(
-                    color: const Color(0xFFF58842),
+                    color: AppColors.orange,
                     fontSize: 18,
                     fontFamily: 'Lato',
                     fontWeight: FontWeight.w500,
                     height: 1.56,
-                      overflow: TextOverflow.ellipsis
+                    overflow: TextOverflow.ellipsis,
                   ),
                   children: [
                     TextSpan(
                       text: "Upgrade to Yearly Plan",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 17,
+                        fontSize: 14,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
-                        overflow: TextOverflow.ellipsis
-
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -468,7 +469,7 @@ class AccountScreen extends StatelessWidget {
         Text(
           "CUSTOMER CARE",
           style: TextStyle(
-            color: const Color(0xFFF58842),
+            color: AppColors.orange,
             fontSize: 24,
             fontFamily: 'League Gothic',
             fontWeight: FontWeight.w400,
@@ -544,7 +545,7 @@ class AccountScreen extends StatelessWidget {
           title: "Delete Account",
           onTap: () {
             // Navigate to delete account screen
-            Get.toNamed(AppRoutes.enterEmailScreen);
+            Get.toNamed(AppRoutes.areYouSureDeleteThisAccount);
           },
         ),
       ],

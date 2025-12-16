@@ -23,7 +23,7 @@ class WeLoggedYou extends StatelessWidget {
         ),
 
         child: Padding(
-          padding: EdgeInsets.all(22),
+          padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,9 +42,9 @@ class WeLoggedYou extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 19.h),
+                SizedBox(height: 21),
                 SizedBox(
-                  width: 392.w,
+                  width: 392,
                   child: Text(
                     'We’ve logged you in',
                     style: TextStyle(
@@ -56,19 +56,19 @@ class WeLoggedYou extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 19.h),
+                SizedBox(height: 21),
                 SizedBox(
                   child: Text(
                     'You can now continue to Right Route. If you ve forgotten your password, you can choose a new one now or update it from your account Settings another time.',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                SizedBox(height: 27.h),
+                SizedBox(height: 29),
 
                 // ======================== BUTTON ======================
                 /// CONTINUE BUTTON
@@ -87,7 +87,7 @@ class WeLoggedYou extends StatelessWidget {
                     height: 55,
                     decoration: BoxDecoration(
                       color: AppColors.orange,
-                      borderRadius: BorderRadius.circular(10.r),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     alignment: Alignment.center,
                     child: Text(
@@ -105,7 +105,7 @@ class WeLoggedYou extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 23.h),
+                SizedBox(height: 25),
 
                 GestureDetector(
                   onTap: () {
@@ -116,7 +116,7 @@ class WeLoggedYou extends StatelessWidget {
                     height: 55,
                     decoration: BoxDecoration(
                       color: AppColors.medGray,
-                      borderRadius: BorderRadius.circular(10.r),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     alignment: Alignment.center,
                     child: Text(

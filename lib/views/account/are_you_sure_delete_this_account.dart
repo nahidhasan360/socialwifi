@@ -41,12 +41,12 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 39.h),
+            SizedBox(height: 34),
 
             /// SCROLLABLE CONTENT
             Expanded(
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 22.w),
+                padding: EdgeInsets.symmetric(horizontal: 18),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,10 +66,18 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
                         ),
                       ),
                       Divider(color: AppColors.dividerColor, thickness: 1),
-
-                      SizedBox(height: 14.h),
-
-                      /// ---------------------------
+                      Text(
+                        'Right Route - Oversized Load Navigator',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.w700,
+                          height: 1.40,
+                          letterSpacing: 1,
+                        ),
+                      ),
+                      SizedBox(height: 17),
                       /// TOP IMPORTANT SECTION
                       /// ---------------------------
                       RichText(
@@ -81,7 +89,7 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
                                 color: AppColors.orange,
                                 fontSize: 20,
                                 fontFamily: 'Lato',
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                                 height: 1.40,
                                 letterSpacing: 1,
                               ),
@@ -91,7 +99,7 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
                               "You need to cancel your subscription in the App or Google Play store first before deleting the account in this app. Deleting this account does not stop your subscription billing but you will lose app login access and all of your data including Route History.\n\n",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w700,
                                 height: 1.40,
@@ -103,7 +111,7 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
                               "When you have canceled your subscription, the routing features of this app will inactive but you will still have access to your Route History and Settings until you delete this account. You will no longer be billed.",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w700,
                                 height: 1.40,
@@ -125,7 +133,7 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
                                 color: AppColors.white,
                                 fontSize: 20,
                                 fontFamily: 'Lato',
-                                fontWeight: FontWeight.w700,
+                                fontWeight: FontWeight.bold,
                                 height: 1.40,
                                 letterSpacing: 1,
                               ),
@@ -134,7 +142,7 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
                               text: "If you purchased a single user Yearly plan, your subscription will terminated at the end of its billing cycle. We don't offer refunds for unused months.",
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w700,
                                 height: 1.40,
@@ -145,25 +153,25 @@ class AreYouSureDeleteThisAccount extends StatelessWidget {
                         ),
                       ),
 
-                      SizedBox(height: 20.h),
+                      SizedBox(height: 20),
 
                       ButtonReusable(
-                        onPressed: () => AppRoutes.emailSaved,
+                        onPressed: () => Get.toNamed(AppRoutes.accountDelete),
                         text: 'YES, DELETE THIS ACCOUNT',
                         width: 500.w,
                       ),
 
-                      SizedBox(height: 19.h),
+                      SizedBox(height: 21),
 
                       ButtonReusable(
-                        onPressed: () => '',
+                        onPressed: () => Get.toNamed(AppRoutes.accountScreen),
                         text: 'NO. I’LL KEEP IT',
                         width: 500.w,
                         fontSize: 24,
                         backgroundColor: AppColors.medGray,
                       ),
 
-                      SizedBox(height: 20.h), // Bottom padding
+                      SizedBox(height: 20), // Bottom padding
                     ],
                   ),
                 ),

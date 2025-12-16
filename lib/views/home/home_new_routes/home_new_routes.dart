@@ -31,11 +31,10 @@ class HomeNewRoutes extends StatelessWidget {
         child: Container(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
                 children: [
-                  SizedBox(height: 40),
-
+                  SizedBox(height: 50),
                   /// Logo
                   Container(
                     width: 225,
@@ -68,7 +67,7 @@ class HomeNewRoutes extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 16,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
                         height: 1.44,
@@ -133,7 +132,7 @@ class HomeNewRoutes extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: CustomNavbar() ,
+      bottomNavigationBar: CustomNavbar(),
     );
   }
 }

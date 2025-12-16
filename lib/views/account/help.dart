@@ -27,98 +27,104 @@ class Help extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          child: Padding(
-            padding: EdgeInsets.all(22.w),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 40),
-
-                  /// LOGO
-                  Center(
-                    child: Container(
-                      width: 225,
-                      height: 112,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(ImageManager.splashScreenLogo),
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+          child: Column(
+            children: [
+              SizedBox(height: 45),
+              /// LOGO
+              Center(
+                child: Container(
+                  width: 225,
+                  height: 112,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(ImageManager.splashScreenLogo),
+                      fit: BoxFit.contain,
                     ),
                   ),
-                  SizedBox(height: 32.h),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 397,
-                        child: Text(
-                          'Help',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 28.sp,
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
-                            letterSpacing: 1,
-                          ),
-                        ),
-                      ),
-                      SizedBox( height: 13.h,),
-                      Divider(color: AppColors.dividerColor, thickness: 1),
-                      SizedBox( height: 17.h,),
-                      RichText(
-                        text: TextSpan(
+                ),
+              ),
+
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 29),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextSpan(
-                              text: "TEAM PLAN USERS: ",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w800,
-                                height: 1.44,
+                            SizedBox(
+                              width: 397,
+                              child: Text(
+                                'Help',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 28.sp,
+                                  fontFamily: 'Lato',
+                                  fontWeight: FontWeight.w700,
+                                  height: 1,
+                                  letterSpacing: 1,
+                                ),
                               ),
                             ),
-                            TextSpan(
-                              text: "If you cannot login using your email, it's likely the company app administrator has removed you from this app plan. If you think this is an error, please contact them for more information. If you were removed and still wish to use this app, you are welcome to subscribe to our single user plan here.",
+                            SizedBox( height: 13.h,),
+                            Divider(color: AppColors.dividerColor, thickness: 1),
+                            SizedBox( height: 17.h,),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: "TEAM PLAN USERS: ",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w800,
+                                      height: 1.44,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "If you cannot login using your email, it's likely the company app administrator has removed you from this app plan. If you think this is an error, please contact them for more information. If you were removed and still wish to use this app, you are welcome to subscribe to our single user plan here.",
+                                    style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.44,
+                              ),
+                            ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 124.h),
+
+
+
+                            Text(
+                              'More content Coming...',
                               style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontFamily: 'Lato',
-                              fontWeight: FontWeight.w500,
-                              height: 1.44,
-                        ),
-                      ),
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.w400,
+                                height: 1.40,
+                              ),
+                            ),
+                            SizedBox(height: 89 .h),
+                            ButtonReusable(
+                              onPressed: () =>    Get.toNamed(AppRoutes.getStartedScreen),
+                              text: 'DONE',
+                              width: 500.w,
+                            ),
                           ],
                         ),
-                      ),
-                      SizedBox(height: 124.h),
-
-
-
-                      Text(
-                        'More content Coming...',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'Lato',
-                          fontWeight: FontWeight.w400,
-                          height: 1.40,
-                        ),
-                      ),
-                      SizedBox(height: 89 .h),
-                      ButtonReusable(
-                        onPressed: () =>    Get.toNamed(AppRoutes.getStartedScreen),
-                        text: 'DONE',
-                        width: 500.w,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ),
 

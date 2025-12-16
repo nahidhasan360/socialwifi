@@ -5,9 +5,9 @@ import 'package:right_routes/utils/colors.dart';
 class SimpleImportButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
-  final  VoidCallback? onTab;
+  final VoidCallback? onTab;
 
-  final String leftIcon;   // SVG or PNG
+  final String leftIcon; // SVG or PNG
   final String? rightIcon; // SVG only
 
   const SimpleImportButton({
@@ -15,7 +15,8 @@ class SimpleImportButton extends StatelessWidget {
     required this.text,
     required this.onTap,
     required this.leftIcon,
-    this.rightIcon, this.onTab,
+    this.rightIcon,
+    this.onTab,
   });
 
   @override
@@ -31,8 +32,8 @@ class SimpleImportButton extends StatelessWidget {
             height: 64,
             width: 296,
             decoration: BoxDecoration(
-              color: const Color(0xFFFF8A3D),
-              borderRadius: BorderRadius.circular(10    ),
+              color: AppColors.orange,
+              borderRadius: BorderRadius.circular(10),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
@@ -64,27 +65,11 @@ class SimpleImportButton extends StatelessWidget {
             right: 7,
             child: GestureDetector(
               onTap: onTab,
-              child: Container(
-                height: 22,
-                width: 22,
-                decoration: BoxDecoration(
-                  color: AppColors.medGray,
-                  border: BoxBorder.all(color: AppColors.white, width: 2),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Center(
-                  child: Icon(
-                    Icons.question_mark,
-                    size: 18,
-                    color: Colors.white,
-                  ),
-                ),
+              child: Center(
+                child: SvgPicture.asset("assets/icons/Question-Box-gray.svg"),
               ),
             ),
-          )
-
-
-
+          ),
         ],
       ),
     );
@@ -96,15 +81,10 @@ class SimpleImportButton extends StatelessWidget {
         leftIcon,
         height: 30,
         width: 30,
-        colorFilter:
-        const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+        colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
       );
     } else {
-      return Image.asset(
-        leftIcon,
-        height: 30,
-        width: 30,
-      );
+      return Image.asset(leftIcon, height: 30, width: 30);
     }
   }
 }

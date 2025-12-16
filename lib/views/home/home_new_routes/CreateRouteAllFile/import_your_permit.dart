@@ -100,7 +100,7 @@ class ImportYourPermit extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
 
-                      // ========== Second Instruction Paragraph ==========
+                      // ========== Second Instruction  Paragraph ==========
                       Text(
                         'Edit as needed or import another permit before tapping Continue.',
                         style: TextStyle(

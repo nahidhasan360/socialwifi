@@ -23,7 +23,7 @@ class AccountDelete extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22.w),
+          padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -42,17 +42,17 @@ class AccountDelete extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 32.h),
+                SizedBox(height: 32),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       width: 397,
                       child: Text(
-                        'Your Right Route account has\nbeen deleted',
+                        'Your Right Route account has been delete d',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28.sp,
+                          fontSize: 24,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w700,
                           height: 1,
@@ -60,20 +60,20 @@ class AccountDelete extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 13.h),
+                    SizedBox(height: 13),
                     Divider(color: AppColors.dividerColor, thickness: 1),
-                    SizedBox(height: 17.h),
+                    SizedBox(height: 10),
                     Text(
                       'Please be sure to cancel your paid subscription at the app store you purchased it from.',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 18,
+                        fontSize: 16,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
                         height: 1.44,
                       ),
                     ),
-                    SizedBox(height: 359.h),
+                    SizedBox(height: 290),
 
                     ButtonReusable(
                       onPressed: () => Get.back(),

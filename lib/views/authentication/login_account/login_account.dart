@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/utils/colors.dart';
+import '../../../global_widget/custom_troggle_button.dart';
 import '../../../utils/assets_manager.dart';
 // import 'package:get/get.dart'; // controller line (commented)
 // final controller = Get.put(LoginController()); // one‑line controller (commented)
 import 'package:get/get.dart';
 
 class LoginAccount extends StatelessWidget {
-  const LoginAccount({super.key});
+   LoginAccount({super.key});
+  final loginTroggleController = Get.put(ToggleController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,37 +28,37 @@ class LoginAccount extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22),
+          padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(height: 15.h),
+                  SizedBox(height: 21),
                   SizedBox(
                     child: Container(
-                      width: 220.w,
-                      height: 108.h,
+                      width: 225,
+                      height: 112,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage(ImageManager.splashScreenLogo),
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
                   ),
 
-                  SizedBox(height: 18.h),
+                  SizedBox(height: 21),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       /// TITLE
                       SizedBox(
                         child: Text(
-                          'Good News you already have\na Right Route account',
+                          'Good News you already have a Right Route account',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: 25.sp,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w700,
                             height: 1.12,
@@ -71,13 +73,12 @@ class LoginAccount extends StatelessWidget {
                         'Since you’ve already used your email to sign up for this service, you can now log in using',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                           height: 1.44,
                         ),
                       ),
-
                       /// EMAIL
                       Row(
                         children: [
@@ -85,7 +86,7 @@ class LoginAccount extends StatelessWidget {
                             'tanvirhasan890@gmail.com', // static
                             style: TextStyle(
                               color: AppColors.white,
-                              fontSize: 18.sp,
+                              fontSize: 18,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.bold,
                               height: 1.44,
@@ -110,7 +111,7 @@ class LoginAccount extends StatelessWidget {
                         ],
                       ),
 
-                      SizedBox(height: 14.h),
+                      SizedBox(height: 14),
                       SizedBox(
                         child: Text(
                           'Enter your current password to log in.',
@@ -123,11 +124,11 @@ class LoginAccount extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8.h),
+                      SizedBox(height: 9),
 
                       /// PASSWORD FIELD
                       Container(
-                        height: 48.h,
+                        height: 57,
                         padding: EdgeInsets.symmetric(horizontal: 14.w),
                         decoration: BoxDecoration(
                           color: AppColors.medGray,
@@ -166,6 +167,8 @@ class LoginAccount extends StatelessWidget {
                       SizedBox(height: 24.h),
 
                       /// ============ LOGIN BUTTON + FINGERPRINT ================
+                      ///
+                      ///
                       Row(
                         children: [
                           Expanded(
@@ -216,20 +219,26 @@ class LoginAccount extends StatelessWidget {
 
                       SizedBox(height: 15.h),
 
-                      /// TOUCH ID SWITCH
+
+
                       Row(
                         children: [
-                          // Obx(() => Switch(
-                          //   value: controller.useTouchId.value,
-                          //   onChanged: (v) => controller.useTouchId.value = v,
-                          //   activeColor: Colors.orange,
-                          // )),
-                          Switch(
-                            value: true,
-                            onChanged: (v) {},
-                            activeColor: Colors.orange,
+                          CustomToggleSwitchAdvanced(
+                            height: 24,
+                            width: 51,
+                            value: loginTroggleController.isEnabled,
+                            onChanged: (val) {
+                              print('Toggle: $val');
+                            },
+                            activeSvgPath:
+                            'assets/icons/Check-orange.svg', // SVG path
+                            svgColor: AppColors.orange, // Icon color
+                            activeColor: Color(0xFFFF8C42), // Track color
+                            inactiveColor: Colors.white.withOpacity(
+                              0.3,
+                            ), // OFF color
                           ),
-                          SizedBox(width: 6.w),
+                          SizedBox(width: 7),
                           Text(
                             'Use touch ID',
                             style: TextStyle(
@@ -237,11 +246,13 @@ class LoginAccount extends StatelessWidget {
                               fontSize: 16,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.w500,
-                              height: 1.75,
                             ),
                           ),
                         ],
                       ),
+
+
+                      /// TOUCH ID SWITCH
 
                       SizedBox(height: 45.h),
                       Column(
