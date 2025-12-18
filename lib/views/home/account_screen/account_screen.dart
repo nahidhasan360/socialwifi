@@ -145,14 +145,14 @@ class AccountScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 20),
                     _buildSectionTitle("Manage Account"),
                     _buildDivider(),
                     _buildEmailSection(),
                     _buildPasswordSection(),
-                    SizedBox(height: 1.h),
+                    SizedBox(height: 1),
                     _buildRouteHistory(),
-                    SizedBox(height: 1.h),
+                    SizedBox(height: 1),
                     _buildDivider(),
                     _buildCurrentPlan(),
                     _buildDivider(),
@@ -160,11 +160,11 @@ class AccountScreen extends StatelessWidget {
                     _buildDivider(),
                     _buildLegalSection(),
                     _buildDivider(),
-                    SizedBox(height: 12.h),
+                    SizedBox(height: 12),
                     _buildVersion(),
-                    SizedBox(height: 18.h),
+                    SizedBox(height: 18),
                     _buildExitButton(),
-                    SizedBox(height: 60.h),
+                    SizedBox(height: 60),
                   ],
                 ),
               ),
@@ -323,7 +323,7 @@ class AccountScreen extends StatelessWidget {
             letterSpacing: 1.50,
           ),
         ),
-        SizedBox(height: 8.h),
+        SizedBox(height: 8),
         Text(
           "[ Plan name here ]",
           style: TextStyle(
@@ -354,7 +354,7 @@ class AccountScreen extends StatelessWidget {
             height: 1.56,
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 10),
         _buildPlanActions(),
       ],
     );
@@ -414,7 +414,7 @@ class AccountScreen extends StatelessWidget {
             Get.toNamed(AppRoutes.teamManager);
           },
         ),
-        SizedBox(height: 8.h),
+        SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -465,7 +465,7 @@ class AccountScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 16.h),
+        SizedBox(height: 16),
         Text(
           "CUSTOMER CARE",
           style: TextStyle(
@@ -477,7 +477,7 @@ class AccountScreen extends StatelessWidget {
             letterSpacing: 1.50,
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 10),
         RRRightArrowTile(
           title: "Contact Support",
           onTap: () {
@@ -500,7 +500,7 @@ class AccountScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 17.h),
+        SizedBox(height: 17),
         Text(
           "LEGAL",
           style: TextStyle(
@@ -512,7 +512,7 @@ class AccountScreen extends StatelessWidget {
             letterSpacing: 1.50,
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 10),
         RRRightArrowTile(
           title: "Privacy Policy",
           onTap: () {

@@ -1483,7 +1483,7 @@ class TeamManager extends StatelessWidget {
         child: Text(
           'No users found',
           style: GoogleFonts.lato(
-            color: TeamManagerColors.primaryWhite.withOpacity(0.6),
+            color: TeamManagerColors.primaryWhite.withValues(alpha: 0.6),
             fontSize: 16,
           ),
         ),
@@ -1606,7 +1606,7 @@ class TeamManager extends StatelessWidget {
                         decoration: InputDecoration(
                           hintText: 'john@truckcompany.com',
                           hintStyle: GoogleFonts.lato(
-                            color: Colors.black.withOpacity(0.4),
+                            color: Colors.black.withValues(alpha: 0.4),
                             fontSize: 16,
                           ),
                           border: InputBorder.none,

@@ -223,7 +223,7 @@ Widget emailInputField(changeEmailController controller) {
               controller.obscure.value
                   ? Icons.visibility_off
                   : Icons.visibility,
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               size: 24.sp,
             ),
           ),

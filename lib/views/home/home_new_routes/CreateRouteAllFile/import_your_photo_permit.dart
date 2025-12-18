@@ -171,7 +171,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
           Get.snackbar(
             'Success',
             'Photo captured successfully',
-            backgroundColor: Colors.green.withOpacity(0.8),
+            backgroundColor: Colors.green.withValues(alpha: 0.8),
             colorText: Colors.white,
             snackPosition: SnackPosition.TOP,
             margin: EdgeInsets.all(16),
@@ -186,7 +186,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
         Get.snackbar(
           'Permission Denied',
           'Camera access is required to take photos',
-          backgroundColor: Colors.orange.withOpacity(0.8),
+          backgroundColor: Colors.orange.withValues(alpha: 0.8),
           colorText: Colors.white,
           snackPosition: SnackPosition.TOP,
           margin: EdgeInsets.all(16),
@@ -197,7 +197,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
       Get.snackbar(
         'Error',
         'Failed to capture photo',
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
         snackPosition: SnackPosition.TOP,
         margin: EdgeInsets.all(16),
@@ -233,7 +233,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
           Get.snackbar(
             'Success',
             'Image imported successfully',
-            backgroundColor: Colors.green.withOpacity(0.8),
+            backgroundColor: Colors.green.withValues(alpha: 0.8),
             colorText: Colors.white,
             snackPosition: SnackPosition.TOP,
             margin: EdgeInsets.all(16),
@@ -248,7 +248,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
         Get.snackbar(
           'Permission Denied',
           'Photo library access is required to import images',
-          backgroundColor: Colors.orange.withOpacity(0.8),
+          backgroundColor: Colors.orange.withValues(alpha: 0.8),
           colorText: Colors.white,
           snackPosition: SnackPosition.TOP,
           margin: EdgeInsets.all(16),
@@ -259,7 +259,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
       Get.snackbar(
         'Error',
         'Failed to import image',
-        backgroundColor: Colors.red.withOpacity(0.8),
+        backgroundColor: Colors.red.withValues(alpha: 0.8),
         colorText: Colors.white,
         snackPosition: SnackPosition.TOP,
         margin: EdgeInsets.all(16),
@@ -549,7 +549,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
                                 Get.snackbar(
                                   'No Image',
                                   'Please import a permit image first',
-                                  backgroundColor: Colors.orange.withOpacity(
+                                  backgroundColor: Colors.orange.withValues(alpha:
                                     0.8,
                                   ),
                                   colorText: Colors.white,

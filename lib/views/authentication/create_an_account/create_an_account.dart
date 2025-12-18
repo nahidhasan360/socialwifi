@@ -8,7 +8,6 @@ import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/utils/colors.dart';
 import '../../../global_widget/custom_troggle_button.dart';
 import '../../../utils/assets_manager.dart';
-import '../terms_of_service/terms_of_service.dart';
 import 'create_password_controller.dart';
 
 class CreateAnAccount extends StatelessWidget {

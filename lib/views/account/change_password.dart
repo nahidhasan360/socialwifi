@@ -4,7 +4,6 @@ import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/button_reusable.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/colors.dart';
-import 'package:right_routes/views/authentication/login_account/login_account.dart';
 import '../../../utils/assets_manager.dart';
 
 

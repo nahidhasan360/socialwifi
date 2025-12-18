@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/button_reusable.dart';
-import 'package:right_routes/global_widgets/custom_buttons.dart';
-
 import '../../../utils/assets_manager.dart';
 import '../../global_widgets/custom_navbar.dart';
 import '../../utils/colors.dart';
@@ -174,7 +172,7 @@ Widget emailInputField(changeEmailController controller) {
               controller.obscure.value
                   ? Icons.visibility_off
                   : Icons.visibility,
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
               size: 24.sp,
             ),
           ),
