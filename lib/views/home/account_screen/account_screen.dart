@@ -279,7 +279,7 @@ class AccountScreen extends StatelessWidget {
                 c.showPassword.value ? "mypassword123" : "***************",
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 31,
+                  fontSize: 25,
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.w700,
                   height: 0.88,

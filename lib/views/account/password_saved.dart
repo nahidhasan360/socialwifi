@@ -32,7 +32,7 @@ class PasswordSaved extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22.w),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -51,7 +51,7 @@ class PasswordSaved extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 25.h),
+                SizedBox(height: 25),
 
                 /// LOGO
                 Center(
@@ -64,33 +64,31 @@ class PasswordSaved extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 21.h),
+                SizedBox(height: 21),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 397,
                       child: Text(
                         'Your new Right Route password is saved',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28.sp,
+                          fontSize: 28,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w700,
-                          height: 1,
                           letterSpacing: 1,
                         ),
                       ),
                     ),
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 3),
                     Divider(color: AppColors.dividerColor, thickness: 1),
-                    SizedBox(height: 33.h),
+                    SizedBox(height: 34),
 
                     ButtonReusable(
                       onPressed: () => Get.toNamed(AppRoutes.accountScreen),
                       text: 'RETURN',
-                      width: 500.w,
+                      width: double.infinity,
                     ),
                   ],
                 ),

@@ -27,7 +27,7 @@ class ChangeEmail extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -46,7 +46,7 @@ class ChangeEmail extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 39.h),
+                SizedBox(height: 39),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

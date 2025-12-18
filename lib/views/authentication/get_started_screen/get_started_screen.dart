@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_buttons.dart';
+import 'package:right_routes/utils/colors.dart';
 import '../../../utils/assets_manager.dart';
 
 class GetStartedScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class GetStartedScreen extends StatelessWidget {
     // Common Text Styles
      TextStyle titleStyle = TextStyle(
       color: Colors.white,
-      fontSize: 32.sp,
+      fontSize: 32,
       fontFamily: 'League Gothic',
       fontWeight: FontWeight.w400,
       height: 1.25,
@@ -23,7 +24,7 @@ class GetStartedScreen extends StatelessWidget {
 
      TextStyle bodyStyle = TextStyle(
        color: Colors.white,
-       fontSize: 20.sp,
+       fontSize: 20,
        fontFamily: 'Lato',
        fontWeight: FontWeight.w500,
        height: 1.40,
@@ -50,7 +51,7 @@ class GetStartedScreen extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-                SizedBox(height: 40.h,),
+                SizedBox(height: 40,),
               /// Sticky Logo
               Container(
                 width: 225,
@@ -58,7 +59,7 @@ class GetStartedScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(ImageManager.splashScreenLogo),
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -70,10 +71,10 @@ class GetStartedScreen extends StatelessWidget {
                     mainAxisAlignment:  MainAxisAlignment.center,
                     children: [
                       SizedBox(height: 30),
-          
+
                       /// Title
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text.rich(
                           TextSpan(
                             text:
@@ -83,8 +84,8 @@ class GetStartedScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(height: 19.h),
-          
+                      SizedBox(height: 19),
+
                       /// Description
                       SizedBox(
                         width: 330,
@@ -95,7 +96,7 @@ class GetStartedScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 19),
-          
+
                       /// Companies Info
                       SizedBox(
                         width: 263,
@@ -105,20 +106,18 @@ class GetStartedScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(height: 19.h),
-          
+                      SizedBox(height: 19),
+
                       /// Get Started Button
                       CustomButton(
                         text: "Get Started",
-                        width: 134,
-                        height: 58,
                         fontSize: 24,
                         onPressed: () {
                           Get.toNamed(AppRoutes.enterEmailScreen);
                         },
                       ),
-                      SizedBox(height: 100),
-          
+                      SizedBox(height: 130),
+
                       /// Already a Subscriber
                       SizedBox(
                         width: 160,
@@ -126,23 +125,22 @@ class GetStartedScreen extends StatelessWidget {
                           TextSpan(
                             children: [
                               const TextSpan(
-                                text: 'Already a Subscriber?\n',
+                                text: 'Already a Subscriber?',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontFamily: 'Lato',
                                   fontWeight: FontWeight.w500,
-                                  height: 1.75,
+
                                 ),
                               ),
                               TextSpan(
                                 text: 'SIGN IN ',
-                                style: const TextStyle(
-                                  color: Color(0xFF9DACF5),
+                                style:  TextStyle(
+                                  color: AppColors.purple,
                                   fontSize: 20,
                                   fontFamily: 'League Gothic',
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.40,
+                                  fontWeight: FontWeight.w500,
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {

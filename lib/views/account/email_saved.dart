@@ -37,7 +37,7 @@ class EmailSaved extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22.w),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -56,7 +56,7 @@ class EmailSaved extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 25.h),
+                SizedBox(height: 25),
                 /// LOGO
                 Center(
                   child: SizedBox(
@@ -64,11 +64,11 @@ class EmailSaved extends StatelessWidget {
                     height: 62,
                     child: SvgPicture.asset(
                       SvgManager.blueIcon,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-                SizedBox(height: 21.h),
+                SizedBox(height: 21),
 
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,7 +79,7 @@ class EmailSaved extends StatelessWidget {
                         'Your new Right Route email is saved',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 28.sp,
+                          fontSize: 28,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w700,
                           height: 1,
@@ -87,9 +87,8 @@ class EmailSaved extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox( height: 5.h,),
+                    SizedBox( height: 5),
                     Divider(color: AppColors.dividerColor, thickness: 1),
-
                     Text(
                       'New email:',
                       style: TextStyle(
@@ -100,24 +99,24 @@ class EmailSaved extends StatelessWidget {
                         height: 1.44,
                       ),
                     ),
-                    SizedBox(height: 14.h),
+                    SizedBox(height: 14),
 
                     Text(
                       'tanvirhasancr@gmail.com',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20.sp,
+                        fontSize: 18,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w800,
                         height: 1.40,
                       ),
                     ),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 30),
 
                     ButtonReusable(
-                      onPressed: () => Get.back(),
+                      onPressed: () => Get.toNamed(AppRoutes.accountScreen),
                       text: 'RETURN',
-                      width: 500.w,
+                      width:double.infinity,
                     ),
                   ],
                 ),

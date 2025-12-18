@@ -190,7 +190,7 @@ class ChooseATeamPlan extends StatelessWidget {
                             ButtonReusable(
                               text: 'SUBSCRIBE',
                               onPressed: () {
-                                Get.toNamed(AppRoutes.homeNewRoutes);
+                                Get.toNamed(AppRoutes.teamManager);
                               },
                               width: 250,
                               height: 55,

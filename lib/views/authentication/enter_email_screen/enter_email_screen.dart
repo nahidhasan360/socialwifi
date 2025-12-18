@@ -23,16 +23,16 @@ class EnterEmailScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22),
+          padding: EdgeInsets.symmetric(horizontal: 15),
           child: SingleChildScrollView(
             child: SafeArea(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                   SizedBox(height: 15),
-              
+                  SizedBox(height: 15),
+
                   SizedBox(
-                    child:Container(
+                    child: Container(
                       width: 225,
                       height: 112,
                       decoration: BoxDecoration(
@@ -44,45 +44,42 @@ class EnterEmailScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 21),
-                 Column(
-                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Enter your email to continue',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.w700,
-                        height: 1.12,
-                      ),
-                    ),
-              
-                    SizedBox(height: 21),
-                    SizedBox(
-                      child: Text(
-                        'Log in to your Route Pilot account. If you don’t have one, you will be prompted to create one.',
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Enter your email to continue',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.sp,
+                          fontSize: 25,
                           fontFamily: 'Lato',
-                          fontWeight: FontWeight.w500,
-                          height: 1.56,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                    ),
-                  ],
-                 ),
-                  SizedBox(height: 28.h),
+
+                      SizedBox(height: 21),
+                      SizedBox(
+                        child: Text(
+                          'Log in to your Route Pilot account. If you don’t have one, you will be prompted to create one.',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 28),
                   Container(
-                    width: 393,
-                    height: 57, // responsive full width
+                    width: double.infinity,
                     constraints: BoxConstraints(
-                      minHeight: 50.h,
-                      maxHeight: 70.h,
-                      maxWidth: 500.w, // iPad/tablet এ too wide না হয়
+                      minHeight: 50,
+                      maxHeight: 70,
+                      maxWidth: 500, // iPad/tablet এ too wide না হয়
                     ),
-              
+
                     // padding: EdgeInsets.only(
                     //   top: 13.h,
                     //   left: 15.w,
@@ -94,64 +91,85 @@ class EnterEmailScreen extends StatelessWidget {
                       color: AppColors.medGray,
                       borderRadius: BorderRadius.circular(10),
                     ),
-              
+
                     child: TextFormField(
                       controller: controller.emailController,
                       style: TextStyle(
                         color: Colors.white,
-                        // iPhone ছোট → ছোট font
-                        // iPad বড় → large font, but not too big
-                        fontSize:16,
+                        fontSize: 16,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w400,
-              
+
                         // All screens এ stable line height
                         height: 1.4,
                         letterSpacing: 0.2,
                       ),
-              
-                      cursorColor: const Color(0xFFFFFFFF),
-              
+
+                      cursorColor: Color(0xFFFFFFFF),
+
                       // cursor never becomes too small or too large
                       cursorHeight: 22,
                       decoration: InputDecoration(
                         hintText: "Email",
                         hintStyle: TextStyle(
-                          color: const Color(0xFFBFBFBF),
+                          color: Color(0xFFBFBFBF),
                           fontSize: 16,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w400,
-                          height: 1.75,
                         ),
-              
+
                         isDense: true,
-              
+
                         // content padding
                         contentPadding: EdgeInsets.only(
-                          top: 15.h,
-                          left: 15.w,
-                          right: 10.w,
-                          bottom: 10.h,),
-              
+                          top: 15,
+                          left: 15,
+                          right: 10,
+                          bottom: 10,
+                        ),
+
                         border: InputBorder.none,
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                       ),
-              
+
                       keyboardType: TextInputType.emailAddress,
                     ),
                   ),
-              
-                  SizedBox(height: 25.h),
+
+                  SizedBox(height: 25),
                   ContinueWidgets(
                     text: 'CONTINUE',
-                    width: 393,
-                    height: 58,
+                   width: double.infinity,
                     onPressed: () {
                       Get.toNamed(AppRoutes.createAccountScreen);
                       print('button clicked');
                     },
                   ),
+
+                  // SizedBox(height: 100,),
+                  //
+                  //
+                  // Column(
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     Text(
+                  //       'Having  trouble? See our Help Page.',
+                  //       textAlign: TextAlign.start,
+                  //       style: TextStyle(
+                  //         color:AppColors.purple,
+                  //         fontSize: 16,
+                  //         fontFamily: 'Lato',
+                  //         fontWeight: FontWeight.w400,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+
+
+
+
                 ],
               ),
             ),

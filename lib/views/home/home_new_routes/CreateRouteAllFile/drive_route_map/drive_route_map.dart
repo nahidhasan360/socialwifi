@@ -348,8 +348,8 @@ class _DriveRouteMapState extends State<DriveRouteMap>
 
           if (_isTracking)
             Positioned(
-              top: 50.h,
-              right: 16.w,
+              top: 50,
+              right: 16,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w,),
                 decoration: BoxDecoration(
@@ -384,9 +384,9 @@ class _DriveRouteMapState extends State<DriveRouteMap>
             ),
 
           Positioned(
-            bottom: 28.h,
-            left: 12.w,
-            right: 12.w,
+            bottom: 28,
+            left: 12,
+            right: 12,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -419,7 +419,7 @@ class _DriveRouteMapState extends State<DriveRouteMap>
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 25, // ✅ Responsive height
+          height: 25, // Responsive height
           margin: EdgeInsets.symmetric(horizontal: 4),
           padding: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
@@ -428,13 +428,13 @@ class _DriveRouteMapState extends State<DriveRouteMap>
 
           ),
           child: Center(
-            child: FittedBox( // ✅ Auto-resize text
+            child: FittedBox( // Auto-resize text
               fit: BoxFit.scaleDown,
               child: Text(
                 text,
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16, // ✅ Responsive font size
+                  fontSize: 16, // Responsive font size
                   fontFamily: 'Lato',
                   fontWeight: FontWeight.w800,
                 ),

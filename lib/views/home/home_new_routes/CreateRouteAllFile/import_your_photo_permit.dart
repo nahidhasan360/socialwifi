@@ -377,7 +377,7 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
                         "Place your permit on a flat surface and use this device's camera to take a photo in vertical format. Take a photo of only one permit at a time. Be sure the permit fills the entire screen and is in focus.\nSave it then return here to Import.",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                         ),

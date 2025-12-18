@@ -69,7 +69,7 @@ class PinsMaking extends StatelessWidget {
                                       'PLOT YOUR ROUTE',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 32.sp,
+                                        fontSize: 32,
                                         fontFamily: 'League Gothic',
                                         fontWeight: FontWeight.w400,
                                         height: 0.88,
@@ -80,7 +80,7 @@ class PinsMaking extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16.h),
+                            SizedBox(height: 16),
 
                             // ========== Instruction Text Line 1 ==========
                             // Purpose: First line of instruction
@@ -89,7 +89,7 @@ class PinsMaking extends StatelessWidget {
                               'Tap to place a pins marking your waypoints.',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.sp,
+                                fontSize: 16,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.44,
@@ -99,7 +99,7 @@ class PinsMaking extends StatelessWidget {
                               'Select a pin and tap Delete to remove.',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 18.sp,
+                                fontSize: 16,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.44,
@@ -116,13 +116,13 @@ class PinsMaking extends StatelessWidget {
                                   'When done, tap Continue.',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18.sp,
+                                    fontSize: 16,
                                     fontFamily: 'Lato',
                                     fontWeight: FontWeight.w500,
                                     height: 1.44,
                                   ),
                                 ),
-                                SizedBox(width: 3.w,),
+                                SizedBox(width: 3,),
                                 // ========== Info Icon Button ==========
                                 // Purpose: Show map usage instructions dialog
                                 GestureDetector(
@@ -131,13 +131,13 @@ class PinsMaking extends StatelessWidget {
                                   },
                                   child: SvgPicture.asset(
                                     "assets/icons/Question-Box-gray.svg",
-                                    width: 24.w,
-                                    height: 24.h,
+                                    width: 20,
+                                    height: 20,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 20),
                           ],
                         ),
                       ),
@@ -173,7 +173,7 @@ class PinsMaking extends StatelessWidget {
                                       children: [
                                         Icon(
                                           Icons.map_outlined,
-                                          size: 64.sp,
+                                          size: 64,
                                           color: Color(0xFF1A2332),
                                         ),
                                         SizedBox(height: 12.h),
@@ -189,7 +189,7 @@ class PinsMaking extends StatelessWidget {
                                         Text(
                                           'Tap to place waypoint pins',
                                           style: TextStyle(
-                                            fontSize: 14.sp,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.w400,
                                             color: Color(0xFF666666),
                                           ),
@@ -206,21 +206,21 @@ class PinsMaking extends StatelessWidget {
                             // These will be replaced by actual Google Map markers
                             // Orange pin 1 (top-left area)
                             Positioned(
-                              top: 100.h,
-                              left: 150.w,
+                              top: 100,
+                              left: 150,
                               child: Icon(
                                 Icons.location_pin,
-                                size: 40.sp,
+                                size: 40,
                                 color: AppColors.orange,
                               ),
                             ),
                             // Orange pin 2 (middle area)
                             Positioned(
-                              top: 180.h,
-                              left: 130.w,
+                              top: 180,
+                              left: 130,
                               child: Icon(
                                 Icons.location_pin,
-                                size: 40.sp,
+                                size: 40,
                                 color: AppColors.orange,
                               ),
                             ),
@@ -229,14 +229,14 @@ class PinsMaking extends StatelessWidget {
                             // Purpose: Zoom in/out buttons
                             // Position: Top-right corner
                             Positioned(
-                              top: 10.h,
-                              right: 10.w,
+                              top: 10,
+                              right: 10,
                               child: Column(
                                 children: [
                                   // Zoom In button
                                   Container(
-                                    width: 36.w,
-                                    height: 36.h,
+                                    width: 36,
+                                    height: 36,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(4.r),
@@ -250,15 +250,15 @@ class PinsMaking extends StatelessWidget {
                                     ),
                                     child: Icon(
                                       Icons.add,
-                                      size: 20.sp,
+                                      size: 20,
                                       color: Color(0xFF1A2332),
                                     ),
                                   ),
-                                  SizedBox(height: 8.h),
+                                  SizedBox(height: 8),
                                   // Zoom Out button
                                   Container(
-                                    width: 36.w,
-                                    height: 36.h,
+                                    width: 36,
+                                    height: 36,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(4.r),
@@ -272,7 +272,7 @@ class PinsMaking extends StatelessWidget {
                                     ),
                                     child: Icon(
                                       Icons.remove,
-                                      size: 20.sp,
+                                      size: 20,
                                       color: Color(0xFF1A2332),
                                     ),
                                   ),
@@ -287,10 +287,10 @@ class PinsMaking extends StatelessWidget {
                       // Purpose: Back, Delete Pin, Continue buttons
                       // Layout: Has 22.w horizontal padding
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22.w),
+                        padding: EdgeInsets.symmetric(horizontal: 22),
                         child: Column(
                           children: [
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 20),
 
                             // ========== Action Buttons Row ==========
                             // Purpose: Back, Delete Pin, Continue
@@ -315,7 +315,7 @@ class PinsMaking extends StatelessWidget {
                                       child: Text(
                                         'Back',
                                         style: TextStyle(
-                                          fontSize: 15.sp,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white,
                                           letterSpacing: 0.5,
@@ -346,7 +346,7 @@ class PinsMaking extends StatelessWidget {
                                       child: Text(
                                         'Delete Pin',
                                         style: TextStyle(
-                                          fontSize: 15.sp,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white,
                                           letterSpacing: 0.5,
@@ -377,7 +377,7 @@ class PinsMaking extends StatelessWidget {
                                       child: Text(
                                         'Continue',
                                         style: TextStyle(
-                                          fontSize: 15.sp,
+                                          fontSize: 15,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white,
                                           letterSpacing: 0.5,

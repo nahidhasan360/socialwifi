@@ -56,7 +56,7 @@ class CreateAnAccount extends StatelessWidget {
                           'Create an account to continue',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 25.sp,
+                            fontSize: 25,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.bold,
                             height: 1.12,

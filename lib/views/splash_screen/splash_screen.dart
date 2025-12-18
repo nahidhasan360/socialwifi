@@ -28,8 +28,8 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.infinity.w,
-        height: double.infinity.h,
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(ImageManager.mapBackground),
@@ -41,8 +41,8 @@ class _SplashScreenState extends State<SplashScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: 250.w,
-              height: 124.h,
+              width: 250,
+              height: 124,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(ImageManager.splashScreenLogo),

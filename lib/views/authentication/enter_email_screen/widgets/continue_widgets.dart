@@ -30,12 +30,12 @@ class ContinueWidgets extends StatelessWidget {
       onTap: onPressed,
       child: _Button(
         text: text ?? "GET STARTED",
-        width: width ?? 234.w,
-        height: height ?? 58.h,
+        width: width ?? 234,
+        height: height ?? 58,
         backgroundColor: backgroundColor ?? AppColors.orange,
         textColor: textColor ?? Colors.white,
-        fontSize: fontSize ?? 24.sp,
-        borderRadius: borderRadius ?? 10.r,
+        fontSize: fontSize ?? 24,
+        borderRadius: borderRadius ?? 10,
       ),
     );
   }
@@ -66,18 +66,18 @@ class _Button extends StatelessWidget {
       Container(
         // Responsive constraints
         constraints: BoxConstraints(
-          minWidth: 160.w,
-          maxWidth: 500.w,
-          minHeight: 45.h,
-          maxHeight: 90.h,
+          minWidth: 160,
+          maxWidth: 500,
+          minHeight: 45,
+          maxHeight: 90,
         ),
 
         width: width,
         height: height,
 
         padding: EdgeInsets.symmetric(
-          horizontal: 18.w,
-          vertical: 10.h,
+          horizontal: 18,
+          vertical: 10,
         ),
 
         decoration: BoxDecoration(
@@ -96,8 +96,7 @@ class _Button extends StatelessWidget {
                 fontSize: fontSize,     // responsive handled by .sp
                 fontFamily: 'League Gothic',
                 fontWeight: FontWeight.w400,
-                height: 1.17,           // keep same ratio
-                letterSpacing: 2.w,     // responsive letter spacing
+                letterSpacing: 2,     // responsive letter spacing
               ),
             ),
           ),

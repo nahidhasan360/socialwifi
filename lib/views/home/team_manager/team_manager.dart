@@ -472,83 +472,73 @@ class CustomDialogs {
     Get.dialog(
       Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.symmetric(horizontal: 40.w),
+        insetPadding: EdgeInsets.symmetric(horizontal: 15),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFB71C1C),
-            borderRadius: BorderRadius.circular(8.r),
+            color: const Color(0xFFB71C1C), // Deep red background
           ),
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(15),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                Icons.notifications_outlined,
-                color: Colors.white,
-                size: 32.sp,
-              ),
-              SizedBox(height: 16),
-              Text(
-                'You are about to remove the selected User(s). Tap confirm to continue.',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.lato(
-                  color: Colors.white,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                  height: 1.4,
-                ),
-              ),
-              SizedBox(height: 24.h),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () => Get.back(),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12.h),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(6.r),
-                          border: Border.all(color: Colors.white, width: 1.5),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Cancel',
-                            style: GoogleFonts.lato(
-                              color: Colors.white,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                  // Cancel Button
+                  SvgPicture.asset(
+                    "assets/icons/bell-icon.svg",
+                    height: 20,
+                    width: 20,
                   ),
-                  SizedBox(width: 12.w),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: onConfirm,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(vertical: 12.h),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(6.r),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Confirm',
-                            style: GoogleFonts.lato(
-                              color: const Color(0xFFB71C1C),
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
+                  // Confirm Button (Green)
+                  GestureDetector(
+                    onTap: onConfirm,
+                    child: Container(
+                      width: 79,
+                      height: 23,
+                      decoration: BoxDecoration(
+                        color:
+                            AppColors.darkGray, // Green color from screenshot
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Confirm',
+                          style: GoogleFonts.lato(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
                           ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
+              SizedBox(height: 10),
+
+              // Message Text
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'You are about to remove the selected User(s). Tap confirm to continue.',
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.lato(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      height: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 24),
+
+              // Buttons Row
             ],
           ),
         ),
@@ -706,7 +696,7 @@ class TeamManager extends StatelessWidget {
               ),
               // SCROLLABLE CONTENT
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: EdgeInsets.symmetric(horizontal: 15),
                 sliver: SliverList(
                   delegate: SliverChildListDelegate([
                     Column(
@@ -829,7 +819,7 @@ class TeamManager extends StatelessWidget {
         Text(
           'USERS',
           style: GoogleFonts.leagueGothic(
-            color:AppColors.orange,
+            color: AppColors.orange,
             fontSize: 24,
             fontWeight: FontWeight.w400,
             height: 1.17,
@@ -1033,7 +1023,7 @@ class TeamManager extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 9),
+                SizedBox(width: 8),
                 GestureDetector(
                   onTap: () {
                     _showUserManagementHelp();
@@ -1058,7 +1048,7 @@ class TeamManager extends StatelessWidget {
       final textColor = _getTextColor(user.status);
 
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           color: AppColors.darkGray,
           border: Border(
@@ -1143,10 +1133,10 @@ class TeamManager extends StatelessWidget {
                     onTap: () {
                       controller.editUser(user);
                     },
-                    child: Icon(
-                      Icons.edit_outlined,
-                      color: Colors.white,
-                      size: 24,
+                    child: SvgPicture.asset(
+                      "assets/icons/Edit-Pencil-white.svg",
+                      width: 24,
+                      height: 24,
                     ),
                   ),
                 ],
@@ -1494,7 +1484,7 @@ class TeamManager extends StatelessWidget {
           'No users found',
           style: GoogleFonts.lato(
             color: TeamManagerColors.primaryWhite.withOpacity(0.6),
-            fontSize: 16.sp,
+            fontSize: 16,
           ),
         ),
       ),
@@ -1507,15 +1497,15 @@ class TeamManager extends StatelessWidget {
         Expanded(
           child: _buildActionButton('Download', controller.downloadSelected),
         ),
-        SizedBox(width: 10.w),
+        SizedBox(width: 10),
         Expanded(
           child: _buildActionButton('Cancel', controller.cancelSelected),
         ),
-        SizedBox(width: 10.w),
+        SizedBox(width: 10),
         Expanded(
           child: _buildActionButton('Resend', controller.resendSelected),
         ),
-        SizedBox(width: 10.w),
+        SizedBox(width: 10),
         Expanded(
           child: _buildActionButton('Remove', controller.removeSelected),
         ),
@@ -1549,7 +1539,7 @@ class TeamManager extends StatelessWidget {
   }
 
   Widget _buildAddEditUsersSection() {
-    final containerHeight = 265.h;
+    final containerHeight = 264.9;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -1575,7 +1565,11 @@ class TeamManager extends StatelessWidget {
                   CustomDialogs.showHelpDialog();
                 },
                 child: Center(
-                  child: SvgPicture.asset("assets/icons/Question-Box-gray.svg",height: 24,width: 24,),
+                  child: SvgPicture.asset(
+                    "assets/icons/Question-Box-gray.svg",
+                    height: 24,
+                    width: 24,
+                  ),
                 ),
               ),
             ],
@@ -1585,10 +1579,10 @@ class TeamManager extends StatelessWidget {
           children: [
             Container(
               height: containerHeight,
-              padding: EdgeInsets.all(16.w),
+              padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(8.r),
+                borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: TeamManagerColors.borderColor,
                   width: 1,
@@ -1607,13 +1601,13 @@ class TeamManager extends StatelessWidget {
                         minLines: 10,
                         style: GoogleFonts.lato(
                           color: Colors.black,
-                          fontSize: 14.sp,
+                          fontSize: 16,
                         ),
                         decoration: InputDecoration(
                           hintText: 'john@truckcompany.com',
                           hintStyle: GoogleFonts.lato(
                             color: Colors.black.withOpacity(0.4),
-                            fontSize: 14.sp,
+                            fontSize: 16,
                           ),
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.zero,
@@ -1626,7 +1620,7 @@ class TeamManager extends StatelessWidget {
                     '+ 215',
                     style: GoogleFonts.lato(
                       color: Colors.green,
-                      fontSize: 12.sp,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -1639,7 +1633,7 @@ class TeamManager extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 16.h),
+        SizedBox(height: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -1647,14 +1641,14 @@ class TeamManager extends StatelessWidget {
               width: 84,
               child: _buildActionButton('Import', controller.importUsers),
             ),
-            SizedBox(width: 12.w),
+            SizedBox(width: 12),
             SizedBox(
               width: 84,
               child: _buildActionButton('Cancel', () {
                 controller.emailInputController.clear();
               }),
             ),
-            SizedBox(width: 12.w),
+            SizedBox(width: 12),
             SizedBox(
               width: 64,
               child: _buildActionButton('Add', controller.addUserEmail),

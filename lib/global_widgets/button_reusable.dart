@@ -6,7 +6,7 @@ class ButtonReusable extends StatelessWidget {
   final VoidCallback onPressed;
 
   // optional inputs but default stays the same UI
-  final double width;
+  final double? width;  // nullable korlam
   final double height;
   final double padding;
   final Color backgroundColor;
@@ -18,10 +18,10 @@ class ButtonReusable extends StatelessWidget {
     Key? key,
     required this.text,
     required this.onPressed,
-    this.width = 234,
-    this.height = 58,
+    this.width, // default null, then 234 use hobe
+    this.height = 55,
     this.padding = 10,
-    this.backgroundColor = const Color(0xFFF58842),
+    this.backgroundColor = AppColors.orange,
     this.textColor = Colors.white,
     this.fontSize = 24,
     this.borderRadius = 10,
@@ -32,7 +32,7 @@ class ButtonReusable extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: width,
+        width: width ?? 234, // null hole 234, otherwise jeta pass korba
         height: height,
         padding: EdgeInsets.all(padding),
         decoration: ShapeDecoration(
@@ -41,24 +41,19 @@ class ButtonReusable extends StatelessWidget {
             borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: textColor,
-                  fontSize: fontSize,
-                  fontFamily: 'League Gothic',
-                  fontWeight: FontWeight.w400,
-                  height: 1.17,
-                  letterSpacing: 2,
-                ),
-              ),
+        child: Center(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: textColor,
+              fontSize: fontSize,
+              fontFamily: 'League Gothic',
+              fontWeight: FontWeight.w400,
+              height: 1.17,
+              letterSpacing: 2,
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -20,7 +20,7 @@ class ContactSupport extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(22.w),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -42,13 +42,13 @@ class ContactSupport extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 39.h),
+                SizedBox(height: 39),
                 Text(
                   'Contact Support',
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 28.sp,
+                    fontSize: 28,
                     fontFamily: 'Lato',
                     fontWeight: FontWeight.w700,
                     height: 1.14,
@@ -64,7 +64,7 @@ class ContactSupport extends StatelessWidget {
                         text: 'Please contact us at ',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18.sp,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                           height: 1.44,
@@ -73,8 +73,8 @@ class ContactSupport extends StatelessWidget {
                       TextSpan(
                         text: 'help@rightroute.com',
                         style: TextStyle(
-                          color: const Color(0xFF9DACF5),
-                          fontSize: 18.sp,
+                          color: AppColors.purple,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                           height: 1.44,

@@ -46,7 +46,7 @@ class ImportYourPermit extends StatelessWidget {
               // ========== Scrollable Content Section ==========
               Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 22),
+                  padding: EdgeInsets.symmetric(horizontal: 19),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -78,10 +78,10 @@ class ImportYourPermit extends StatelessWidget {
                             },
                             child: Container(
                               child: SvgPicture.asset(
-                                  "assets/icons/Question-Box-gray.svg",
+                                "assets/icons/Question-Box-gray.svg",
                                 width: 15,
                                 height: 18,
-                              )
+                              ),
                             ),
                           ),
                         ],
@@ -93,7 +93,7 @@ class ImportYourPermit extends StatelessWidget {
                         'Tap the Import button and select your permit from whatever storage location it is sitting in. When selected, tap Open to start the extraction. It will take a few seconds for your directions to appear below.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                         ),
@@ -105,7 +105,7 @@ class ImportYourPermit extends StatelessWidget {
                         'Edit as needed or import another permit before tapping Continue.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                         ),
@@ -136,7 +136,7 @@ class ImportYourPermit extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 15.h),
+                      SizedBox(height: 15),
 
                       // ========== Extracted Directions Card ==========
                       Container(
@@ -287,15 +287,19 @@ void showImportPermitInfoDialog(BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.symmetric(horizontal: 16), // 🔹 Left-right padding কম করা
+        insetPadding: EdgeInsets.symmetric(
+          horizontal: 16,
+        ), // 🔹 Left-right padding কম করা
         child: Container(
-          width: MediaQuery.of(context).size.width, // 🔹 Full width (minus padding)
+          width: MediaQuery.of(
+            context,
+          ).size.width, // 🔹 Full width (minus padding)
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.6,
           ),
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: AppColors.medGray // AppColors.medGray
+            color: AppColors.medGray, // AppColors.medGray
           ),
           child: SingleChildScrollView(
             child: Column(

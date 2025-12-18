@@ -61,7 +61,7 @@ class PlotYourRoute extends StatelessWidget {
                                       'PLOT YOUR ROUTE',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 30,
+                                        fontSize: 32,
                                         fontFamily: 'League Gothic',
                                         fontWeight: FontWeight.w400,
                                         height: 0.88,

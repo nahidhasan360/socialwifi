@@ -68,7 +68,7 @@ class IndividualTeam extends StatelessWidget {
                         'Choose an option to start your 7-day free trial and begin automating your routes. Cancel anytime ',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                         ),
