@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
@@ -9,16 +8,13 @@ import 'package:right_routes/utils/colors.dart';
 
 // ========== GetX Controller ==========
 class ConfirmRouteController extends GetxController {
-  // Text editing controllers for proper state management
   final TextEditingController routeNameController = TextEditingController();
 
   RxString distance = '64.2 miles'.obs;
 
-  // Waypoint controllers list
   RxList<TextEditingController> waypointControllers =
       <TextEditingController>[].obs;
 
-  // Waypoint values
   RxList<String> waypoints = <String>[
     'Your current location',
     'I-29',
@@ -28,20 +24,15 @@ class ConfirmRouteController extends GetxController {
     'Exit 340',
   ].obs;
 
-  // Selected waypoint for deletion
   RxInt selectedWaypointIndex = (-1).obs;
 
   @override
   void onInit() {
     super.onInit();
-    // Initialize route name controller
     routeNameController.text = 'Name Your Route';
-
-    // Initialize waypoint controllers
     _initializeWaypointControllers();
   }
 
-  // Initialize text controllers for waypoints
   void _initializeWaypointControllers() {
     waypointControllers.clear();
     for (var waypoint in waypoints) {
@@ -50,12 +41,10 @@ class ConfirmRouteController extends GetxController {
     }
   }
 
-  // Select waypoint for deletion
   void selectWaypoint(int index) {
     selectedWaypointIndex.value = index;
   }
 
-  // Add waypoint at specific index
   void addWaypointAt(int index) {
     try {
       if (index >= 0 && index < waypoints.length) {
@@ -73,7 +62,6 @@ class ConfirmRouteController extends GetxController {
     }
   }
 
-  // Delete selected waypoint
   void deleteSelectedWaypoint() {
     try {
       if (selectedWaypointIndex.value >= 0 &&
@@ -116,7 +104,6 @@ class ConfirmRouteController extends GetxController {
     }
   }
 
-  // Update waypoint text
   void updateWaypoint(int index, String value) {
     try {
       if (index >= 0 && index < waypoints.length) {
@@ -127,7 +114,6 @@ class ConfirmRouteController extends GetxController {
     }
   }
 
-  // Update route name
   void updateRouteName(String value) {
     try {
       routeNameController.text = value;
@@ -136,10 +122,8 @@ class ConfirmRouteController extends GetxController {
     }
   }
 
-  // Update route (recalculate distance, refresh map)
   void updateRoute() {
     try {
-      // TODO: Implement route recalculation logic
       Get.snackbar(
         'Update',
         'Route updated successfully',
@@ -158,7 +142,6 @@ class ConfirmRouteController extends GetxController {
 
   @override
   void onClose() {
-    // Dispose all controllers
     routeNameController.dispose();
     for (var controller in waypointControllers) {
       controller.dispose();
@@ -174,14 +157,11 @@ class EditConfirmStartYourRoute extends StatelessWidget {
     final controller = Get.put(ConfirmRouteController());
 
     return GestureDetector(
-      // ========== Dismiss Keyboard on Tap Outside ==========
       onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        // ========== Prevent Bottom Overflow when Keyboard Opens ==========
-        resizeToAvoidBottomInset:
-            false, // ✅ Changed to false to prevent white background
+        resizeToAvoidBottomInset: false,
         body: Container(
           width: double.infinity,
           height: double.infinity,
@@ -214,10 +194,9 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                 // ========== Scrollable Content Section ==========
                 Expanded(
                   child: SingleChildScrollView(
-                    // ========== Keyboard Fixes ==========
                     physics: BouncingScrollPhysics(),
                     keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    ScrollViewKeyboardDismissBehavior.onDrag,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -236,7 +215,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                         'CONFIRM YOUR ROUTE',
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 30,
+                                          fontSize: 32,
                                           fontFamily: 'League Gothic',
                                           fontWeight: FontWeight.w400,
                                           height: 0.88,
@@ -247,46 +226,41 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 16),
+                              SizedBox(height: 20),
 
-                              // ========== Instruction Text ==========
-                              Text(
-                                'Check your waypoints.Tap the map to move pins or scroll down to edit the directions in the fields below. Tap Update to confirm changes. Tap Go to.',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontFamily: 'Lato',
-                                  fontWeight: FontWeight.w500,
+                              // ========== Instruction Text with Info Icon ==========
+                              RichText(
+                                text: TextSpan(
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.44,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: 'Check your waypoints. Tap the map to move pins or scroll down to edit the directions in the fields below. Tap Update to confirm changes. Tap Go to start. ',
+                                    ),
+                                    WidgetSpan(
+                                      alignment: PlaceholderAlignment.middle,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          FocusScope.of(context).unfocus();
+                                          showConfirmRouteInfoDialog(context);
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 2),
+                                          child: SvgPicture.asset(
+                                            "assets/icons/Question-Box-gray.svg",
+                                            width: 15,
+                                            height: 15,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-
-                              // ========== Instruction with Info Icon ==========
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    "start.",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                      fontFamily: 'Lato',
-                                      fontWeight: FontWeight.w500,
-                                      height: 1.44,
-                                    ),
-                                  ),
-                                  SizedBox(width: 5),
-                                  GestureDetector(
-                                    onTap: () {
-                                      FocusScope.of(context).unfocus();
-                                      showConfirmRouteInfoDialog(context);
-                                    },
-                                    child: SvgPicture.asset(
-                                      "assets/icons/Question-Box-gray.svg",
-                                      width: 15,
-                                      height: 15,
-                                    ),
-                                  ),
-                                ],
                               ),
                               SizedBox(height: 20),
                             ],
@@ -310,7 +284,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                     child: Center(
                                       child: Icon(
                                         Icons.map_outlined,
-                                        size: 64.sp,
+                                        size: 64,
                                         color: Color(0xFF1A2332),
                                       ),
                                     ),
@@ -318,20 +292,20 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                 },
                               ),
                               Positioned(
-                                top: 80.h,
-                                left: 40.w,
+                                top: 80,
+                                left: 40,
                                 child: Icon(
                                   Icons.location_pin,
-                                  size: 35.sp,
+                                  size: 35,
                                   color: AppColors.orange,
                                 ),
                               ),
                               Positioned(
-                                top: 150.h,
-                                left: 180.w,
+                                top: 150,
+                                left: 180,
                                 child: Icon(
                                   Icons.location_pin,
-                                  size: 35.sp,
+                                  size: 35,
                                   color: AppColors.orange,
                                 ),
                               ),
@@ -346,18 +320,18 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              SizedBox(height: 20.h),
+                              SizedBox(height: 20),
 
                               // ========== Distance, Delete Pin, Update Row ==========
                               Row(
                                 children: [
                                   // Distance Display
                                   Obx(
-                                    () => Text(
+                                        () => Text(
                                       controller.distance.value,
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 16.sp,
+                                        fontSize: 16,
                                         fontFamily: 'Lato',
                                         fontWeight: FontWeight.w600,
                                         height: 2,
@@ -377,9 +351,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       height: 24,
                                       decoration: BoxDecoration(
                                         color: AppColors.orange,
-                                        borderRadius: BorderRadius.circular(
-                                          5.r,
-                                        ),
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Center(
                                         child: Text(
@@ -394,7 +366,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 70.w),
+                                  SizedBox(width: 70),
 
                                   // Update Button
                                   GestureDetector(
@@ -407,9 +379,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       height: 24,
                                       decoration: BoxDecoration(
                                         color: AppColors.orange,
-                                        borderRadius: BorderRadius.circular(
-                                          5.r,
-                                        ),
+                                        borderRadius: BorderRadius.circular(5),
                                       ),
                                       child: Center(
                                         child: Text(
@@ -426,54 +396,59 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15.h),
+                              SizedBox(height: 15),
 
-                              // ========== Route Name Input Field ==========
+                              // ========== Route Name Input Field (FIXED) ==========
                               Container(
                                 width: double.infinity,
-                                height: 57.h,
+                                height: 57,
                                 decoration: BoxDecoration(
                                   color: AppColors.medGray,
-                                  borderRadius: BorderRadius.circular(10.r),
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                padding: EdgeInsets.symmetric(horizontal: 14.w),
-                                child: TextField(
-                                  controller: controller.routeNameController,
-                                  onChanged: (value) =>
-                                      controller.updateRouteName(value),
-                                  style: TextStyle(
-                                    color: const Color(0xFFBFBFBF),
-                                    fontSize: 18,
-                                    fontFamily: 'Lato',
-                                    fontWeight: FontWeight.w400,
-                                    height: 1.56,
-                                  ),
-                                  cursorColor:
-                                      AppColors.white, // ✅ White cursor
-                                  textInputAction: TextInputAction.done,
-                                  onSubmitted: (value) {
-                                    FocusScope.of(context).unfocus();
-                                  },
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    enabledBorder: InputBorder.none, // ✅ Added
-                                    focusedBorder: InputBorder.none, // ✅ Added
-                                    errorBorder: InputBorder.none, // ✅ Added
-                                    disabledBorder: InputBorder.none, // ✅ Added
-                                    hintText: 'Name Your Route',
-                                    hintStyle: TextStyle(
-                                      color: Color(0xFF8A9CA8),
-                                      fontSize: 16,
+                                child: Center(
+                                  child: TextField(
+                                    controller: controller.routeNameController,
+                                    onChanged: (value) => controller.updateRouteName(value),
+                                    textAlign: TextAlign.start, // ✅ Left align
+                                    style: TextStyle(
+                                      color: const Color(0xFFBFBFBF),
+                                      fontSize: 18,
                                       fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w400,
+                                      height: 1.56,
+                                    ),
+                                    cursorColor: AppColors.white,
+                                    cursorHeight: 20, // ✅ Smaller cursor
+                                    textInputAction: TextInputAction.done,
+                                    onSubmitted: (value) {
+                                      FocusScope.of(context).unfocus();
+                                    },
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      errorBorder: InputBorder.none,
+                                      disabledBorder: InputBorder.none,
+                                      focusedErrorBorder: InputBorder.none,
+                                      contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 0),
+                                      hintText: 'Name Your Route',
+                                      hintStyle: TextStyle(
+                                        color: Color(0xFF8A9CA8),
+                                        fontSize: 18,
+                                        fontFamily: 'Lato',
+                                        fontWeight: FontWeight.w400,
+                                        height: 1.56,
+                                      ),
+                                      isDense: true, // ✅ Dense layout
                                     ),
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 15.h),
+                              SizedBox(height: 15),
 
                               // ========== Waypoints Header ==========
                               Row(
-
                                 children: [
                                   Text(
                                     'Waypoints',
@@ -485,7 +460,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       height: 1.17,
                                     ),
                                   ),
-                                  SizedBox(width: 8.w),
+                                  SizedBox(width: 8),
                                   GestureDetector(
                                     onTap: () {
                                       FocusScope.of(context).unfocus();
@@ -493,13 +468,13 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                     },
                                     child: SvgPicture.asset(
                                       "assets/icons/Question-Box-gray.svg",
-                                      width: 20.w,
-                                      height: 20.h,
+                                      width: 20,
+                                      height: 20,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 15.h),
+                              SizedBox(height: 15),
 
                               // ========== DYNAMIC WAYPOINTS LIST ==========
                               Obx(() {
@@ -516,7 +491,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                 return Column(
                                   children: List.generate(
                                     controller.waypoints.length,
-                                    (index) {
+                                        (index) {
                                       if (index >=
                                           controller
                                               .waypointControllers
@@ -532,7 +507,6 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                               index,
                                               context,
                                             ),
-                                            // ✅ Add button after EVERY item (including last one)
                                             _buildAddButton(
                                               controller,
                                               index,
@@ -546,7 +520,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                 );
                               }),
 
-                              SizedBox(height: 12.h),
+                              SizedBox(height: 12),
 
                               // ========== Bottom GO Button ==========
                               GestureDetector(
@@ -575,7 +549,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                     height: 55,
                                     decoration: BoxDecoration(
                                       color: AppColors.orange,
-                                      borderRadius: BorderRadius.circular(10.r),
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: Center(
                                       child: Text(
@@ -594,7 +568,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                 ),
                               ),
 
-                              SizedBox(height: 141.h),
+                              SizedBox(height: 141),
                             ],
                           ),
                         ),
@@ -613,18 +587,18 @@ class EditConfirmStartYourRoute extends StatelessWidget {
 
   // ========== Waypoint Item Widget ==========
   Widget _buildWaypointItem(
-    ConfirmRouteController controller,
-    int index,
-    BuildContext context,
-  ) {
+      ConfirmRouteController controller,
+      int index,
+      BuildContext context,
+      ) {
     return Obx(
-      () => GestureDetector(
+          () => GestureDetector(
         onTap: () {
           controller.selectWaypoint(index);
         },
         child: Container(
-          margin: EdgeInsets.only(left: 30.w, right: 10.w, bottom: 3.h),
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.r)),
+          margin: EdgeInsets.only(left: 30, right: 10, bottom: 3),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5)),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -632,7 +606,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     color: AppColors.medGray,
-                    borderRadius: BorderRadius.circular(7.r),
+                    borderRadius: BorderRadius.circular(7),
                   ),
                   padding: EdgeInsets.only(
                     top: 10,
@@ -646,25 +620,31 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                         controller.updateWaypoint(index, value),
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 16.sp,
+                      fontSize: 16,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w400,
                       height: 1.75,
                     ),
-                    cursorColor: AppColors.white, // ✅ White cursor
+                    cursorColor: AppColors.white,
+                    cursorHeight: 20, // ✅ Smaller cursor
                     textInputAction: TextInputAction.done,
                     onSubmitted: (value) {
                       FocusScope.of(context).unfocus();
                     },
                     decoration: InputDecoration(
                       border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      errorBorder: InputBorder.none,
+                      disabledBorder: InputBorder.none,
+                      focusedErrorBorder: InputBorder.none,
                       isDense: true,
                       contentPadding: EdgeInsets.zero,
                     ),
                   ),
                 ),
               ),
-              SizedBox(width: 8.w),
+              SizedBox(width: 8),
               GestureDetector(
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -673,8 +653,8 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   "assets/icons/Close-X-white.svg",
-                  width: 30.w,
-                  height: 30.h,
+                  width: 30,
+                  height: 30,
                 ),
               ),
             ],
@@ -686,12 +666,12 @@ class EditConfirmStartYourRoute extends StatelessWidget {
 
   // ========== Add Button Between Waypoints ==========
   Widget _buildAddButton(
-    ConfirmRouteController controller,
-    int index,
-    BuildContext context,
-  ) {
+      ConfirmRouteController controller,
+      int index,
+      BuildContext context,
+      ) {
     return Container(
-      margin: EdgeInsets.only(bottom: 0.h),
+      margin: EdgeInsets.only(bottom: 0),
       child: Row(
         children: [
           GestureDetector(
@@ -701,13 +681,13 @@ class EditConfirmStartYourRoute extends StatelessWidget {
             },
             child: SvgPicture.asset(
               "assets/icons/Check-Box-gray-white-border.svg",
-              width: 24.w,
-              height: 24.h,
+              width: 24,
+              height: 24,
             ),
           ),
-          SizedBox(width: 4.w),
-          Container(width: 29.w, height: 2.h, color: AppColors.medGray),
-          SizedBox(width: 34.w),
+          SizedBox(width: 4),
+          Container(width: 29, height: 2, color: AppColors.medGray),
+          SizedBox(width: 34),
         ],
       ),
     );
@@ -723,16 +703,16 @@ void showConfirmRouteInfoDialog(BuildContext context) {
       return Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: EdgeInsets.only(
-          top: 60.h,
-          bottom: 100.h,
-          left: 20.w,
-          right: 20.w,
+          top: 60,
+          bottom: 100,
+          left: 20,
+          right: 20,
         ),
         child: Container(
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Color(0xFF4A4A4A),
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -755,14 +735,14 @@ void showConfirmRouteInfoDialog(BuildContext context) {
                   ),
                 ],
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               Flexible(
                 child: SingleChildScrollView(
                   child: Text(
                     'Manipulating the map:\nTo move the map, use one finger to drag it to the desired location.\nTo enlarge the map, use two fingers and spread them on the map.\nTo reduce the map, slide your two fingers together.',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w500,
                       height: 1.44,
@@ -786,16 +766,16 @@ void showWaypointsInfoDialog(BuildContext context) {
       return Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: EdgeInsets.only(
-          top: 60.h,
-          bottom: 100.h,
-          left: 20.w,
-          right: 20.w,
+          top: 60,
+          bottom: 100,
+          left: 20,
+          right: 20,
         ),
         child: Container(
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Color(0xFF4A4A4A),
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -806,7 +786,7 @@ void showWaypointsInfoDialog(BuildContext context) {
                   Icon(
                     Icons.edit_location_alt,
                     color: Colors.white,
-                    size: 24.sp,
+                    size: 24,
                   ),
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
@@ -818,14 +798,14 @@ void showWaypointsInfoDialog(BuildContext context) {
                   ),
                 ],
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               Flexible(
                 child: SingleChildScrollView(
                   child: Text(
                     'Tap inside a field to select a waypoint.\nTap the "+" icon to add a field.\nTap the "X" icon or "Delete Pin" button to remove selected waypoint.\nTap Update to refresh your route before clicking Go.',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w500,
                       height: 1.44,

@@ -6,6 +6,7 @@ import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/colors.dart';
 import '../../../utils/assets_manager.dart';
+import '../../authentication/enter_email_for_delete/enter_email_for_delete.dart';
 import '../../authentication/login_account/login_account.dart';
 
 // -----------------------------------------------------------------------------
@@ -28,54 +29,6 @@ class RRColors {
   static const Color white = Colors.white;
 }
 
-// -----------------------------------------------------------------------------
-//   // ============= TEXT STYLES
-// -----------------------------------------------------------------------------
-// class RRText {
-//   // New style for the main screen header/title
-//   static TextStyle mainScreenHeader = GoogleFonts.lato(
-//     color: RRColors.white, // Use the predefined white
-//     fontSize: 28.sp,
-//     fontWeight: FontWeight.w700,
-//     height: 1.14,
-//     letterSpacing: 1,
-//   );
-//
-//   // ===============================================================================
-//
-//   static TextStyle sectionTitle = GoogleFonts.lato(
-//     color: RRColors.accentOrange,
-//     fontSize: 17.sp,
-//     fontWeight: FontWeight.w700,
-//   );
-//   // ===============================================================================
-//
-//   static TextStyle label = GoogleFonts.lato(
-//     color: Colors.white,
-//     fontSize: 18,
-//     fontWeight: FontWeight.w500,
-//     height: 1.56,
-//   );
-//   // ===============================================================================
-//
-//   static TextStyle value = GoogleFonts.lato(
-//     color: Colors.white,
-//     fontSize: 18,
-//     fontWeight: FontWeight.w700,
-//     height: 1.56,
-//   );
-//   // ===============================================================================
-//
-//   static TextStyle version = GoogleFonts.lato(
-//     color: const Color(0xFFF58842),
-//     fontSize: 18,
-//     fontWeight: FontWeight.w500,
-//     height: 1.56,
-//   );
-// }
-// ===============================================================================
-
-// -----------------------------------------------------------------------------
 // REUSABLE WIDGETS
 // -----------------------------------------------------------------------------
 class RRRightArrowTile extends StatelessWidget {
@@ -89,7 +42,7 @@ class RRRightArrowTile extends StatelessWidget {
     return InkWell(
       onTap: onTap ?? () {},
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.h),
+        padding: EdgeInsets.symmetric(vertical: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -133,7 +86,7 @@ class AccountScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            SizedBox(height: 50.h),
+            SizedBox(height: 50),
 
             // Sticky Logo (Always stays at the top)
             _buildLogo(),
@@ -232,7 +185,7 @@ class AccountScreen extends StatelessWidget {
             Get.toNamed(AppRoutes.changeEmail);
           },
         ),
-        SizedBox(height: 8.h),
+        SizedBox(height: 8),
       ],
     );
   }
@@ -315,7 +268,7 @@ class AccountScreen extends StatelessWidget {
         Text(
           "MY CURRENT PLAN",
           style: TextStyle(
-            color: const Color(0xFFF58842),
+            color: AppColors.orange,
             fontSize: 24,
             fontFamily: 'League Gothic',
             fontWeight: FontWeight.w400,
@@ -387,7 +340,7 @@ class AccountScreen extends StatelessWidget {
                       text: "Upgrade or Downgrade",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 15,
+                        fontSize: 18,
                         fontFamily: 'Lato',
                         fontWeight: FontWeight.w500,
                         height: 1.56,
@@ -418,39 +371,40 @@ class AccountScreen extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.chooseYourPlan);
-              },
-              child: Text.rich(
-                TextSpan(
-                  text: "Single User Plan: ",
-                  style: TextStyle(
-                    color: AppColors.orange,
-                    fontSize: 18,
-                    fontFamily: 'Lato',
-                    fontWeight: FontWeight.w500,
-                    height: 1.56,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: "Upgrade to Yearly Plan",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.w500,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppRoutes.chooseYourPlan);
+                },
+                child: Text.rich(
+                  TextSpan(
+                    text: "Single User Plan: ",
+                    style: TextStyle(
+                      color: AppColors.orange,
+                      fontSize: 18,
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.w500,
+                      height: 1.56,
                     ),
-                  ],
+                    children: [
+                      TextSpan(
+                        text: "Upgrade to Yearly Plan",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                 maxLines: 1,
                 ),
               ),
             ),
             RRRightArrowTile(
               onTap: () {
-                // Navigate to help center
                 Get.toNamed(AppRoutes.chooseYourPlan);
               },
               title: '',
@@ -538,14 +492,15 @@ class AccountScreen extends StatelessWidget {
           title: "Log out",
           onTap: () {
             // Perform log out action
-            Get.toNamed(AppRoutes.enterEmailScreen);
+            // Get.toNamed(AppRoutes.enterEmailScreen);
+            Get.to(EnterEmailForDelete());
           },
         ),
         RRRightArrowTile(
           title: "Delete Account",
           onTap: () {
             // Navigate to delete account screen
-            Get.toNamed(AppRoutes.areYouSureDeleteThisAccount);
+            Get.toNamed(AppRoutes.enterEmailForDelete);
           },
         ),
       ],
@@ -573,7 +528,7 @@ class AccountScreen extends StatelessWidget {
         },
         child: Container(
           width: double.infinity,
-          height: 50.h,
+          height: 50,
           decoration: BoxDecoration(
             color: AppColors.orange,
             borderRadius: BorderRadius.circular(10.r),

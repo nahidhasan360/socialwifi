@@ -12,6 +12,20 @@
   <string>We need your location for turn-by-turn navigation</string>
 
 
+<!-- Touch id permission -->
+<key>NSFaceIDUsageDescription</key>
+<string>We need Face ID permission to authenticate you</string>
+
+<!-- microphone permission -->
+<key>NSMicrophoneUsageDescription</key>
+<string>This app needs microphone access for voice input</string>
+<key>NSSpeechRecognitionUsageDescription</key>
+<string>This app needs speech recognition for voice directions</string>
+
+
+
+
+
 <key>NSPhotoLibraryUsageDescription</key>
 <string>We need access to your photo library to import permit images.</string>
 

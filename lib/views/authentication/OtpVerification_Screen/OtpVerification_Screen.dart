@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -26,9 +27,8 @@ class OtpVerificationScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
-
             child: Column(
               children: [
                 const SizedBox(height: 40),
@@ -69,20 +69,20 @@ class OtpVerificationScreen extends StatelessWidget {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: 'We’ll need you to verify your email address.\nWe’ve sent a 6-digit code to ',
+                            text:
+                                'We’ll need you to verify your email address.We’ve sent a 6-digit code to ',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 18,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.w500,
-
                             ),
                           ),
                           TextSpan(
                             text: 'tanvirhasancr8****@gmail.com',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 17,
+                              fontSize: 18,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.bold,
                               height: 1.44,
@@ -90,10 +90,11 @@ class OtpVerificationScreen extends StatelessWidget {
                           ),
 
                           TextSpan(
-                            text: 'The code expires in 15 minutes. Please enter it below.',
+                            text:
+                                'The code expires in 15 minutes. Please enter it below.',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16,
+                              fontSize: 18,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.w500,
                               height: 1.44,
@@ -118,8 +119,8 @@ class OtpVerificationScreen extends StatelessWidget {
                       pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(5),
-                        fieldHeight: 49,
-                        fieldWidth: 49,
+                        fieldHeight: 50,
+                        fieldWidth: 50,
                         inactiveColor: Colors.transparent,
                         selectedColor: AppColors.orange,
                         activeColor: Colors.white,
@@ -137,7 +138,7 @@ class OtpVerificationScreen extends StatelessWidget {
                       // },
                     ),
 
-                    SizedBox(height: 27),
+                    SizedBox(height: 18),
 
                     /// CONTINUE BUTTON
                     GestureDetector(
@@ -146,7 +147,7 @@ class OtpVerificationScreen extends StatelessWidget {
                         Get.toNamed(AppRoutes.weLoggedYou);
                       },
                       child: Container(
-                        width: 392,
+                        width: double.infinity,
                         height: 55,
                         decoration: BoxDecoration(
                           color: AppColors.orange,
@@ -168,15 +169,14 @@ class OtpVerificationScreen extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 27),
+                    SizedBox(height: 29),
 
                     GestureDetector(
                       onTap: () {
                         Get.back();
-
                       },
                       child: Container(
-                        width: 392,
+                        width: double.infinity,
                         height: 55,
                         decoration: BoxDecoration(
                           color: AppColors.medGray,
@@ -197,45 +197,39 @@ class OtpVerificationScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 55),
+                    SizedBox(height: 53),
 
-                    /// RESEND
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Didn’t receive the mail? Check your spam folder or",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.w500,
-                            height: 1.38,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.otpVerificationScreen);
-                          },
-                          child: Text(
-                            "Resend",
-                            textAlign: TextAlign.start,
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Didn’t receive the mail? Check your spam folder or ",
                             style: TextStyle(
-                              color: const Color(0xFF9DACF5),
+                              color: Colors.white,
+                              fontSize: 15, // white text = purple text same size
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.w500,
+                              height: 1.38,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "Resend",
+                            style: TextStyle(
+                              color: AppColors.purple,
                               fontSize: 16,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.w500,
                               height: 1.38,
-                              decoration: TextDecoration.underline,
                             ),
-
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.toNamed(AppRoutes.otpVerificationScreen);
+                              },
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-
-                    SizedBox(height: 40.h),
+                    SizedBox(height: 40),
                   ],
                 ),
               ],

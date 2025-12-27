@@ -5,7 +5,7 @@ import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
-import '../../global_widgets/button_reusable.dart';
+import '../../global_widgets/button_reusable_short_width.dart';
 
 class AccountDelete extends StatelessWidget {
   const AccountDelete({super.key});

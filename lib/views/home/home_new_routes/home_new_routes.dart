@@ -10,7 +10,7 @@ import '../../../utils/assets_manager.dart';
 import '../home_all_widgets/dialog/dialog_camera.dart';
 import '../home_all_widgets/dialog/dialog_direction.dart';
 import '../home_all_widgets/dialog/dialog_read_in_direction.dart';
-import '../home_all_widgets/home_custom_button_.dart';
+import '../home_all_widgets/simple_import_button_.dart';
 
 class HomeNewRoutes extends StatelessWidget {
   const HomeNewRoutes({super.key});
@@ -60,18 +60,15 @@ class HomeNewRoutes extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),
-                  SizedBox(
-                    width: 363,
-                    child: Text(
-                      'Choose your preferred method of inputting\nyour route directions.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontFamily: 'Lato',
-                        fontWeight: FontWeight.w500,
-                        height: 1.44,
-                      ),
+                  Text(
+                    'Choose your preferred method of inputting your route directions.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontFamily: 'Lato',
+                      fontWeight: FontWeight.w500,
+                      height: 1.44,
                     ),
                   ),
                   SizedBox(height: 16),

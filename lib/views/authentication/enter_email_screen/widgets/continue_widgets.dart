@@ -29,7 +29,7 @@ class ContinueWidgets extends StatelessWidget {
       onTap: onPressed,
       child: _Button(
         text: text ?? "GET STARTED",
-        width: width ?? 234,
+        width: width ?? double.infinity,
         height: height ?? 58,
         backgroundColor: backgroundColor ?? AppColors.orange,
         textColor: textColor ?? Colors.white,

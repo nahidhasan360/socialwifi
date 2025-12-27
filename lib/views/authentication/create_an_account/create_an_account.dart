@@ -70,7 +70,7 @@ class CreateAnAccount extends StatelessWidget {
                           'access to your route history, account settings and subscription status.',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.sp,
+                            fontSize: 18,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w500,
                             height: 1.44,
@@ -109,61 +109,6 @@ class CreateAnAccount extends StatelessWidget {
 
                         SizedBox(height: 18),
 
-                        // /// Touch ID Switch (WORKING)
-                        // Obx(
-                        //       () => Row(
-                        //     crossAxisAlignment: CrossAxisAlignment.center,
-                        //     children: [
-                        //       Transform.scale(
-                        //         scaleX: 0.87,
-                        //         scaleY: 0.77,
-                        //         child: Stack(
-                        //           alignment: Alignment.center,
-                        //           children: [
-                        //             Switch(
-                        //               value: controller.useTouchId.value,
-                        //               onChanged: (v) => controller.useTouchId.value = v,
-                        //
-                        //               activeTrackColor: AppColors.orange,
-                        //               inactiveTrackColor: Colors.white.withOpacity(0.3),
-                        //               activeThumbColor: Colors.white,
-                        //               inactiveThumbColor: Colors.white,
-                        //             ),
-                        //
-                        //             /// ✅ SVG check icon on thumb
-                        //             Positioned(
-                        //               left: controller.useTouchId.value ? 28 : 6, // thumb position
-                        //               child: controller.useTouchId.value
-                        //                   ? SvgPicture.asset(
-                        //                 "assets/icons/Check-orange.svg",
-                        //                 width: 12,
-                        //                 height: 12,
-                        //                 colorFilter: const ColorFilter.mode(
-                        //                   AppColors.orange,
-                        //                   BlendMode.srcIn,
-                        //                 ),
-                        //               )
-                        //                   : const SizedBox(),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       ),
-                        //
-                        //       const SizedBox(width: 5),
-                        //
-                        //       const Text(
-                        //         "Use touch ID",
-                        //         style: TextStyle(
-                        //           color: Colors.white,
-                        //           fontSize: 14,
-                        //           fontFamily: 'Lato',
-                        //           fontWeight: FontWeight.w500,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        //
                         Row(
                           children: [
                             CustomToggleSwitchAdvanced(
@@ -386,8 +331,7 @@ class CreateAnAccount extends StatelessWidget {
                     height: 1.44,
                     fontFamily: 'Lato',
                     fontWeight: FontWeight.w500,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Color(0xFF5B9BFF),
+                    decorationColor: AppColors.purple,
                   ),
                 ),
               ),
@@ -459,7 +403,7 @@ class CreateAnAccount extends StatelessWidget {
     );
   }
 
-  /// ================= Rule Tile ============================
+  /// ================= Rule Tile its for circle check  ============================
   Widget _ruleTile(bool active, String text) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -467,7 +411,6 @@ class CreateAnAccount extends StatelessWidget {
         Container(
           width: 20,
           height: 20,
-          // margin: EdgeInsets.only(top: 2),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: active ? AppColors.orange : AppColors.medGray,
@@ -581,7 +524,6 @@ class CreateAnAccount extends StatelessWidget {
                       fontSize: 16,
                       fontFamily: 'Lato',
                       height: 1.38,
-                      decoration: TextDecoration.underline,
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = controller.viewPrivacyPolicy,
@@ -611,8 +553,8 @@ class CreateAnAccount extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 24,
-        height: 24,
+        width: 20,
+        height: 20,
         margin: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(
           color: value ? AppColors.orange : AppColors.medGray,

@@ -23,7 +23,7 @@ class WeLoggedYou extends StatelessWidget {
         ),
 
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,17 +43,14 @@ class WeLoggedYou extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 21),
-                SizedBox(
-                  width: 392,
-                  child: Text(
-                    'We’ve logged you in',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.w700,
-                      height: 1.12,
-                    ),
+                Text(
+                  'We’ve logged you in',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontFamily: 'Lato',
+                    fontWeight: FontWeight.w700,
+                    height: 1.12,
                   ),
                 ),
                 SizedBox(height: 21),
@@ -62,7 +59,7 @@ class WeLoggedYou extends StatelessWidget {
                     'You can now continue to Right Route. If you ve forgotten your password, you can choose a new one now or update it from your account Settings another time.',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 18.sp,
+                      fontSize: 18,
                       fontFamily: 'Lato',
                       fontWeight: FontWeight.w500,
                     ),
@@ -133,7 +130,7 @@ class WeLoggedYou extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 50.h),
+                SizedBox(height: 50),
               ],
             ),
           ),

@@ -1,10 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
@@ -28,6 +25,8 @@ class ImportYourPermit extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
+              SizedBox(height: 20), //  Added spacing
+
               // ========== Fixed Logo Section ==========
               Center(
                 child: Container(
@@ -46,7 +45,11 @@ class ImportYourPermit extends StatelessWidget {
               // ========== Scrollable Content Section ==========
               Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 19),
+                  padding: EdgeInsets.only(
+                    left: 19,
+                    right: 19,
+                    bottom: 20, // ✅ Added bottom padding for navbar clearance
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -60,28 +63,23 @@ class ImportYourPermit extends StatelessWidget {
                             'IMPORT YOUR PERMIT',
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 30,
+                              fontSize: 32,
                               fontFamily: 'League Gothic',
                               fontWeight: FontWeight.w400,
                               height: 0.88,
                             ),
                           ),
-                          SizedBox(width: 8),
+                          SizedBox(width: 4),
 
                           // ========== Info Icon Button ==========
-                          // Purpose: Trigger info dialog
-                          // Action: Show import information popup
                           GestureDetector(
                             onTap: () {
-                              // ✅ Show dialog when tapped
                               showImportPermitInfoDialog(context);
                             },
-                            child: Container(
-                              child: SvgPicture.asset(
-                                "assets/icons/Question-Box-gray.svg",
-                                width: 15,
-                                height: 18,
-                              ),
+                            child: SvgPicture.asset(
+                              "assets/icons/Question-Box-gray.svg",
+                              width: 18,
+                              height: 18,
                             ),
                           ),
                         ],
@@ -90,17 +88,29 @@ class ImportYourPermit extends StatelessWidget {
 
                       // ========== First Instruction Paragraph ==========
                       Text(
-                        'Tap the Import button and select your permit from whatever storage location it is sitting in. When selected, tap Open to start the extraction. It will take a few seconds for your directions to appear below.',
+                        'Tap the Import button and select your permit from whatever storage location it is sitting in.',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
+                          height: 1.44,
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Text(
+                        'When selected, tap Open to start the extraction. It will take a few seconds for your directions to appear below.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontFamily: 'Lato',
+                          fontWeight: FontWeight.w500,
+                          height: 1.44,
                         ),
                       ),
                       SizedBox(height: 4),
 
-                      // ========== Second Instruction  Paragraph ==========
+                      // ========== Second Instruction Paragraph ==========
                       Text(
                         'Edit as needed or import another permit before tapping Continue.',
                         style: TextStyle(
@@ -141,7 +151,9 @@ class ImportYourPermit extends StatelessWidget {
                       // ========== Extracted Directions Card ==========
                       Container(
                         width: double.infinity,
-                        height: 246,
+                        constraints: BoxConstraints(
+                          minHeight: 246, // ✅ Changed to minHeight for flexibility
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border(
@@ -159,6 +171,7 @@ class ImportYourPermit extends StatelessWidget {
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min, // ✅ Added
                           children: [
                             Text(
                               'I-29 S',
@@ -263,8 +276,6 @@ class ImportYourPermit extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      SizedBox(height: 40),
                     ],
                   ),
                 ),
@@ -279,7 +290,6 @@ class ImportYourPermit extends StatelessWidget {
 }
 
 // ========== DIALOG FUNCTION ==========
-// Paste the dialog function here or in a separate file
 void showImportPermitInfoDialog(BuildContext context) {
   showDialog(
     context: context,
@@ -287,19 +297,15 @@ void showImportPermitInfoDialog(BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.symmetric(
-          horizontal: 16,
-        ), // 🔹 Left-right padding কম করা
+        insetPadding: EdgeInsets.symmetric(horizontal: 16),
         child: Container(
-          width: MediaQuery.of(
-            context,
-          ).size.width, // 🔹 Full width (minus padding)
+          width: MediaQuery.of(context).size.width,
           constraints: BoxConstraints(
             maxHeight: MediaQuery.of(context).size.height * 0.6,
           ),
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-            color: AppColors.medGray, // AppColors.medGray
+            color: AppColors.medGray,
           ),
           child: SingleChildScrollView(
             child: Column(

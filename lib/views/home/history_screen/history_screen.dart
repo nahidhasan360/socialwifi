@@ -1,6 +1,21 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
@@ -94,10 +109,7 @@ class HistoryController extends GetxController {
     Get.dialog(
       AlertDialog(
         backgroundColor: AppColors.darkGray,
-
-        // 👉 BORDER RADIUS CONTROL
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-
         title: Text('Delete Routes', style: TextStyle(color: Colors.white)),
         content: Text(
           'Are you sure you want to delete $selectedCount route(s)?',
@@ -110,7 +122,7 @@ class HistoryController extends GetxController {
               'Cancel',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: AppColors.white.withValues(alpha: 90),
+                color: AppColors.white.withValues(alpha: 0.9),
               ),
             ),
           ),
@@ -138,6 +150,7 @@ class HistoryController extends GetxController {
   }
 
   // Duplicate selected route (only one at a time)
+// Duplicate selected route (only one at a time)
   void duplicateSelected() {
     final selectedRoutes = routes
         .where((route) => route.isSelected.value)
@@ -159,9 +172,7 @@ class HistoryController extends GetxController {
       // Show error dialog - can only duplicate one route at a time
       Get.dialog(
         AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8), // dialog round
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           backgroundColor: AppColors.darkGray,
           title: Row(
             children: [
@@ -197,13 +208,16 @@ class HistoryController extends GetxController {
 
     routes.add(newRoute);
 
-    // Get.snackbar(
-    //   'Success',
-    //   'Route duplicated successfully',
-    //   backgroundColor: Colors.green.shade400,
-    //   colorText: Colors.white,
-    //   snackPosition: SnackPosition.BOTTOM,
-    // );
+    // ✅ Show success snackbar - Green background, White text, TOP position
+    Get.snackbar(
+      'Success',
+      'Route duplicated successfully',
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+      snackPosition: SnackPosition.TOP,
+      duration: Duration(seconds: 2),
+      margin: EdgeInsets.all(8),
+    );
   }
 
   // Cancel - Clear all selections and reset highlighted route
@@ -219,7 +233,7 @@ class HistoryController extends GetxController {
       'All selections cleared',
       backgroundColor: Colors.grey.shade600,
       colorText: Colors.white,
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
       duration: Duration(seconds: 1),
     );
   }
@@ -339,7 +353,7 @@ class HistoryScreen extends StatelessWidget {
         ),
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(22.w),
+            padding: EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -359,7 +373,7 @@ class HistoryScreen extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: 18.h),
+                SizedBox(height: 18),
 
                 /// -------------------------------------------------------------------
                 /// Title (without checkbox)
@@ -368,12 +382,12 @@ class HistoryScreen extends StatelessWidget {
                   "My Routes History",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 22.sp,
+                    fontSize: 22,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
 
-                SizedBox(height: 22.h),
+                SizedBox(height: 22),
 
                 /// -------------------------------------------------------------------
                 /// ACTION BUTTONS with Select All Checkbox
@@ -382,11 +396,11 @@ class HistoryScreen extends StatelessWidget {
                   children: [
                     // Select All Checkbox
                     Obx(
-                      () => GestureDetector(
+                          () => GestureDetector(
                         onTap: controller.toggleSelectAll,
                         child: Container(
-                          width: 24.w,
-                          height: 24.w,
+                          width: 24,
+                          height: 24,
                           decoration: BoxDecoration(
                             color: controller.selectAll.value
                                 ? Color(0xFFFF6B35)
@@ -397,28 +411,22 @@ class HistoryScreen extends StatelessWidget {
                                   : AppColors.medGray,
                               width: 2,
                             ),
-                            borderRadius: BorderRadius.circular(4.r),
+                            borderRadius: BorderRadius.circular(4),
                           ),
                           child: controller.selectAll.value
-                              ? Icon(
-                                  Icons.check,
-                                  color: Colors.white,
-                                  size: 16.sp,
-                                )
+                              ? Icon(Icons.check, color: Colors.white, size: 16)
                               : null,
                         ),
                       ),
                     ),
 
-                    SizedBox(width: 12.w),
+                    SizedBox(width: 12),
 
-                    // Action Buttons - Use Wrap for better spacing and alignment control
-                    // Changed Row to Wrap to keep buttons together and aligned.
+                    // Action Buttons
                     Wrap(
-                      spacing: 8.w, // Horizontal space between buttons
-                      runSpacing: 4.h, // Vertical space if buttons wrap
-                      alignment:
-                          WrapAlignment.start, // Align buttons to the start
+                      spacing: 8,
+                      runSpacing: 4,
+                      alignment: WrapAlignment.start,
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         _smallButton(
@@ -436,9 +444,9 @@ class HistoryScreen extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: 15.h),
+                SizedBox(height: 15),
                 Divider(color: AppColors.white, thickness: 1),
-                SizedBox(height: 5.h),
+                SizedBox(height: 5),
 
                 /// -------------------------------------------------------------------
                 /// SEARCH BAR
@@ -447,51 +455,52 @@ class HistoryScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Container(
-                      width: 38.w,
-                      height: 40.h,
+                      width: 38,
+                      height: 40,
                       decoration: BoxDecoration(),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.white,
-                        size: 24.sp,
-                      ),
+                      child: Icon(Icons.search, color: Colors.white, size: 24),
                     ),
-
-                    SizedBox(width: 1.w),
                     Container(
                       height: 25,
                       width: 195,
-                      padding: EdgeInsets.symmetric(horizontal: 14.w,),
                       decoration: BoxDecoration(
                         color: AppColors.medGray,
-                        borderRadius: BorderRadius.circular(3.r),
+                        borderRadius: BorderRadius.circular(3),
                       ),
-                      // Added contentPadding to center the text vertically
-                      child: TextField(
-                        controller: searchController,
-                        style: TextStyle(color: Colors.white, fontSize: 14.sp),
-                        cursorColor: Colors.white,
-                        cursorWidth: 1.2,
-                        cursorHeight: 15,
-                        textAlign: TextAlign.start, // Input text alignment
-                        decoration: InputDecoration(
-                          hintText: "Beethoven",
-                          // Added alignment property to center the hint text
-                          hintStyle: TextStyle(
+                      child: Center(
+                        child: TextField(
+                          controller: searchController,
+                          style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                             fontFamily: 'Lato',
                             fontWeight: FontWeight.w500,
-                            height: 2,
                           ),
-                          border: InputBorder.none,
-                          // Set content padding to vertically center text
-                          contentPadding: EdgeInsets.symmetric(vertical: 7),
+                          cursorColor: Colors.white,
+                          cursorWidth: 1.2,
+                          cursorHeight: 16,
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontFamily: 'Lato',
+                              fontWeight: FontWeight.w500,
+                            ),
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
+                            errorBorder: InputBorder.none,
+                            disabledBorder: InputBorder.none,
+                            focusedErrorBorder: InputBorder.none,
+                            contentPadding: EdgeInsets.only(left: 5, bottom: 0),
+                            isDense: true,
+                          ),
+                          onChanged: controller.updateSearch,
                         ),
-                        onChanged: controller.updateSearch,
                       ),
                     ),
-                    SizedBox(width: 3.w),
+                    SizedBox(width: 3),
 
                     GestureDetector(
                       onTap: controller.searchRoutes,
@@ -501,16 +510,17 @@ class HistoryScreen extends StatelessWidget {
                         width: 33,
                         decoration: BoxDecoration(
                           color: AppColors.medGray,
-                          borderRadius: BorderRadius.circular(2.r),
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                        child: Text(
-                          "GO",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.w700,
-                            height: 1,
+                        child: Center(
+                          child: Text(
+                              'GO',
+                              style: GoogleFonts.lato(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1,
+                              )
                           ),
                         ),
                       ),
@@ -518,14 +528,14 @@ class HistoryScreen extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: 19.h),
+                SizedBox(height: 12),
 
                 /// -------------------------------------------------------------------
                 /// ROUTE LIST
                 /// -------------------------------------------------------------------
                 Expanded(
                   child: Obx(
-                    () => ListView.builder(
+                        () => ListView.builder(
                       itemCount: controller.routes.length,
                       itemBuilder: (context, index) => _routeItem(index),
                     ),
@@ -547,13 +557,10 @@ class HistoryScreen extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 7.w, // Text অনুযায়ী width auto হবে
-          vertical: 1.h, // Height responsive
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 7, vertical: 1),
         decoration: BoxDecoration(
           color: AppColors.orange,
-          borderRadius: BorderRadius.circular(3.r),
+          borderRadius: BorderRadius.circular(3),
         ),
         child: FittedBox(
           fit: BoxFit.scaleDown,
@@ -561,7 +568,7 @@ class HistoryScreen extends StatelessWidget {
             text,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 14.sp, // Responsive text
+              fontSize: 14,
               fontFamily: 'Lato',
               fontWeight: FontWeight.w800,
             ),
@@ -583,12 +590,12 @@ class HistoryScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 12.h,),
+            padding: EdgeInsets.symmetric(vertical: 12),
             decoration: BoxDecoration(
               color: route.isSelected.value
-                  ? Color(0xFF3A4A6B).withOpacity(0.3)
+                  ? Color(0xFF3A4A6B).withValues(alpha: 0.3)
                   : Colors.transparent,
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -598,8 +605,8 @@ class HistoryScreen extends StatelessWidget {
                 GestureDetector(
                   onTap: () => controller.toggleRoute(index),
                   child: Container(
-                    width: 24.w,
-                    height: 24.w,
+                    width: 24,
+                    height: 24,
                     decoration: BoxDecoration(
                       color: route.isSelected.value
                           ? Color(0xFFFF6B35)
@@ -610,15 +617,15 @@ class HistoryScreen extends StatelessWidget {
                             : Colors.transparent,
                         width: 2,
                       ),
-                      borderRadius: BorderRadius.circular(4.r),
+                      borderRadius: BorderRadius.circular(4),
                     ),
                     child: route.isSelected.value
-                        ? Icon(Icons.check, color: Colors.white, size: 14.sp)
+                        ? Icon(Icons.check, color: Colors.white, size: 14)
                         : null,
                   ),
                 ),
 
-                SizedBox(width: 12.w),
+                SizedBox(width: 12),
 
                 /// Route Info
                 Expanded(
@@ -628,21 +635,21 @@ class HistoryScreen extends StatelessWidget {
                       Text(
                         "${route.id} ${route.date}",
                         style: TextStyle(
-                          color: route.highlighted
+                          color: route.isSelected.value // ✅ Changed: checkbox select based
                               ? Color(0xFFFF6B35)
                               : Colors.white,
-                          fontSize: 16.sp,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      SizedBox(height: 4.h),
+                      SizedBox(height: 4),
                       Text(
                         route.title,
                         style: TextStyle(
-                          color: route.highlighted
-                              ? Color(0xFFFF6B35).withOpacity(0.8)
+                          color: route.isSelected.value // ✅ Changed: checkbox select based
+                              ? Color(0xFFFF6B35).withValues(alpha: 0.8)
                               : Colors.white70,
-                          fontSize: 14.sp,
+                          fontSize: 14,
                         ),
                       ),
                     ],
@@ -654,8 +661,10 @@ class HistoryScreen extends StatelessWidget {
                   onTap: () => controller.openRouteDetails(index),
                   child: Icon(
                     Icons.arrow_forward_ios,
-                    color: route.highlighted ? Colors.white : AppColors.white,
-                    size: 24.sp,
+                    color: route.isSelected.value // ✅ Changed: checkbox select based
+                        ? Color(0xFFFF6B35)
+                        : AppColors.white,
+                    size: 24,
                   ),
                 ),
               ],
@@ -670,3 +679,672 @@ class HistoryScreen extends StatelessWidget {
     });
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:google_fonts/google_fonts.dart';
+// import 'package:right_routes/global_widgets/custom_navbar.dart';
+// import 'package:right_routes/utils/assets_manager.dart';
+// import 'package:right_routes/utils/colors.dart';
+//
+// /// ---------------------------------------------------------------------------
+// /// CONTROLLER (GetX)
+// /// ---------------------------------------------------------------------------
+// class HistoryController extends GetxController {
+//   RxString searchQuery = "".obs;
+//   RxBool selectAll = false.obs;
+//
+//   // List of route items with selection state
+//   RxList<RouteItem> routes = <RouteItem>[
+//     RouteItem(
+//       id: "001",
+//       date: "05/26/2025",
+//       title: "Aurora Wind Farm in Tygard",
+//       isSelected: false.obs,
+//     ),
+//     RouteItem(
+//       id: "002",
+//       date: "06/04/2025",
+//       title: "Badger Wind Farm in Logan",
+//       isSelected: false.obs,
+//     ),
+//     RouteItem(
+//       id: "003",
+//       date: "06/12/2025",
+//       title: "Propane Tanks Downtown Fargo",
+//       isSelected: false.obs,
+//     ),
+//     RouteItem(
+//       id: "004",
+//       date: "06/21/2025",
+//       title: "Beethoven Wind SD",
+//       isSelected: false.obs,
+//       highlighted: true,
+//     ),
+//     RouteItem(
+//       id: "005",
+//       date: "07/15/2025",
+//       title: "Crane move in Dallas",
+//       isSelected: false.obs,
+//     ),
+//     RouteItem(
+//       id: "006",
+//       date: "08/28/2025",
+//       title: "Equipment Transport",
+//       isSelected: false.obs,
+//     ),
+//   ].obs;
+//
+//   void updateSearch(String value) {
+//     searchQuery.value = value;
+//   }
+//
+//   // Toggle select all checkbox
+//   void toggleSelectAll() {
+//     selectAll.value = !selectAll.value;
+//     for (var route in routes) {
+//       route.isSelected.value = selectAll.value;
+//     }
+//   }
+//
+//   // Toggle individual route selection
+//   void toggleRoute(int index) {
+//     routes[index].isSelected.value = !routes[index].isSelected.value;
+//
+//     // Update select all if all items are selected
+//     selectAll.value = routes.every((route) => route.isSelected.value);
+//   }
+//
+//   // Delete selected routes
+//   void deleteSelected() {
+//     final selectedCount = routes
+//         .where((route) => route.isSelected.value)
+//         .length;
+//
+//     if (selectedCount == 0) {
+//       Get.snackbar(
+//         'No Selection',
+//         'Please select routes to delete',
+//         backgroundColor: Colors.red.shade400,
+//         colorText: Colors.white,
+//         snackPosition: SnackPosition.BOTTOM,
+//         duration: Duration(seconds: 2),
+//       );
+//       return;
+//     }
+//
+//     Get.dialog(
+//       AlertDialog(
+//         backgroundColor: AppColors.darkGray,
+//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+//         title: Text('Delete Routes', style: TextStyle(color: Colors.white)),
+//         content: Text(
+//           'Are you sure you want to delete $selectedCount route(s)?',
+//           style: TextStyle(color: Colors.white70),
+//         ),
+//         actions: [
+//           TextButton(
+//             onPressed: () => Get.back(),
+//             child: Text(
+//               'Cancel',
+//               style: TextStyle(
+//                 fontWeight: FontWeight.bold,
+//                 color: AppColors.white.withValues(alpha: 0.9),
+//               ),
+//             ),
+//           ),
+//           TextButton(
+//             onPressed: () {
+//               routes.removeWhere((route) => route.isSelected.value);
+//               selectAll.value = false;
+//               Get.back();
+//               Get.snackbar(
+//                 'Success',
+//                 'Routes deleted successfully',
+//                 backgroundColor: Colors.green.shade400,
+//                 colorText: Colors.white,
+//                 snackPosition: SnackPosition.BOTTOM,
+//               );
+//             },
+//             child: Text(
+//               'Delete',
+//               style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+//
+//   // Duplicate selected route (only one at a time)
+//   void duplicateSelected() {
+//     final selectedRoutes = routes
+//         .where((route) => route.isSelected.value)
+//         .toList();
+//
+//     if (selectedRoutes.isEmpty) {
+//       Get.snackbar(
+//         'No Selection',
+//         'Please select a route to duplicate',
+//         backgroundColor: Colors.orange.shade400,
+//         colorText: Colors.white,
+//         snackPosition: SnackPosition.BOTTOM,
+//         duration: Duration(seconds: 2),
+//       );
+//       return;
+//     }
+//
+//     if (selectedRoutes.length > 1) {
+//       // Show error dialog - can only duplicate one route at a time
+//       Get.dialog(
+//         AlertDialog(
+//           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+//           backgroundColor: AppColors.darkGray,
+//           title: Row(
+//             children: [
+//               Icon(Icons.warning, color: Colors.white),
+//               SizedBox(width: 8),
+//               Text('Error', style: TextStyle(color: Colors.white)),
+//             ],
+//           ),
+//           content: Text(
+//             'You can only duplicate one route at a time. Please check one only.',
+//             style: TextStyle(color: Colors.white),
+//           ),
+//           actions: [
+//             TextButton(
+//               onPressed: () => Get.back(),
+//               child: Text('OK', style: TextStyle(color: Colors.white)),
+//             ),
+//           ],
+//         ),
+//       );
+//       return;
+//     }
+//
+//     // Duplicate the selected route
+//     final routeToDuplicate = selectedRoutes.first;
+//     final newRoute = RouteItem(
+//       id: "${int.parse(routeToDuplicate.id) + 100}",
+//       date: routeToDuplicate.date,
+//       title: "${routeToDuplicate.title} (Copy)",
+//       isSelected: false.obs,
+//       highlighted: false,
+//     );
+//
+//     routes.add(newRoute);
+//   }
+//
+//   // Cancel - Clear all selections and reset highlighted route
+//   void cancel() {
+//     for (var route in routes) {
+//       route.isSelected.value = false;
+//       route.highlighted = false;
+//     }
+//     selectAll.value = false;
+//
+//     Get.snackbar(
+//       'Cancelled',
+//       'All selections cleared',
+//       backgroundColor: Colors.grey.shade600,
+//       colorText: Colors.white,
+//       snackPosition: SnackPosition.BOTTOM,
+//       duration: Duration(seconds: 1),
+//     );
+//   }
+//
+//   // Search and highlight matching routes
+//   void searchRoutes() {
+//     if (searchQuery.value.isEmpty) {
+//       // Clear all highlights
+//       for (var route in routes) {
+//         route.highlighted = false;
+//       }
+//       return;
+//     }
+//
+//     bool foundMatch = false;
+//
+//     for (var route in routes) {
+//       final searchLower = searchQuery.value.toLowerCase();
+//       final matchesId = route.id.toLowerCase().contains(searchLower);
+//       final matchesDate = route.date.toLowerCase().contains(searchLower);
+//       final matchesTitle = route.title.toLowerCase().contains(searchLower);
+//
+//       if (matchesId || matchesDate || matchesTitle) {
+//         route.highlighted = true;
+//         foundMatch = true;
+//       } else {
+//         route.highlighted = false;
+//       }
+//     }
+//
+//     if (!foundMatch) {
+//       Get.snackbar(
+//         'No Results',
+//         'No routes found matching "${searchQuery.value}"',
+//         backgroundColor: Colors.orange.shade400,
+//         colorText: Colors.white,
+//         snackPosition: SnackPosition.BOTTOM,
+//       );
+//     }
+//   }
+//
+//   // Open route details
+//   void openRouteDetails(int index) {
+//     final route = routes[index];
+//
+//     Get.dialog(
+//       AlertDialog(
+//         title: Text('Route Details'),
+//         content: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Text(
+//               'ID: ${route.id}',
+//               style: TextStyle(fontWeight: FontWeight.bold),
+//             ),
+//             SizedBox(height: 8),
+//             Text('Date: ${route.date}'),
+//             SizedBox(height: 8),
+//             Text('Title: ${route.title}'),
+//           ],
+//         ),
+//         actions: [
+//           TextButton(onPressed: () => Get.back(), child: Text('Close')),
+//           TextButton(
+//             onPressed: () {
+//               Get.back();
+//               Get.toNamed('/route-edit', arguments: route);
+//             },
+//             child: Text('Edit Route'),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+//
+// /// ---------------------------------------------------------------------------
+// /// ROUTE ITEM MODEL
+// /// ---------------------------------------------------------------------------
+// class RouteItem {
+//   final String id;
+//   final String date;
+//   final String title;
+//   final RxBool isSelected;
+//   bool highlighted;
+//
+//   RouteItem({
+//     required this.id,
+//     required this.date,
+//     required this.title,
+//     required this.isSelected,
+//     this.highlighted = false,
+//   });
+// }
+//
+// /// ---------------------------------------------------------------------------
+// /// MAIN SCREEN
+// /// ---------------------------------------------------------------------------
+// class HistoryScreen extends StatelessWidget {
+//   HistoryScreen({super.key});
+//
+//   final controller = Get.put(HistoryController());
+//   final TextEditingController searchController = TextEditingController();
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         width: double.infinity,
+//         height: double.infinity,
+//         decoration: BoxDecoration(
+//           image: DecorationImage(
+//             image: AssetImage(ImageManager.mapBackground),
+//             fit: BoxFit.cover,
+//           ),
+//         ),
+//         child: SafeArea(
+//           child: Padding(
+//             padding: EdgeInsets.all(20),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 /// -------------------------------------------------------------------
+//                 /// LOGO
+//                 /// -------------------------------------------------------------------
+//                 Center(
+//                   child: Container(
+//                     width: 225,
+//                     height: 112,
+//                     decoration: BoxDecoration(
+//                       image: DecorationImage(
+//                         image: AssetImage(ImageManager.splashScreenLogo),
+//                         fit: BoxFit.contain,
+//                       ),
+//                     ),
+//                   ),
+//                 ),
+//
+//                 SizedBox(height: 18),
+//
+//                 /// -------------------------------------------------------------------
+//                 /// Title (without checkbox)
+//                 /// -------------------------------------------------------------------
+//                 Text(
+//                   "My Routes History",
+//                   style: TextStyle(
+//                     color: Colors.white,
+//                     fontSize: 22,
+//                     fontWeight: FontWeight.w600,
+//                   ),
+//                 ),
+//
+//                 SizedBox(height: 22),
+//
+//                 /// -------------------------------------------------------------------
+//                 /// ACTION BUTTONS with Select All Checkbox
+//                 /// -------------------------------------------------------------------
+//                 Row(
+//                   children: [
+//                     // Select All Checkbox
+//                     Obx(
+//                       () => GestureDetector(
+//                         onTap: controller.toggleSelectAll,
+//                         child: Container(
+//                           width: 24,
+//                           height: 24,
+//                           decoration: BoxDecoration(
+//                             color: controller.selectAll.value
+//                                 ? Color(0xFFFF6B35)
+//                                 : AppColors.medGray,
+//                             border: Border.all(
+//                               color: controller.selectAll.value
+//                                   ? Color(0xFFFF6B35)
+//                                   : AppColors.medGray,
+//                               width: 2,
+//                             ),
+//                             borderRadius: BorderRadius.circular(4),
+//                           ),
+//                           child: controller.selectAll.value
+//                               ? Icon(Icons.check, color: Colors.white, size: 16)
+//                               : null,
+//                         ),
+//                       ),
+//                     ),
+//
+//                     SizedBox(width: 12),
+//
+//                     // Action Buttons
+//                     Wrap(
+//                       spacing: 8,
+//                       runSpacing: 4,
+//                       alignment: WrapAlignment.start,
+//                       crossAxisAlignment: WrapCrossAlignment.center,
+//                       children: [
+//                         _smallButton(
+//                           "Delete",
+//                           onTap: controller.deleteSelected,
+//                         ),
+//                         _smallButton(
+//                           "Duplicate",
+//                           onTap: controller.duplicateSelected,
+//                         ),
+//                         _smallButton("Cancel", onTap: controller.cancel),
+//                         _smallButton("Exit", onTap: () => Get.back()),
+//                       ],
+//                     ),
+//                   ],
+//                 ),
+//
+//                 SizedBox(height: 15),
+//                 Divider(color: AppColors.white, thickness: 1),
+//                 SizedBox(height: 5),
+//
+//                 /// -------------------------------------------------------------------
+//                 /// SEARCH BAR
+//                 /// -------------------------------------------------------------------
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.end,
+//                   children: [
+//                     Container(
+//                       width: 38,
+//                       height: 40,
+//                       decoration: BoxDecoration(),
+//                       child: Icon(Icons.search, color: Colors.white, size: 24),
+//                     ),
+//                     Container(
+//                       height: 25,
+//                       width: 195,
+//                       padding: EdgeInsets.symmetric(horizontal: 14),
+//                       decoration: BoxDecoration(
+//                         color: AppColors.medGray,
+//                         borderRadius: BorderRadius.circular(3),
+//                       ),
+//                       child: TextField(
+//                         controller: searchController,
+//                         style: TextStyle(color: Colors.white, fontSize: 14),
+//                         cursorColor: Colors.white,
+//                         cursorWidth: 1.2,
+//                         cursorHeight: 15,
+//                         textAlign: TextAlign.start,
+//                         decoration: InputDecoration(
+//                           hintStyle: TextStyle(
+//                             color: Colors.white,
+//                             fontSize: 14,
+//                             fontFamily: 'Lato',
+//                             fontWeight: FontWeight.w500,
+//                             height: 2,
+//                           ),
+//                           border: InputBorder.none,
+//                           enabledBorder: InputBorder.none,
+//                           focusedBorder: InputBorder.none,
+//                           errorBorder: InputBorder.none,
+//                           disabledBorder: InputBorder.none,
+//                           focusedErrorBorder: InputBorder.none,
+//                           contentPadding: EdgeInsets.symmetric(vertical: 7),
+//                         ),
+//                         onChanged: controller.updateSearch,
+//                       ),
+//                     ),
+//                     SizedBox(width: 3),
+//
+//                     GestureDetector(
+//                       onTap: controller.searchRoutes,
+//                       child: Container(
+//                         alignment: Alignment.center,
+//                         height: 25,
+//                         width: 33,
+//                         decoration: BoxDecoration(
+//                           color: AppColors.medGray,
+//                           borderRadius: BorderRadius.circular(4),
+//                         ),
+//                         child: Center(
+//                           child: Text(
+//                               'GO',
+//                               style: GoogleFonts.lato(
+//                                 color: Colors.white,
+//                                 fontSize: 16,
+//                                 fontWeight: FontWeight.w700,
+//                                 height: 1,
+//                               )
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//
+//                 SizedBox(height: 12),
+//
+//                 /// -------------------------------------------------------------------
+//                 /// ROUTE LIST
+//                 /// -------------------------------------------------------------------
+//                 Expanded(
+//                   child: Obx(
+//                     () => ListView.builder(
+//                       itemCount: controller.routes.length,
+//                       itemBuilder: (context, index) => _routeItem(index),
+//                     ),
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//       bottomNavigationBar: CustomNavbar(),
+//     );
+//   }
+//
+//   /// ---------------------------------------------------------------------------
+//   /// SMALL BUTTON
+//   /// ---------------------------------------------------------------------------
+//   Widget _smallButton(String text, {VoidCallback? onTap}) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: EdgeInsets.symmetric(horizontal: 7, vertical: 1),
+//         decoration: BoxDecoration(
+//           color: AppColors.orange,
+//           borderRadius: BorderRadius.circular(3),
+//         ),
+//         child: FittedBox(
+//           fit: BoxFit.scaleDown,
+//           child: Text(
+//             text,
+//             style: TextStyle(
+//               color: Colors.white,
+//               fontSize: 14,
+//               fontFamily: 'Lato',
+//               fontWeight: FontWeight.w800,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+//
+//   /// ---------------------------------------------------------------------------
+//   /// ROUTE ITEM
+//   /// ---------------------------------------------------------------------------
+//   Widget _routeItem(int index) {
+//     final route = controller.routes[index];
+//
+//     return Obx(() {
+//       return Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Container(
+//             padding: EdgeInsets.symmetric(vertical: 12),
+//             decoration: BoxDecoration(
+//               color: route.isSelected.value
+//                   ? Color(0xFF3A4A6B).withValues(alpha: 0.3)
+//                   : Colors.transparent,
+//               borderRadius: BorderRadius.circular(8),
+//             ),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 /// Checkbox
+//                 GestureDetector(
+//                   onTap: () => controller.toggleRoute(index),
+//                   child: Container(
+//                     width: 24,
+//                     height: 24,
+//                     decoration: BoxDecoration(
+//                       color: route.isSelected.value
+//                           ? Color(0xFFFF6B35)
+//                           : AppColors.medGray,
+//                       border: Border.all(
+//                         color: route.isSelected.value
+//                             ? Color(0xFFFF6B35)
+//                             : Colors.transparent,
+//                         width: 2,
+//                       ),
+//                       borderRadius: BorderRadius.circular(4),
+//                     ),
+//                     child: route.isSelected.value
+//                         ? Icon(Icons.check, color: Colors.white, size: 14)
+//                         : null,
+//                   ),
+//                 ),
+//
+//                 SizedBox(width: 12),
+//
+//                 /// Route Info
+//                 Expanded(
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         "${route.id} ${route.date}",
+//                         style: TextStyle(
+//                           color: route.highlighted
+//                               ? Color(0xFFFF6B35)
+//                               : Colors.white,
+//                           fontSize: 16,
+//                           fontWeight: FontWeight.w600,
+//                         ),
+//                       ),
+//                       SizedBox(height: 4),
+//                       Text(
+//                         route.title,
+//                         style: TextStyle(
+//                           color: route.highlighted
+//                               ? Color(0xFFFF6B35).withValues(alpha: 0.8)
+//                               : Colors.white70,
+//                           fontSize: 14,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//
+//                 /// Arrow Button
+//                 GestureDetector(
+//                   onTap: () => controller.openRouteDetails(index),
+//                   child: Icon(
+//                     Icons.arrow_forward_ios,
+//                     color: route.highlighted ? Colors.white : AppColors.white,
+//                     size: 24,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//
+//           /// Divider
+//           if (index < controller.routes.length - 1)
+//             Divider(color: AppColors.dividerColor, thickness: 1, height: 1),
+//         ],
+//       );
+//     });
+//   }
+// }

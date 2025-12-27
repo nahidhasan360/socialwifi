@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
-import 'package:right_routes/global_widgets/button_reusable.dart';
+import 'package:right_routes/global_widgets/button_reusable_short_width.dart';
 import '../../../utils/assets_manager.dart';
 import '../../global_widgets/custom_navbar.dart';
 import '../../utils/colors.dart';
@@ -10,7 +9,7 @@ import '../../utils/colors.dart';
 class ChangeEmail extends StatelessWidget {
   ChangeEmail({super.key});
 
-  final emailController = Get.put(changeEmailController);
+  final emailController = Get.put(ChangeEmailController());
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +62,7 @@ class ChangeEmail extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 5),
                     Divider(color: AppColors.dividerColor, thickness: 1),
 
                     Text(
@@ -75,7 +75,7 @@ class ChangeEmail extends StatelessWidget {
                         height: 1.44,
                       ),
                     ),
-                    SizedBox(height: 19.h),
+                    SizedBox(height:15 ),
 
                     Text(
                       'Current Right Route account email:',
@@ -99,19 +99,19 @@ class ChangeEmail extends StatelessWidget {
                     ),
                     SizedBox(height: 30),
 
-                    Center(child: emailInputField(changeEmailController())),
-                    SizedBox(height: 19),
+                    Center(child: emailInputField(ChangeEmailController())),
+                    SizedBox(height: 20),
 
                     ButtonReusable(
                       onPressed: () => Get.toNamed(AppRoutes.emailSaved),
                       text: 'SAVE & CONTINUE',
-                      width: 500.w,
+                      width: 500,
                     ),
                     SizedBox(height: 20),
                     ButtonReusable(
                       onPressed: () => Get.toNamed(AppRoutes.accountScreen),
                       text: 'CANCEL',
-                      width: 500.w,
+                      width: 500,
                       fontSize: 24,
                       backgroundColor: AppColors.medGray,
                     ),
@@ -127,57 +127,55 @@ class ChangeEmail extends StatelessWidget {
   }
 }
 
-class changeEmailController extends GetxController {
-  RxBool obscure = true.obs;
+class ChangeEmailController extends GetxController {
+  final TextEditingController emailController = TextEditingController();
 
-  final emailController = TextEditingController();
+  @override
+  void onClose() {
+    emailController.dispose();
+    super.onClose();
+  }
 }
 
-Widget emailInputField(changeEmailController controller) {
+Widget emailInputField(ChangeEmailController controller) {
   return Container(
     height: 57,
-    padding: EdgeInsets.symmetric(horizontal: 16.w),
+    padding: EdgeInsets.symmetric(horizontal: 16),
     decoration: BoxDecoration(
-      color: AppColors.medGray, // same grey as screenshot
-      borderRadius: BorderRadius.circular(10.r),
+      color: AppColors.medGray,
+      borderRadius: BorderRadius.circular(10),
     ),
-    child: Row(
-      children: [
-        /// ---- TEXT FIELD ----
-        Expanded(
-          child: TextFormField(
-            controller: controller.emailController,
-            style: TextStyle(color: Colors.white, fontSize: 16.sp),
-            cursorColor: Colors.white,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              hintText: "Enter new email",
-              hintStyle: TextStyle(
-                color: const Color(0xFFBFBFBF),
-                fontSize: 16,
-                fontFamily: 'Lato',
-                fontWeight: FontWeight.w400,
-                height: 1.75,
-              ),
-            ),
-          ),
+    child: Center(
+      child: TextFormField(
+        controller: controller.emailController,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontFamily: 'Lato',
+          fontWeight: FontWeight.w400,
         ),
-
-        /// ---- EYE ICON RIGHT SIDE ----
-        Obx(
-          () => GestureDetector(
-            onTap: () => controller.obscure.toggle(),
-            child: Icon(
-              controller.obscure.value
-                  ? Icons.visibility_off
-                  : Icons.visibility,
-              color: Colors.white.withValues(alpha: 0.8),
-              size: 24.sp,
-            ),
+        cursorColor: Colors.white,
+        cursorHeight: 20,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          focusedErrorBorder: InputBorder.none,
+          contentPadding: EdgeInsets.zero,
+          hintText: "Enter new email",
+          hintStyle: TextStyle(
+            color: const Color(0xFFBFBFBF),
+            fontSize: 16,
+            fontFamily: 'Lato',
+            fontWeight: FontWeight.w400,
+            height: 1.75,
           ),
+          isDense: true,
         ),
-      ],
+      ),
     ),
   );
 }

@@ -3,8 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_buttons.dart';
+import 'package:right_routes/utils/colors.dart';
 import '../../../utils/assets_manager.dart';
-import '../../global_widgets/button_reusable.dart';
+import '../../global_widgets/button_reusable_short_width.dart';
 
 class IndividualTeam extends StatelessWidget {
   const IndividualTeam({super.key});
@@ -124,7 +125,7 @@ class IndividualTeam extends StatelessWidget {
                             Text(
                               'RESTORE SUBSCRIPTION',
                               style: TextStyle(
-                                color: const Color(0xFF9DACF5),
+                                color:AppColors.purple,
                                 fontSize: 20,
                                 fontFamily: 'League Gothic',
                                 fontWeight: FontWeight.w400,
@@ -135,7 +136,7 @@ class IndividualTeam extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(height: 49.h),
+                      SizedBox(height: 49),
                     ],
                   ),
                 ),

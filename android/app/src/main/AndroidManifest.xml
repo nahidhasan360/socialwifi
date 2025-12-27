@@ -10,6 +10,23 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
 
 
+
+    <!-- Touch id permission -->
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
+    <!-- microphone  permission -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.MICROPHONE"/>
+
+
+
+
+
+
+
+
     <application
         android:label="right_routes"
         android:name="${applicationName}"

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/utils/colors.dart';
 
-import '../../../global_widgets/button_reusable.dart';
+import '../../../global_widgets/button_reusable_short_width.dart';
 import '../../../utils/assets_manager.dart';
 
 class ChooseTeamPlanController extends GetxController {
@@ -66,11 +66,11 @@ class ChooseATeamPlan extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
 
-                      SizedBox(height: 21),
+                      SizedBox(height: 22),
 
                       /// Subtitle
                       Text(
-                        'Plans include in-app Team Manager\ncontrol panel. Cancel anytime.',
+                        'Plans include in-app Team Manager control panel. Cancel anytime.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -113,7 +113,7 @@ class ChooseATeamPlan extends StatelessWidget {
                       /// 🔹 Plan Tiles (Set 2) – optional duplicate, different keys
                       Obx(() => _planTile(
                         title: "UP TO 50 DRIVERS",
-                        price: "\$69/MO",
+                        price: "\$399/MO",
                         badge: null,
                         selected: controller.selected.value == "plan50",
                         onTap: () => controller.selected.value = "plan50",
@@ -122,16 +122,23 @@ class ChooseATeamPlan extends StatelessWidget {
 
                       Obx(() => _planTile(
                         title: "UP TO 100 DRIVERS",
-                        price: "\$119/MO",
+                        price: "\$599/MO",
                         badge: null,
                         selected: controller.selected.value == "plan100",
                         onTap: () => controller.selected.value = "plan100",
                       )),
                       SizedBox(height: 12),
-
+                      Obx(() => _planTile(
+                        title: "UP TO 250 DRIVERS",
+                        price: "\$599/MO",
+                        badge: null,
+                        selected: controller.selected.value == "plan250",
+                        onTap: () => controller.selected.value = "plan250",
+                      )),
+                      SizedBox(height: 12),
                       Obx(() => _planTile(
                         title: "UP TO 500 DRIVERS",
-                        price: "\$249/MO",
+                        price: "\$1995/MO",
                         badge: null,
                         selected: controller.selected.value == "plan500",
                         onTap: () => controller.selected.value = "plan500"
@@ -141,14 +148,14 @@ class ChooseATeamPlan extends StatelessWidget {
 
                       Obx(() => _planTile(
                         title: "UP TO 1000 DRIVERS",
-                        price: "\$249/MO",
+                        price: "\$2990/MO",
                         badge: null,
                         selected: controller.selected.value == "plan1000",
                         onTap: () => controller.selected.value = "plan1000",
                       )),
 
 
-                      SizedBox(height: 9),
+                      SizedBox(height: 11),
 
                       /// AGREEMENT + BUTTONS
                       TextButton(
@@ -161,7 +168,7 @@ class ChooseATeamPlan extends StatelessWidget {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 16,
+                                fontSize: 18,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.67,
@@ -176,10 +183,11 @@ class ChooseATeamPlan extends StatelessWidget {
                                 'RIGHT ROUTE SUBSCRIBER AGREEMENT',
                                 style: TextStyle(
                                   color: AppColors.purple,
-                                  fontSize: 18,
+                                  fontSize: 20,
                                   fontFamily: 'League Gothic',
                                   fontWeight: FontWeight.w400,
                                   height: 1.50,
+                                  letterSpacing: 1,
                                 ),
                               ),
                             ),
@@ -201,7 +209,7 @@ class ChooseATeamPlan extends StatelessWidget {
                             // TextButton(
                             //   onPressed: () {},
                             //   child: Text(
-                            //     'RIGHT ROUTE SUBSCRIBER AGREEMENT',
+                            //     'RIGHT ROUTE SUB SCRIBER AGREEMENT',
                             //     style: TextStyle(
                             //       color: AppColors.purple,
                             //       fontSize: 20.sp,
@@ -232,7 +240,7 @@ class ChooseATeamPlan extends StatelessWidget {
                                   Text(
                                     'RESTORE SUBSCRIPTION',
                                     style: TextStyle(
-                                      color: const Color(0xFF9DACF5),
+                                      color: AppColors.purple,
                                       fontSize: 20,
                                       fontFamily: 'League Gothic',
                                       fontWeight: FontWeight.w400,

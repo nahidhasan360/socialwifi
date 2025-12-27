@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
-import 'package:right_routes/global_widgets/button_reusable.dart';
+import 'package:right_routes/global_widgets/button_reusable_short_width.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/colors.dart';
 import '../../../utils/assets_manager.dart';
@@ -85,7 +85,7 @@ class ChangePassword extends StatelessWidget {
 
                       // Password criteria section with validation
                       Obx(
-                        () => Column(
+                            () => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             _ruleTile(
@@ -189,7 +189,7 @@ class ChangePassword extends StatelessWidget {
   /// ================= Password Field ======================
   Widget _buildPasswordField(BuildContext context) {
     return Obx(
-      () => Container(
+          () => Container(
         width: 388,
         height: 48,
         decoration: ShapeDecoration(
@@ -224,6 +224,11 @@ class ChangePassword extends StatelessWidget {
                     height: 1.75,
                   ),
                   border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
                 ),
               ),
             ),
@@ -265,11 +270,11 @@ class ChangePassword extends StatelessWidget {
           ),
           child: active
               ? Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 14,
-                  fontWeight: FontWeight.bold,
-                )
+            Icons.check,
+            color: Colors.white,
+            size: 14,
+            fontWeight: FontWeight.bold,
+          )
               : null,
         ),
         SizedBox(width: 7),
@@ -311,6 +316,12 @@ class ChangePasswordController extends GetxController {
       validatePassword();
       updateStrength();
     });
+  }
+
+  @override
+  void onClose() {
+    changeEditing.dispose();
+    super.onClose();
   }
 
   // Toggle password visibility
@@ -359,7 +370,7 @@ class ChangePasswordController extends GetxController {
       strengthLabel.value = 'Weak';
     } else if (strength == 2 || strength == 3) {
       strengthProgress.value = 0.6;
-      strengthColor.value = Colors.orange;
+      strengthColor.value = Color(0xFFFFB800); // ✅ Changed: Fair Yellow
       strengthLabel.value = 'Fair';
     } else if (strength >= 4) {
       strengthProgress.value = 1.0;

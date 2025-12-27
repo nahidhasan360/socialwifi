@@ -72,14 +72,14 @@ class PlotYourRoute extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 16),
+                            SizedBox(height: 20),
 
                             // ========== Instruction Text ==========
                             Text(
                               'Tap Start to begin. This will center the map',
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: 15,
+                                fontSize: 18,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w500,
                                 height: 1.44,
@@ -92,13 +92,13 @@ class PlotYourRoute extends StatelessWidget {
                                   'to your current location.',
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 15,
+                                    fontSize: 18,
                                     fontFamily: 'Lato',
                                     fontWeight: FontWeight.w500,
                                     height: 1.44,
                                   ),
                                 ),
-                                SizedBox(width: 8.w),
+                                SizedBox(width: 3),
                                 GestureDetector(
                                   onTap: () {
                                     showPlotRouteInfoDialog(context);
@@ -124,13 +124,13 @@ class PlotYourRoute extends StatelessWidget {
                                 height: 24,
                                 decoration: BoxDecoration(
                                   color: AppColors.orange,
-                                  borderRadius: BorderRadius.circular(5.r),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Center(
                                   child: Text(
                                     'Start',
                                     style: TextStyle(
-                                      fontSize: 15.sp,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w700,
                                       color: Colors.white,
                                       letterSpacing: 0.5,
@@ -153,7 +153,7 @@ class PlotYourRoute extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8.r),
                           border: Border.all(
                             color: Color(0xFF1A2332),
-                            width: 2.w,
+                            width: 2,
                           ),
                         ),
                         child: ClipRRect(
@@ -174,23 +174,23 @@ class PlotYourRoute extends StatelessWidget {
                                         children: [
                                           Icon(
                                             Icons.map_outlined,
-                                            size: 64.sp,
+                                            size: 64,
                                             color: Color(0xFF1A2332),
                                           ),
-                                          SizedBox(height: 12.h),
+                                          SizedBox(height: 12),
                                           Text(
                                             'Map View',
                                             style: TextStyle(
-                                              fontSize: 18.sp,
+                                              fontSize: 18,
                                               fontWeight: FontWeight.w600,
                                               color: Color(0xFF1A2332),
                                             ),
                                           ),
-                                          SizedBox(height: 8.h),
+                                          SizedBox(height: 8),
                                           Text(
                                             'Interactive map will appear here',
                                             style: TextStyle(
-                                              fontSize: 14.sp,
+                                              fontSize: 14,
                                               fontWeight: FontWeight.w400,
                                               color: Color(0xFF666666),
                                             ),
@@ -204,16 +204,16 @@ class PlotYourRoute extends StatelessWidget {
 
                               // Zoom controls
                               Positioned(
-                                top: 10.h,
-                                right: 10.w,
+                                top: 10,
+                                right: 10,
                                 child: Column(
                                   children: [
                                     Container(
-                                      width: 36.w,
-                                      height: 36.h,
+                                      width: 36,
+                                      height: 36,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(4.r),
+                                        borderRadius: BorderRadius.circular(4),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.black.withOpacity(0.1),
@@ -224,17 +224,17 @@ class PlotYourRoute extends StatelessWidget {
                                       ),
                                       child: Icon(
                                         Icons.add,
-                                        size: 20.sp,
+                                        size: 20,
                                         color: Color(0xFF1A2332),
                                       ),
                                     ),
-                                    SizedBox(height: 8.h),
+                                    SizedBox(height: 8),
                                     Container(
-                                      width: 36.w,
-                                      height: 36.h,
+                                      width: 36,
+                                      height: 36,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius: BorderRadius.circular(4.r),
+                                        borderRadius: BorderRadius.circular(4),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.black.withValues(alpha: 0.1),
@@ -245,7 +245,7 @@ class PlotYourRoute extends StatelessWidget {
                                       ),
                                       child: Icon(
                                         Icons.remove,
-                                        size: 20.sp,
+                                        size: 20,
                                         color: Color(0xFF1A2332),
                                       ),
                                     ),
@@ -259,10 +259,10 @@ class PlotYourRoute extends StatelessWidget {
 
                       // ========== Back Button WITH Padding ==========
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22.w),
+                        padding: EdgeInsets.symmetric(horizontal: 22),
                         child: Column(
                           children: [
-                            SizedBox(height: 20.h),
+                            SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
                                 Get.back();
@@ -287,7 +287,7 @@ class PlotYourRoute extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(height: 40.h),
+                            SizedBox(height: 40),
                           ],
                         ),
                       ),
@@ -313,16 +313,16 @@ void showPlotRouteInfoDialog(BuildContext context) {
       return Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: EdgeInsets.only(
-          top: 60.h,
-          bottom: 100.h,
-          left: 20.w,
-          right: 20.w,
+          top: 60,
+          bottom: 100,
+          left: 20,
+          right: 20,
         ),
         child: Container(
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Color(0xFF4A4A4A),
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -347,7 +347,7 @@ void showPlotRouteInfoDialog(BuildContext context) {
                     ),
                   ],
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 16),
                 Text(
                   'Make sure you are at the starting point of your route before tapping start because this app uses your current geo location for plotting the first waypoint.',
                   style: TextStyle(
@@ -358,7 +358,7 @@ void showPlotRouteInfoDialog(BuildContext context) {
                     height: 1.44,
                   ),
                 ),
-                SizedBox(height: 16.h),
+                SizedBox(height: 16),
                 RichText(
                   text: TextSpan(
                     style: TextStyle(
@@ -368,26 +368,6 @@ void showPlotRouteInfoDialog(BuildContext context) {
                       fontWeight: FontWeight.w500,
                       height: 1.44,
                     ),
-                    children: [
-                      TextSpan(
-                        text: 'When the user taps ',
-                      ),
-                      TextSpan(
-                        text: 'Start',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      TextSpan(
-                        text: ', the map zooms in, centers on his geo location using his device\'s GPS tracking and places a route start pin on the map at that location. ',
-                      ),
-                      TextSpan(
-                        text: 'See screen 688',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
                   ),
                 ),
               ],

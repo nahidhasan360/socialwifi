@@ -7,7 +7,7 @@ import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
 
 import '../../core/routes/all_routes.dart';
-import '../../global_widgets/button_reusable.dart';
+import '../../global_widgets/button_reusable_short_width.dart';
 
 
 class EmailSaved extends StatelessWidget {

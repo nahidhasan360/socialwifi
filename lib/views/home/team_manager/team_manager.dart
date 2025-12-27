@@ -3,16 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
-import 'package:right_routes/views/home/account_screen/account_screen.dart';
 
 // ============================================================
 // COLOR CONSTANTS
 // ============================================================
 class TeamManagerColors {
-  static const Color primaryOrange = Color(0xFFFF8742);
+  static const Color primaryOrange = Color(0xffF58842);
   static const Color primaryWhite = Color(0xFFFFFFFF);
   static const Color darkBackground = Color(0xFF1E1E1E);
   static const Color darkerBackground = Color(0xFF0F0F0F);
@@ -114,9 +114,9 @@ class TeamManagerController extends GetxController {
       filteredUserList.value = userList
           .where(
             (user) =>
-                user.name.toLowerCase().contains(query.toLowerCase()) ||
-                user.email.toLowerCase().contains(query.toLowerCase()),
-          )
+        user.name.toLowerCase().contains(query.toLowerCase()) ||
+            user.email.toLowerCase().contains(query.toLowerCase()),
+      )
           .toList();
     }
   }
@@ -249,32 +249,56 @@ class TeamManagerController extends GetxController {
     CustomDialogs.showHelpDialog();
   }
 
+  // UPDATED: Download button - Auto generate CSV without selection requirement
   void downloadSelected() {
-    final selected = filteredUserList.where((user) => user.isSelected).toList();
-    if (selected.isEmpty) {
+    if (userList.isEmpty) {
       Get.snackbar(
         'Warning',
-        'Please select at least one user',
+        'No users available to download',
         backgroundColor: TeamManagerColors.primaryOrange,
         colorText: Colors.white,
       );
       return;
     }
-    Get.snackbar('Info', '${selected.length} users selected for download');
+
+    // Generate CSV content
+    String csvContent = 'Name,Email,Status\n';
+    for (var user in userList) {
+      csvContent += '${user.name},${user.email},${_getStatusText(user.status)}\n';
+    }
+
+    // TODO: Implement actual CSV file creation and email sending
+    // Example: Save CSV file and send email
+    // await CsvService.generateAndEmailCsv(csvContent, userEmail);
+
+    // Show success message with green background
+    Get.snackbar(
+      'Success',
+      'Your user list in .CSV format has been emailed to the email on this account.',
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+      duration: Duration(seconds: 4),
+    );
   }
 
+  // UPDATED: Cancel button - Deselect all checkboxes AND clear text field
   void cancelSelected() {
-    final selected = filteredUserList.where((user) => user.isSelected).toList();
-    if (selected.isEmpty) {
-      Get.snackbar(
-        'Warning',
-        'Please select at least one user',
-        backgroundColor: TeamManagerColors.primaryOrange,
-        colorText: Colors.white,
-      );
-      return;
+    // Deselect all users
+    for (var user in filteredUserList) {
+      user.isSelected = false;
     }
-    Get.snackbar('Info', '${selected.length} users selected for cancel');
+    isAllSelected.value = false;
+    filteredUserList.refresh();
+
+    // Clear the ADD/EDIT USERS text field
+    emailInputController.clear();
+
+    Get.snackbar(
+      'Cancelled',
+      'All selections cleared and text field cleared',
+      backgroundColor: TeamManagerColors.primaryOrange,
+      colorText: Colors.white,
+    );
   }
 
   void resendSelected() {
@@ -318,6 +342,19 @@ class TeamManagerController extends GetxController {
         );
       },
     );
+  }
+
+  String _getStatusText(UserStatus status) {
+    switch (status) {
+      case UserStatus.active:
+        return 'Active';
+      case UserStatus.pending:
+        return 'Pending';
+      case UserStatus.resend:
+        return 'Resend';
+      case UserStatus.remove:
+        return 'Remove';
+    }
   }
 
   @override
@@ -475,7 +512,7 @@ class CustomDialogs {
         insetPadding: EdgeInsets.symmetric(horizontal: 15),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFFB71C1C), // Deep red background
+            color: const Color(0xFFB71C1C),
           ),
           padding: EdgeInsets.all(15),
           child: Column(
@@ -484,21 +521,18 @@ class CustomDialogs {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Cancel Button
                   SvgPicture.asset(
                     "assets/icons/bell-icon.svg",
                     height: 20,
                     width: 20,
                   ),
-                  // Confirm Button (Green)
                   GestureDetector(
                     onTap: onConfirm,
                     child: Container(
                       width: 79,
                       height: 23,
                       decoration: BoxDecoration(
-                        color:
-                            AppColors.darkGray, // Green color from screenshot
+                        color: AppColors.darkGray,
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Center(
@@ -517,8 +551,6 @@ class CustomDialogs {
                 ],
               ),
               SizedBox(height: 10),
-
-              // Message Text
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -535,10 +567,7 @@ class CustomDialogs {
                   ),
                 ],
               ),
-
               SizedBox(height: 24),
-
-              // Buttons Row
             ],
           ),
         ),
@@ -580,11 +609,11 @@ class CustomDialogs {
                   ),
                 ],
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
               _buildInstructionText(
                 title: 'Single entry:',
                 content:
-                    'Tap inside field below, type first/last name and email separated by a comma. ',
+                'Tap inside field below, type first/last name and email separated by a comma. ',
               ),
               _buildInstructionText(
                 title: 'Example:',
@@ -595,7 +624,7 @@ class CustomDialogs {
               _buildInstructionText(
                 title: 'Multiple entries:',
                 content:
-                    'Tap Import. List must be comma delineated in .CSV format, one user per line.',
+                'Tap Import. List must be comma delineated in .CSV format, one user per line.',
               ),
               SizedBox(height: 12),
               Text(
@@ -668,9 +697,8 @@ class TeamManager extends StatelessWidget {
         child: SafeArea(
           child: CustomScrollView(
             slivers: [
-              //  STICKY LOGO SECTION WITH BACKGROUND
               SliverAppBar(
-                pinned: true, //Dark background
+                pinned: true,
                 elevation: 0,
                 toolbarHeight: 144,
                 flexibleSpace: Container(
@@ -694,7 +722,6 @@ class TeamManager extends StatelessWidget {
                   ),
                 ),
               ),
-              // SCROLLABLE CONTENT
               SliverPadding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 sliver: SliverList(
@@ -713,15 +740,17 @@ class TeamManager extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 8),
-                        Divider(color: AppColors.dividerColor, thickness: 1.h),
+                        Divider(color: AppColors.dividerColor, thickness: 1),
                         SizedBox(height: 3),
                         _buildSubscriptionInfo(),
                         SizedBox(height: 20),
-                        Divider(color: AppColors.dividerColor, thickness: 1.h),
+                        Divider(color: AppColors.dividerColor, thickness: 1),
                         SizedBox(height: 20),
                         _buildUsersSection(),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed(AppRoutes.accountScreen);
+                          },
                           child: Text(
                             'Manage Account',
                             textAlign: TextAlign.left,
@@ -734,7 +763,7 @@ class TeamManager extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20.h),
+                        SizedBox(height: 20),
                       ],
                     ),
                   ]),
@@ -762,18 +791,22 @@ class TeamManager extends StatelessWidget {
           ),
         ),
         SizedBox(height: 8),
-
         _buildInfoText('Team [sample data: 1,000 (up to 1,000 users)]'),
         _buildInfoText('Seats used: [sample data: 785 of 1,000]'),
         _buildInfoText('Renewal Date: [sample data: Nov 29, 2025]'),
         _buildInfoText('Subscription ID: [subscription ID here]'),
-        Text(
-          'Upgrade / Downgrade',
-          style: GoogleFonts.lato(
-            color: AppColors.purple,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            height: 1.56,
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(AppRoutes.chooseATeamPlan);
+          },
+          child: Text(
+            'Upgrade / Downgrade',
+            style: GoogleFonts.lato(
+              color: AppColors.purple,
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              height: 1.56,
+            ),
           ),
         ),
       ],
@@ -830,14 +863,14 @@ class TeamManager extends StatelessWidget {
         Row(
           children: [
             Icon(Icons.search, color: TeamManagerColors.primaryWhite, size: 24),
-            SizedBox(width: 2.w),
+            SizedBox(width: 2),
             Container(
               width: 195,
               height: 32,
-              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              padding: EdgeInsets.symmetric(horizontal: 12),
               decoration: BoxDecoration(
                 color: AppColors.medGray,
-                borderRadius: BorderRadius.circular(4.r),
+                borderRadius: BorderRadius.circular(4),
               ),
               child: Material(
                 color: Colors.transparent,
@@ -852,7 +885,6 @@ class TeamManager extends StatelessWidget {
                     height: 2.29,
                   ),
                   decoration: InputDecoration(
-                    hintText: 'Doe',
                     hintStyle: GoogleFonts.lato(
                       color: Colors.white,
                       fontSize: 14,
@@ -871,7 +903,7 @@ class TeamManager extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 8),
+            SizedBox(width: 3),
             GestureDetector(
               onTap: () {
                 controller.filterUsers(controller.searchController.text);
@@ -880,8 +912,8 @@ class TeamManager extends StatelessWidget {
                 width: 33,
                 height: 32,
                 decoration: BoxDecoration(
-                  color: TeamManagerColors.borderColor,
-                  borderRadius: BorderRadius.circular(4.r),
+                  color: AppColors.medGray,
+                  borderRadius: BorderRadius.circular(4),
                 ),
                 child: Center(
                   child: Text(
@@ -891,7 +923,7 @@ class TeamManager extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       height: 2,
-                    ),
+                    )
                   ),
                 ),
               ),
@@ -902,15 +934,13 @@ class TeamManager extends StatelessWidget {
     );
   }
 
-  //-------------------------------------------------------------
-
   Widget _buildUserListTable() {
     return Obx(() {
       if (controller.filteredUserList.isEmpty) {
         return _buildEmptyState();
       }
 
-      final containerHeight = 224.0; // 4 rows height (56 * 4)
+      final containerHeight = 224.0;
 
       return Container(
         decoration: BoxDecoration(
@@ -929,7 +959,7 @@ class TeamManager extends StatelessWidget {
                     child: Column(
                       children: List.generate(
                         controller.filteredUserList.length,
-                        (index) => _buildTableRow(index),
+                            (index) => _buildTableRow(index),
                       ),
                     ),
                   ),
@@ -959,7 +989,6 @@ class TeamManager extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Name - flex: 2
           Expanded(
             flex: 2,
             child: Text(
@@ -971,7 +1000,6 @@ class TeamManager extends StatelessWidget {
               ),
             ),
           ),
-          // Email - flex: 3
           Expanded(
             flex: 4,
             child: Text(
@@ -983,7 +1011,6 @@ class TeamManager extends StatelessWidget {
               ),
             ),
           ),
-          // Status - flex: 2
           Expanded(
             flex: 2,
             child: Text(
@@ -995,7 +1022,6 @@ class TeamManager extends StatelessWidget {
               ),
             ),
           ),
-          // Actions - fixed width
           SizedBox(
             width: 70,
             child: Row(
@@ -1003,7 +1029,7 @@ class TeamManager extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(
-                  () => GestureDetector(
+                      () => GestureDetector(
                     onTap: () {
                       controller.toggleAllSelection();
                     },
@@ -1058,7 +1084,6 @@ class TeamManager extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Name - flex: 2
             Expanded(
               flex: 2,
               child: Text(
@@ -1072,7 +1097,6 @@ class TeamManager extends StatelessWidget {
                 ),
               ),
             ),
-            // Email - flex: 3
             Expanded(
               flex: 4,
               child: Text(
@@ -1086,7 +1110,6 @@ class TeamManager extends StatelessWidget {
                 ),
               ),
             ),
-            // Status - flex: 2
             Expanded(
               flex: 2,
               child: Text(
@@ -1100,14 +1123,12 @@ class TeamManager extends StatelessWidget {
                 ),
               ),
             ),
-            // Actions - fixed width
             SizedBox(
               width: 70,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Checkbox
                   GestureDetector(
                     onTap: () {
                       controller.toggleUserSelection(index);
@@ -1128,7 +1149,6 @@ class TeamManager extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 8),
-                  // Edit Icon
                   GestureDetector(
                     onTap: () {
                       controller.editUser(user);
@@ -1148,263 +1168,6 @@ class TeamManager extends StatelessWidget {
     });
   }
 
-  //-------------------------------------------------------------
-
-  // Widget _buildUserListTable() {
-  //   return Obx(() {
-  //     if (controller.filteredUserList.isEmpty) {
-  //       return _buildEmptyState();
-  //     }
-  //
-  //     final containerHeight = (50.h * 3);
-  //
-  //     return Container(
-  //       decoration: BoxDecoration(
-  //         color: AppColors.darkGray,
-  //       ),
-  //       child: Column(
-  //         children: [
-  //           _buildTableHeader(),
-  //           Stack(
-  //             children: [
-  //               Container(
-  //                 constraints: BoxConstraints(maxHeight: containerHeight),
-  //                 child: SingleChildScrollView(
-  //                   controller: controller.userListScrollController,
-  //                   child: Column(
-  //                     children: List.generate(
-  //                       controller.filteredUserList.length,
-  //                           (index) => _buildTableRow(index),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //               CustomScrollIndicator(
-  //                 scrollController: controller.userListScrollController,
-  //                 containerHeight: containerHeight,
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //     );
-  //   });
-  // }
-  // Widget _buildTableRow(int index) {
-  //   return Obx(() {
-  //     final user = controller.filteredUserList[index];
-  //
-  //     return Container(
-  //       padding: EdgeInsets.symmetric(horizontal: 15,),
-  //       child: Container(
-  //         padding: EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-  //         decoration: BoxDecoration(
-  //           border: Border(
-  //             bottom: BorderSide(color: AppColors.medGray, width: 1),
-  //           ),
-  //         ),
-  //         child: Row(
-  //           children: [
-  //             Expanded(
-  //               child: Text(
-  //                 user.name,
-  //                 maxLines: 1,
-  //                 overflow: TextOverflow.ellipsis,
-  //                 style: GoogleFonts.lato(
-  //                   color: _getTextColor(user.status),
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w400,
-  //                 ),
-  //               ),
-  //             ),
-  //             SizedBox(width: 8),
-  //             Expanded(
-  //
-  //               child: Text(
-  //                 user.email,
-  //                 maxLines: 1,
-  //                 overflow: TextOverflow.ellipsis,
-  //                 style: GoogleFonts.lato(
-  //                   color: _getTextColor(user.status),
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w400,
-  //                 ),
-  //               ),
-  //             ),
-  //             SizedBox(width: 8),
-  //             Expanded(
-  //
-  //               child: Text(
-  //                 _getStatusText(user.status),
-  //                 maxLines: 1,
-  //                 overflow: TextOverflow.ellipsis,
-  //                 style: GoogleFonts.lato(
-  //                   color: _getTextColor(user.status),
-  //                   fontSize: 16,
-  //                   fontWeight: FontWeight.w400,
-  //                 ),
-  //               ),
-  //             ),
-  //             SizedBox(width: 8),
-  //             SizedBox(
-  //               width: 100,
-  //               child: Row(
-  //                 mainAxisAlignment: MainAxisAlignment.end,
-  //                 children: [
-  //                   GestureDetector(
-  //                     onTap: () {
-  //                       controller.toggleUserSelection(index);
-  //                     },
-  //                     child: Container(
-  //                       width: 24,
-  //                       height: 24,
-  //                       decoration: BoxDecoration(
-  //                         color: user.isSelected
-  //                             ? TeamManagerColors.primaryOrange
-  //                             : Colors.transparent,
-  //                         border: Border.all(
-  //                           color: TeamManagerColors.primaryWhite,
-  //                           width: 1.5,
-  //                         ),
-  //                         borderRadius: BorderRadius.circular(4),
-  //                       ),
-  //                       child: user.isSelected
-  //                           ? Icon(
-  //                         Icons.close,
-  //                         color: TeamManagerColors.primaryWhite,
-  //                         size: 16,
-  //                       )
-  //                           : null,
-  //                     ),
-  //                   ),
-  //                   SizedBox(width: 12),
-  //                   GestureDetector(
-  //                     onTap: () {
-  //                       controller.editUser(user);
-  //                     },
-  //                     child: Center(
-  //                       child: SvgPicture.asset(
-  //                         "assets/icons/Edit-Pencil-white.svg",
-  //                         width: 24,
-  //                         height: 24,
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     );
-  //   });
-  // }
-  // Widget _buildTableHeader() {
-  //   return Container(
-  //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-  //     decoration: BoxDecoration(
-  //       color: AppColors.darkGray,
-  //       borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(8),
-  //         topRight: Radius.circular(8),
-  //       ),
-  //     ),
-  //     child: Row(
-  //       crossAxisAlignment: CrossAxisAlignment.center, // Add this
-  //       children: [
-  //         Expanded(
-  //           flex: 2,
-  //           child: Text(
-  //             'Name',
-  //             textAlign: TextAlign.start,
-  //             style: GoogleFonts.lato(
-  //               color: Colors.white,
-  //               fontSize: 16,
-  //               fontWeight: FontWeight.w700,
-  //               height: 1, // Changed from 1.75
-  //             ),
-  //           ),
-  //         ),
-  //         Expanded(
-  //           flex: 2,
-  //           child: Text(
-  //             'Email',
-  //             textAlign: TextAlign.start,
-  //             style: GoogleFonts.lato(
-  //               color: Colors.white,
-  //               fontSize: 16,
-  //               fontWeight: FontWeight.w700,
-  //               height: 1, // Changed from 1.75
-  //             ),
-  //           ),
-  //         ),
-  //
-  //         Expanded(
-  //           flex: 2,
-  //           child: Text(
-  //             'Status',
-  //             textAlign: TextAlign.start,
-  //             style: GoogleFonts.lato(
-  //               color: Colors.white,
-  //               fontSize: 16,
-  //               fontWeight: FontWeight.w700,
-  //               height: 1, // Changed from 1.75
-  //             ),
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           width: 58, // Add fixed width
-  //           child: Row(
-  //             mainAxisAlignment: MainAxisAlignment.end,
-  //             crossAxisAlignment: CrossAxisAlignment.center, // Add this
-  //             children: [
-  //               Obx(
-  //                     () => GestureDetector(
-  //                   onTap: () {
-  //                     controller.toggleAllSelection();
-  //                   },
-  //                   child: Container(
-  //                     width: 24,
-  //                     height: 24,
-  //                     decoration: BoxDecoration(
-  //                       color: controller.isAllSelected.value
-  //                           ? TeamManagerColors.primaryOrange
-  //                           : Colors.transparent,
-  //                       border: Border.all(
-  //                         color: TeamManagerColors.primaryWhite,
-  //                         width: 1.5,
-  //                       ),
-  //                       borderRadius: BorderRadius.circular(4.r),
-  //                     ),
-  //                     child: controller.isAllSelected.value
-  //                         ? Icon(
-  //                       Icons.check,
-  //                       color: TeamManagerColors.primaryWhite,
-  //                       size: 14,
-  //                     )
-  //                         : null,
-  //                   ),
-  //                 ),
-  //               ),
-  //               SizedBox(width: 10),
-  //               GestureDetector(
-  //                 onTap: () {
-  //                   _showUserManagementHelp();
-  //                 },
-  //                 child: SvgPicture.asset(
-  //                   "assets/icons/Question-Box-gray.svg",
-  //                   width: 24,
-  //                   height: 24,
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   void _showUserManagementHelp() {
     Get.dialog(
       Dialog(
@@ -1415,7 +1178,7 @@ class TeamManager extends StatelessWidget {
             color: AppColors.medGray,
             borderRadius: BorderRadius.circular(8),
           ),
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1441,7 +1204,7 @@ class TeamManager extends StatelessWidget {
                   GestureDetector(
                     onTap: () => Get.back(),
                     child: Container(
-                      padding: EdgeInsets.all(4.w),
+                      padding: EdgeInsets.all(4),
                       child: SvgPicture.asset(
                         "assets/icons/Close-X-Circle.svg",
                         height: 30,
@@ -1454,9 +1217,9 @@ class TeamManager extends StatelessWidget {
               SizedBox(height: 16),
               Text(
                 '• Click the checkbox to select individual users\n'
-                '• Click the checkbox in the header to select/deselect all users\n'
-                '• Click the pencil icon to edit a user\'s information\n'
-                '• Select users and click action buttons to perform bulk operations',
+                    '• Click the checkbox in the header to select/deselect all users\n'
+                    '• Click the pencil icon to edit a user\'s information\n'
+                    '• Select users and click action buttons to perform bulk operations',
                 style: GoogleFonts.lato(
                   color: Colors.white,
                   fontSize: 16,
@@ -1545,7 +1308,7 @@ class TeamManager extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 12.h),
+          padding: EdgeInsets.symmetric(vertical: 12),
           child: Row(
             children: [
               Text(
@@ -1559,7 +1322,7 @@ class TeamManager extends StatelessWidget {
                   letterSpacing: 1.50,
                 ),
               ),
-              SizedBox(width: 93.w),
+              SizedBox(width: 3),
               GestureDetector(
                 onTap: () {
                   CustomDialogs.showHelpDialog();
@@ -1567,8 +1330,8 @@ class TeamManager extends StatelessWidget {
                 child: Center(
                   child: SvgPicture.asset(
                     "assets/icons/Question-Box-gray.svg",
-                    height: 24,
-                    width: 24,
+                    height: 21,
+                    width: 21,
                   ),
                 ),
               ),
@@ -1604,7 +1367,6 @@ class TeamManager extends StatelessWidget {
                           fontSize: 16,
                         ),
                         decoration: InputDecoration(
-                          hintText: 'john@truckcompany.com',
                           hintStyle: GoogleFonts.lato(
                             color: Colors.black.withValues(alpha: 0.4),
                             fontSize: 16,
@@ -1644,9 +1406,7 @@ class TeamManager extends StatelessWidget {
             SizedBox(width: 12),
             SizedBox(
               width: 84,
-              child: _buildActionButton('Cancel', () {
-                controller.emailInputController.clear();
-              }),
+              child: _buildActionButton('Cancel', controller.cancelSelected),
             ),
             SizedBox(width: 12),
             SizedBox(

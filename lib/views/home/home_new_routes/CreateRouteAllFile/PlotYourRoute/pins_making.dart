@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
@@ -26,8 +25,6 @@ class PinsMaking extends StatelessWidget {
           child: Column(
             children: [
               // ========== Fixed Logo Section ==========
-              // Purpose: Company branding logo at top
-              // Size: 225x112 (fixed)
               Center(
                 child: Container(
                   width: 225,
@@ -40,27 +37,21 @@ class PinsMaking extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height:   29),
+              SizedBox(height: 29),
 
               // ========== Scrollable Content Section ==========
-              // Purpose: Main content area with map
-              // NOTE: Map has NO horizontal padding (full width)
-              // Other content has 22.w padding
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // ========== Content with Padding ==========
-                      // Purpose: Title, instruction, buttons with 22.w padding
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // ========== Title (Centered) ==========
-                            // Purpose: Page heading "PLOT YOUR ROUTE"
-                            // Font: League Gothic, 32sp, White
                             Row(
                               children: [
                                 Expanded(
@@ -83,59 +74,38 @@ class PinsMaking extends StatelessWidget {
                             SizedBox(height: 16),
 
                             // ========== Instruction Text Line 1 ==========
-                            // Purpose: First line of instruction
-                            // Font: Lato, 18sp, White
-                            Text(
-                              'Tap to place a pins marking your waypoints.',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w500,
-                                height: 1.44,
-                              ),
-                            ),
-                            Text(
-                              'Select a pin and tap Delete to remove.',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w500,
-                                height: 1.44,
-                              ),
-                            ),
-
-                            // ========== Instruction Text Line 2 with Info Icon ==========
-                            // Purpose: Second line with info icon
-                            // Layout: Text + info icon
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'When done, tap Continue.',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontFamily: 'Lato',
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.44,
-                                  ),
+                            // ========== Instruction Text with Info Icon (RichText) ==========
+                            RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontFamily: 'Lato',
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.44,
                                 ),
-                                SizedBox(width: 3,),
-                                // ========== Info Icon Button ==========
-                                // Purpose: Show map usage instructions dialog
-                                GestureDetector(
-                                  onTap: () {
-                                    showPlotRouteInfoDialog(context);
-                                  },
-                                  child: SvgPicture.asset(
-                                    "assets/icons/Question-Box-gray.svg",
-                                    width: 20,
-                                    height: 20,
+                                children: [
+                                  TextSpan(
+                                    text: 'Tap to place a pins marking your waypoints.\nSelect a pin and tap Delete to remove.\nWhen done, tap Continue. ',
                                   ),
-                                ),
-                              ],
+                                  WidgetSpan(
+                                    alignment: PlaceholderAlignment.middle,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        showPlotRouteInfoDialog(context);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 4),
+                                        child: SvgPicture.asset(
+                                          "assets/icons/Question-Box-gray.svg",
+                                          width: 20,
+                                          height: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(height: 20),
                           ],
@@ -143,10 +113,6 @@ class PinsMaking extends StatelessWidget {
                       ),
 
                       // ========== MAP CONTAINER (FULL WIDTH - NO PADDING) ==========
-                      // Purpose: Interactive Google Map for route plotting
-                      // Design: Edge-to-edge width, NO horizontal padding
-                      // Features: Zoom, pan, place waypoint pins, delete pins
-                      // Height: 383 (fixed)
                       Container(
                         width: double.infinity,
                         height: 383,
@@ -156,15 +122,12 @@ class PinsMaking extends StatelessWidget {
                         child: Stack(
                           children: [
                             // ========== Map Image/Widget ==========
-                            // Purpose: Google Map display
-                            // TODO: Replace with GoogleMap widget
                             Image.asset(
                               'assets/images/map_pic.png',
                               width: double.infinity,
                               height: double.infinity,
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
-                                // Fallback if image not found
                                 return Container(
                                   color: Color(0xFFE8F4F8),
                                   child: Center(
@@ -176,16 +139,16 @@ class PinsMaking extends StatelessWidget {
                                           size: 64,
                                           color: Color(0xFF1A2332),
                                         ),
-                                        SizedBox(height: 12.h),
+                                        SizedBox(height: 12),
                                         Text(
                                           'Map View',
                                           style: TextStyle(
-                                            fontSize: 18.sp,
+                                            fontSize: 18,
                                             fontWeight: FontWeight.w600,
                                             color: Color(0xFF1A2332),
                                           ),
                                         ),
-                                        SizedBox(height: 8.h),
+                                        SizedBox(height: 8),
                                         Text(
                                           'Tap to place waypoint pins',
                                           style: TextStyle(
@@ -202,9 +165,6 @@ class PinsMaking extends StatelessWidget {
                             ),
 
                             // ========== Waypoint Pins (Example Markers) ==========
-                            // Purpose: Show example pin placements
-                            // These will be replaced by actual Google Map markers
-                            // Orange pin 1 (top-left area)
                             Positioned(
                               top: 100,
                               left: 150,
@@ -214,7 +174,6 @@ class PinsMaking extends StatelessWidget {
                                 color: AppColors.orange,
                               ),
                             ),
-                            // Orange pin 2 (middle area)
                             Positioned(
                               top: 180,
                               left: 130,
@@ -226,8 +185,6 @@ class PinsMaking extends StatelessWidget {
                             ),
 
                             // ========== Map Controls Overlay ==========
-                            // Purpose: Zoom in/out buttons
-                            // Position: Top-right corner
                             Positioned(
                               top: 10,
                               right: 10,
@@ -239,7 +196,7 @@ class PinsMaking extends StatelessWidget {
                                     height: 36,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4.r),
+                                      borderRadius: BorderRadius.circular(4),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withValues(alpha: 0.1),
@@ -261,7 +218,7 @@ class PinsMaking extends StatelessWidget {
                                     height: 36,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4.r),
+                                      borderRadius: BorderRadius.circular(4),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.black.withValues(alpha: 0.1),
@@ -284,8 +241,6 @@ class PinsMaking extends StatelessWidget {
                       ),
 
                       // ========== Bottom Buttons with Padding ==========
-                      // Purpose: Back, Delete Pin, Continue buttons
-                      // Layout: Has 22.w horizontal padding
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 22),
                         child: Column(
@@ -293,13 +248,9 @@ class PinsMaking extends StatelessWidget {
                             SizedBox(height: 20),
 
                             // ========== Action Buttons Row ==========
-                            // Purpose: Back, Delete Pin, Continue
-                            // Layout: Three buttons with space between
                             Row(
                               children: [
                                 // ========== Back Button ==========
-                                // Size: 57w x 24h
-                                // Background: Orange
                                 GestureDetector(
                                   onTap: () {
                                     Get.back();
@@ -309,7 +260,7 @@ class PinsMaking extends StatelessWidget {
                                     height: 24,
                                     decoration: BoxDecoration(
                                       color: AppColors.orange,
-                                      borderRadius: BorderRadius.circular(5.r),
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Center(
                                       child: Text(
@@ -328,11 +279,8 @@ class PinsMaking extends StatelessWidget {
                                 Spacer(),
 
                                 // ========== Delete Pin Button ==========
-                                // Size: 88w x 24h (wider for "Delete Pin")
-                                // Background: Orange
                                 GestureDetector(
                                   onTap: () {
-                                    // TODO: Delete selected pin logic
                                     print('Delete Pin tapped');
                                   },
                                   child: Container(
@@ -340,7 +288,7 @@ class PinsMaking extends StatelessWidget {
                                     height: 24,
                                     decoration: BoxDecoration(
                                       color: AppColors.orange,
-                                      borderRadius: BorderRadius.circular(5.r),
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Center(
                                       child: Text(
@@ -359,11 +307,9 @@ class PinsMaking extends StatelessWidget {
                                 Spacer(),
 
                                 // ========== Continue Button ==========
-                                // Size: 76w x 24h
-                                // Background: Orange
                                 GestureDetector(
                                   onTap: () {
-                                     Get.toNamed(AppRoutes.editConfirmStartYourRoute);
+                                    Get.toNamed(AppRoutes.editConfirmStartYourRoute);
                                     print('Continue tapped');
                                   },
                                   child: Container(
@@ -371,7 +317,7 @@ class PinsMaking extends StatelessWidget {
                                     height: 24,
                                     decoration: BoxDecoration(
                                       color: AppColors.orange,
-                                      borderRadius: BorderRadius.circular(5.r),
+                                      borderRadius: BorderRadius.circular(5),
                                     ),
                                     child: Center(
                                       child: Text(
@@ -389,7 +335,7 @@ class PinsMaking extends StatelessWidget {
                               ],
                             ),
 
-                            SizedBox(height: 40.h), // Bottom spacing
+                            SizedBox(height: 40),
                           ],
                         ),
                       ),
@@ -407,8 +353,6 @@ class PinsMaking extends StatelessWidget {
 }
 
 // ========== INFO DIALOG FUNCTION ==========
-// Purpose: Explain map pin placement and deletion
-// Trigger: When user taps info icon (?)
 void showPlotRouteInfoDialog(BuildContext context) {
   showDialog(
     context: context,
@@ -417,23 +361,21 @@ void showPlotRouteInfoDialog(BuildContext context) {
       return Dialog(
         backgroundColor: Colors.transparent,
         insetPadding: EdgeInsets.only(
-          top: 60.h,
-          bottom: 100.h,
-          left: 20.w,
-          right: 20.w,
+          top: 60,
+          bottom: 100,
+          left: 20,
+          right: 20,
         ),
         child: Container(
-          padding: EdgeInsets.all(20.w),
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Color(0xFF4A4A4A),
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // ========== FIXED HEADER ROW ==========
-              // Purpose: Hand icon + Close button (always visible)
-              // Position: Fixed at top, does not scroll
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -452,11 +394,9 @@ void showPlotRouteInfoDialog(BuildContext context) {
                   ),
                 ],
               ),
-              SizedBox(height: 16.h),
+              SizedBox(height: 16),
 
               // ========== SCROLLABLE CONTENT ==========
-              // Purpose: Text content (scrollable if too long)
-              // Note: Only this section scrolls, header stays fixed
               Flexible(
                 child: SingleChildScrollView(
                   child: Column(
@@ -464,9 +404,6 @@ void showPlotRouteInfoDialog(BuildContext context) {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       // ========== Dialog Main Content ==========
-                      // Purpose: Detailed pin and map manipulation instructions
-                      // Font: Lato, 18sp, White
-                      // Bold headings (w800), Regular text (w500)
                       Text.rich(
                         TextSpan(
                           children: [

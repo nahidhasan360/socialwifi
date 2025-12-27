@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
-import '../../global_widget/global_widgets.dart';
+import '../../global_widget/widgets_for_strength.dart';
 import '../../views/account/account_delete.dart';
 import '../../views/account/are_you_sure_delete_this_account.dart';
 import '../../views/account/change_email.dart';
@@ -12,6 +12,7 @@ import '../../views/account/help.dart';
 import '../../views/account/password_saved.dart';
 import '../../views/authentication/OtpVerification_Screen/OtpVerification_Screen.dart';
 import '../../views/authentication/create_an_account/create_an_account.dart';
+import '../../views/authentication/enter_email_for_delete/enter_email_for_delete.dart';
 import '../../views/authentication/enter_email_screen/enter_email_screen.dart';
 import '../../views/authentication/get_started_screen/get_started_screen.dart';
 import '../../views/authentication/login_account/login_account.dart';
@@ -42,6 +43,10 @@ class AppRoutes {
 
   static const String splashScreen = "/SplashScreen";
   static const String getStartedScreen = "/GetStartedScreen";
+  static const String enterEmailForDelete = "/EnterEmailForDelete";
+
+
+
   // ================== Enter Email screen =====================//
   static const String enterEmailScreen = "/EnterEmailScreen";
   static const String createAccountScreen = "/CreateAnAccount";
@@ -140,6 +145,7 @@ class AppRoutes {
       page: () => AreYouSureDeleteThisAccount(),
     ),
     GetPage(name: accountDelete, page: () => AccountDelete()),
+    GetPage(name: enterEmailForDelete, page: () => EnterEmailForDelete()),
     GetPage(name: help, page: () => Help()),
 
     // GetPage(name: teamManager, page: () => TeamManager()),

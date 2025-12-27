@@ -18,10 +18,16 @@ dependencies:
   cupertino_icons: ^1.0.8
   pin_code_fields: ^8.0.1
   image_picker: ^1.0.7
+  ## touch id
+  local_auth: ^2.3.0
 
-  ## maps
   # Map Packages
   maplibre_gl:
+
+  speech_to_text: ^7.3.0
+    # for voice
+  google_speech: ^3.0.0
+  avatar_glow: ^3.0.1
 
   # Map voice guidance
   flutter_tts: ^4.2.0
