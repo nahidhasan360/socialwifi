@@ -382,13 +382,12 @@ class _ImportYourPhotoPermitState extends State<ImportYourPhotoPermit> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 5),
                       // ========== Second Instruction Paragraph ==========
                       Text(
                         'After importing, edit as needed or import your next permit image before tapping Continue.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 18,
                           fontFamily: 'Lato',
                           fontWeight: FontWeight.w500,
                           height: 1.44,

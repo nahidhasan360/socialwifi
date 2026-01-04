@@ -93,7 +93,6 @@ class EnterDirectionsController extends GetxController {
       isRecording.value = false;
       retryCount.value = 0;
 
-      // ✅ Auto-close on error
       if (Get.isDialogOpen ?? false) {
         Get.back();
       }
@@ -119,13 +118,11 @@ class EnterDirectionsController extends GetxController {
             }
           });
         } else {
-          // ✅ Auto-close and save
           _finalizeRecording();
         }
         break;
 
       case 'done':
-      // ✅ Auto-close and save
         _finalizeRecording();
         break;
     }
@@ -137,18 +134,15 @@ class EnterDirectionsController extends GetxController {
     retryCount.value = 0;
 
     Future.delayed(Duration(milliseconds: 300), () {
-      // ✅ Auto-add recognized text
       if (currentRecognizedText.value.isNotEmpty) {
         _processAndAddText(currentRecognizedText.value);
       }
 
       currentRecognizedText.value = '';
 
-      // ✅ Auto-close dialog
       if (Get.isDialogOpen ?? false) {
         Get.back();
 
-        // ✅ Show success message at TOP
         if (textController.text.isNotEmpty) {
           Get.snackbar(
             'Success',
@@ -156,7 +150,7 @@ class EnterDirectionsController extends GetxController {
             backgroundColor: Colors.green.withOpacity(0.9),
             colorText: Colors.white,
             icon: Icon(Icons.check_circle_outline, color: Colors.white),
-            snackPosition: SnackPosition.TOP, // ✅ TOP position
+            snackPosition: SnackPosition.TOP,
             duration: Duration(seconds: 2),
             margin: EdgeInsets.all(10),
           );
@@ -317,7 +311,6 @@ class EnterDirectionsController extends GetxController {
       await speech.stop();
       isRecording.value = false;
 
-      // ✅ Auto-add current text
       if (currentRecognizedText.value.isNotEmpty) {
         _processAndAddText(currentRecognizedText.value);
       }
@@ -325,11 +318,9 @@ class EnterDirectionsController extends GetxController {
       currentRecognizedText.value = '';
       retryCount.value = 0;
 
-      // ✅ Auto-close dialog
       if (Get.isDialogOpen ?? false) {
         Get.back();
 
-        // ✅ Show success message at TOP
         if (textController.text.isNotEmpty) {
           Get.snackbar(
             'Success',
@@ -337,7 +328,7 @@ class EnterDirectionsController extends GetxController {
             backgroundColor: Colors.green.withOpacity(0.9),
             colorText: Colors.white,
             icon: Icon(Icons.check_circle_outline, color: Colors.white),
-            snackPosition: SnackPosition.TOP, // ✅ TOP position
+            snackPosition: SnackPosition.TOP,
             duration: Duration(seconds: 2),
             margin: EdgeInsets.all(10),
           );
@@ -359,7 +350,7 @@ class EnterDirectionsController extends GetxController {
         child: Dialog(
           backgroundColor: Colors.transparent,
           child: Container(
-            padding: EdgeInsets.all(34), // ✅ Uniform padding
+            padding: EdgeInsets.all(34),
             decoration: BoxDecoration(
               color: Color(0xFF2E3746),
               borderRadius: BorderRadius.circular(16),
@@ -374,7 +365,6 @@ class EnterDirectionsController extends GetxController {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // ✅ Avatar Glow Animation
                 Obx(() => AvatarGlow(
                   glowColor: Colors.red,
                   glowRadiusFactor: 0.6,
@@ -400,7 +390,6 @@ class EnterDirectionsController extends GetxController {
 
                 SizedBox(height: 24),
 
-                // Recognized Text
                 Obx(() => Container(
                   constraints: BoxConstraints(minHeight: 60, maxHeight: 100),
                   child: Center(
@@ -436,7 +425,6 @@ class EnterDirectionsController extends GetxController {
 
                 SizedBox(height: 24),
 
-                // ✅ Stop Button
                 GestureDetector(
                   onTap: () => stopRecording(),
                   child: Container(
@@ -478,6 +466,11 @@ class EnterDirectionsController extends GetxController {
     );
   }
 
+  // ✅ NEW: Clear text field method
+  void clearTextField() {
+    textController.clear();
+  }
+
   // ========== HELPER METHODS ==========
   void _showError(String title, String message) {
     Get.snackbar(
@@ -486,7 +479,7 @@ class EnterDirectionsController extends GetxController {
       backgroundColor: Colors.red.withOpacity(0.8),
       colorText: Colors.white,
       icon: Icon(Icons.error_outline, color: Colors.white),
-      snackPosition: SnackPosition.TOP, // ✅ TOP position
+      snackPosition: SnackPosition.TOP,
       duration: Duration(seconds: 3),
       margin: EdgeInsets.all(10),
     );
@@ -613,9 +606,9 @@ class EnterDirections extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 9),
-
+                      // ✅ UPDATED: Mic icon instructions
                       Text(
-                        "This app uses your current location as the starting point for your route. Before creating your route, make sure you're at the location you will start hauling from.",
+                        'Tap inside the text field to type in your waypoints. Each waypoint should be on a separate line.',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 18,
@@ -625,7 +618,7 @@ class EnterDirections extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 12),
-
+                      // ✅ UPDATED TEXT (removed first paragraph)
                       RichText(
                         text: TextSpan(
                           style: TextStyle(
@@ -637,7 +630,7 @@ class EnterDirections extends StatelessWidget {
                           ),
                           children: [
                             TextSpan(
-                              text: 'Enter your route following one of the two samples below. Don\'t add extra information like "drive 400 feet" or "mile post 84.48." Keep it simple. ',
+                              text: 'Tap the mic icon at the bottom to speak in your waypoints. Edit as needed before tapping Continue.',
                             ),
                             WidgetSpan(
                               alignment: PlaceholderAlignment.middle,
@@ -659,7 +652,6 @@ class EnterDirections extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 20),
-
                       Container(
                         width: double.infinity,
                         height: 246,
@@ -734,8 +726,12 @@ class EnterDirections extends StatelessWidget {
 
                       Row(
                         children: [
+                          // ✅ UPDATED: Back button clears text field
                           GestureDetector(
-                            onTap: () => Get.back(),
+                            onTap: () {
+                              controller.clearTextField(); // Clear text
+                              Get.back();
+                            },
                             child: Container(
                               width: 57,
                               height: 24,
@@ -803,9 +799,9 @@ void showEnterDirectionsInfoDialog(BuildContext context) {
     builder: (context) {
       return Dialog(
         backgroundColor: Colors.transparent,
-        insetPadding: EdgeInsets.only(top: 60, bottom: 100, left: 20, right: 20),
+        insetPadding: EdgeInsets.only(top: 60, bottom: 100, left: 10, right: 10),
         child: Container(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: Color(0xFF4A4A4A),
             borderRadius: BorderRadius.circular(12),
@@ -843,20 +839,21 @@ void showEnterDirectionsInfoDialog(BuildContext context) {
                       height: 1.44,
                     ),
                     children: [
+                      TextSpan(text: """Enter your route following one of the two samples below. Don't add extra information like drive 400 feet" or "mile post 84.48." Keep it simple.\n"""),
                       TextSpan(text: 'Type it:\n', style: TextStyle(fontWeight: FontWeight.w700)),
-                      TextSpan(text: 'Tap inside the text field below and use your device\'s keyboard to enter the directions in this format:\n\n'),
+                      TextSpan(text: 'Tap inside the text field below and use your device\'s keyboard to enter the directions in this format:\n'),
                       TextSpan(
-                        text: 'I-29 S\nExit 63А-В\nExit 63В\nI-94 W\nExit 340\n\n',
-                        style: TextStyle(fontStyle: FontStyle.italic, color: Colors.white.withOpacity(0.9)),
+                        text: 'I-29 S\nExit 63А-В\nExit 63В\nI-94 W\nExit 340\n',
+                        style: TextStyle( fontWeight: FontWeight.w700,color: Colors.white),
                       ),
                       TextSpan(text: 'Speak it:\n', style: TextStyle(fontWeight: FontWeight.w700)),
-                      TextSpan(text: 'Tap the microphone icon to begin and speak in the format below. The mic will turn red when active.\n\n'),
-                      TextSpan(text: 'The text will appear in the text field.\n\n'),
+                      TextSpan(text: 'Tap the microphone icon to begin and speak in the format below. The mic will turn red when active.\n'),
+                      TextSpan(text: 'The text will appear in the text field.\n'),
                       TextSpan(
-                        text: 'I 29 south  LINE\nExit 63 A B  LINE\nExit 63 B  LINE\nI94 west  LINE\nexit 340\n\n',
-                        style: TextStyle(fontStyle: FontStyle.italic, color: Colors.white.withOpacity(0.9)),
+                        text: 'I 29 south  LINE\nExit 63 A B  LINE\nExit 63 B  LINE\nI94 west  LINE\nExit 340\n',
+                        style: TextStyle( fontWeight: FontWeight.w700,color: Colors.white),
                       ),
-                      TextSpan(text: 'Tap the microphone icon to stop dictation.\n\n'),
+                      TextSpan(text: 'Tap the microphone icon to stop dictation.\n'),
                       TextSpan(text: 'Edit as needed before tapping the Continue button.'),
                     ],
                   ),

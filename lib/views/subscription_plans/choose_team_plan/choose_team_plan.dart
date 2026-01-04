@@ -130,7 +130,7 @@ class ChooseATeamPlan extends StatelessWidget {
                       SizedBox(height: 12),
                       Obx(() => _planTile(
                         title: "UP TO 250 DRIVERS",
-                        price: "\$599/MO",
+                        price: "\$1247/MO",
                         badge: null,
                         selected: controller.selected.value == "plan250",
                         onTap: () => controller.selected.value = "plan250",
@@ -198,7 +198,7 @@ class ChooseATeamPlan extends StatelessWidget {
                             ButtonReusable(
                               text: 'SUBSCRIBE',
                               onPressed: () {
-                                Get.toNamed(AppRoutes.teamManager);
+                                Get.offAllNamed(AppRoutes.teamManager);
                               },
                               width: 250,
                               height: 55,

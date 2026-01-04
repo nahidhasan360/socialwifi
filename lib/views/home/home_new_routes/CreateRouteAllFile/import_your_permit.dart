@@ -85,7 +85,6 @@ class ImportYourPermit extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 10),
-
                       // ========== First Instruction Paragraph ==========
                       Text(
                         'Tap the Import button and select your permit from whatever storage location it is sitting in.',
@@ -97,7 +96,6 @@ class ImportYourPermit extends StatelessWidget {
                           height: 1.44,
                         ),
                       ),
-                      SizedBox(height: 5),
                       Text(
                         'When selected, tap Open to start the extraction. It will take a few seconds for your directions to appear below.',
                         style: TextStyle(
@@ -108,7 +106,6 @@ class ImportYourPermit extends StatelessWidget {
                           height: 1.44,
                         ),
                       ),
-                      SizedBox(height: 4),
 
                       // ========== Second Instruction Paragraph ==========
                       Text(

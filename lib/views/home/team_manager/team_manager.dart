@@ -8,6 +8,11 @@ import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
 
+// ✅ CSV Import Dependencies
+import 'package:file_picker/file_picker.dart';
+import 'package:csv/csv.dart';
+import 'dart:io';
+
 // ============================================================
 // COLOR CONSTANTS
 // ============================================================
@@ -34,6 +39,11 @@ class TeamManagerController extends GetxController {
   final userListScrollController = ScrollController();
   final emailInputScrollController = ScrollController();
 
+  // ✅ User Limit Variables
+  RxInt userLimit = 215.obs;
+  RxInt currentUsers = 0.obs;
+  RxInt remainingSlots = 215.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -41,6 +51,10 @@ class TeamManagerController extends GetxController {
 
     searchController.addListener(() {
       filterUsers(searchController.text);
+    });
+
+    emailInputController.addListener(() {
+      _updateUserCount();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -105,6 +119,7 @@ class TeamManagerController extends GetxController {
       ),
     ];
     filteredUserList.value = userList;
+    _updateUserCount();
   }
 
   void filterUsers(String query) {
@@ -114,9 +129,9 @@ class TeamManagerController extends GetxController {
       filteredUserList.value = userList
           .where(
             (user) =>
-        user.name.toLowerCase().contains(query.toLowerCase()) ||
-            user.email.toLowerCase().contains(query.toLowerCase()),
-      )
+                user.name.toLowerCase().contains(query.toLowerCase()) ||
+                user.email.toLowerCase().contains(query.toLowerCase()),
+          )
           .toList();
     }
   }
@@ -207,6 +222,24 @@ class TeamManagerController extends GetxController {
       return;
     }
 
+    final lines = input.split('\n').where((e) => e.trim().isNotEmpty).toList();
+    int pendingCount = lines.length;
+    int totalAfterAdd = userList.length + pendingCount;
+
+    if (totalAfterAdd > userLimit.value) {
+      int exceededBy = totalAfterAdd - userLimit.value;
+      int availableSlots = userLimit.value - userList.length;
+
+      Get.snackbar(
+        'Limit Exceeded',
+        'You are trying to add $pendingCount users but only have $availableSlots seats available.\nYou are over the limit by $exceededBy users.\n\nPlease remove some users from the text field or upgrade your plan.',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 6),
+      );
+      return;
+    }
+
     final singleUser = parseSingleEntry(input);
     if (singleUser != null) {
       userList.add(singleUser);
@@ -245,11 +278,226 @@ class TeamManagerController extends GetxController {
     );
   }
 
-  void importUsers() {
-    CustomDialogs.showHelpDialog();
+  void importUsers() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.any,
+        allowMultiple: false,
+      );
+
+      if (result == null || result.files.isEmpty) {
+        return;
+      }
+
+      String? filePath = result.files.single.path;
+      if (filePath == null) {
+        Get.snackbar(
+          'Error',
+          'Could not access file',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      if (!filePath.toLowerCase().endsWith('.csv')) {
+        Get.snackbar(
+          'Error',
+          'Please select a CSV file',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      final file = File(filePath);
+
+      String csvString;
+      try {
+        csvString = await file.readAsString();
+      } catch (e) {
+        Get.snackbar(
+          'Error',
+          'Could not read file. Please ensure it is a valid CSV file.',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      List<List<dynamic>> csvData;
+      try {
+        csvData = const CsvToListConverter().convert(
+          csvString,
+          eol: '\n',
+          shouldParseNumbers: false,
+        );
+      } catch (e) {
+        Get.snackbar(
+          'Error',
+          'Invalid CSV format',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      if (csvData.isEmpty) {
+        Get.snackbar(
+          'Error',
+          'CSV file is empty',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      StringBuffer importedText = StringBuffer();
+      int successCount = 0;
+      int skipCount = 0;
+
+      for (var row in csvData) {
+        if (row.isEmpty) continue;
+
+        String name = '';
+        String email = '';
+
+        if (row.length == 1) {
+          email = row[0].toString().trim();
+          name = email.split('@')[0];
+        } else if (row.length >= 2) {
+          if (row.length == 2) {
+            name = row[0].toString().trim();
+            email = row[1].toString().trim();
+          } else {
+            email = row.last.toString().trim();
+            name = row.sublist(0, row.length - 1).join(' ').trim();
+          }
+        }
+
+        if (email.isEmpty || !email.contains('@')) {
+          skipCount++;
+          continue;
+        }
+
+        importedText.writeln('$name, $email');
+        successCount++;
+      }
+
+      if (successCount == 0) {
+        Get.snackbar(
+          'Error',
+          'No valid users found in CSV file',
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+        return;
+      }
+
+      emailInputController.text = importedText.toString().trim();
+
+      String message = '$successCount user(s) imported successfully';
+      if (skipCount > 0) {
+        message += '\n$skipCount invalid entries skipped';
+      }
+
+      Get.snackbar(
+        'Success',
+        message,
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+        duration: Duration(seconds: 3),
+      );
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (emailInputScrollController.hasClients) {
+          emailInputScrollController.animateTo(
+            0,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        }
+      });
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to import: ${e.toString()}',
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
 
-  // UPDATED: Download button - Auto generate CSV without selection requirement
+  void _updateUserCount() {
+    currentUsers.value = userList.length;
+
+    final input = emailInputController.text.trim();
+    int pendingUsers = 0;
+
+    if (input.isNotEmpty) {
+      final lines = input
+          .split('\n')
+          .where((e) => e.trim().isNotEmpty)
+          .toList();
+      pendingUsers = lines.length;
+    }
+
+    remainingSlots.value = userLimit.value - currentUsers.value - pendingUsers;
+    update(['add_button']);
+  }
+
+  String get limitText {
+    int remaining = userLimit.value - currentUsers.value;
+
+    final input = emailInputController.text.trim();
+    if (input.isNotEmpty) {
+      final lines = input
+          .split('\n')
+          .where((e) => e.trim().isNotEmpty)
+          .toList();
+      remaining -= lines.length;
+    }
+
+    if (remaining >= 0) {
+      return '+ $remaining';
+    } else {
+      return '$remaining';
+    }
+  }
+
+  Color get limitColor {
+    int remaining = userLimit.value - currentUsers.value;
+
+    final input = emailInputController.text.trim();
+    if (input.isNotEmpty) {
+      final lines = input
+          .split('\n')
+          .where((e) => e.trim().isNotEmpty)
+          .toList();
+      remaining -= lines.length;
+    }
+
+    return remaining >= 0 ? Colors.green : Colors.red;
+  }
+
+// ✅ This is already correct - no change needed
+  bool canAddUsers() {
+    final input = emailInputController.text.trim();
+
+    // Empty hole Orange button
+    if (input.isEmpty) return true;
+
+    final lines = input.split('\n').where((e) => e.trim().isNotEmpty).toList();
+    int pendingCount = lines.length;
+    int totalAfterAdd = userList.length + pendingCount;
+
+    // Limit cross na korle Orange, korle Grey
+    return totalAfterAdd <= userLimit.value;
+  }
+  Color addButtonColor() {
+    return canAddUsers() ? AppColors.orange : Colors.grey;
+  }
+
   void downloadSelected() {
     if (userList.isEmpty) {
       Get.snackbar(
@@ -261,17 +509,12 @@ class TeamManagerController extends GetxController {
       return;
     }
 
-    // Generate CSV content
     String csvContent = 'Name,Email,Status\n';
     for (var user in userList) {
-      csvContent += '${user.name},${user.email},${_getStatusText(user.status)}\n';
+      csvContent +=
+          '${user.name},${user.email},${_getStatusText(user.status)}\n';
     }
 
-    // TODO: Implement actual CSV file creation and email sending
-    // Example: Save CSV file and send email
-    // await CsvService.generateAndEmailCsv(csvContent, userEmail);
-
-    // Show success message with green background
     Get.snackbar(
       'Success',
       'Your user list in .CSV format has been emailed to the email on this account.',
@@ -281,16 +524,12 @@ class TeamManagerController extends GetxController {
     );
   }
 
-  // UPDATED: Cancel button - Deselect all checkboxes AND clear text field
   void cancelSelected() {
-    // Deselect all users
     for (var user in filteredUserList) {
       user.isSelected = false;
     }
     isAllSelected.value = false;
     filteredUserList.refresh();
-
-    // Clear the ADD/EDIT USERS text field
     emailInputController.clear();
 
     Get.snackbar(
@@ -303,6 +542,7 @@ class TeamManagerController extends GetxController {
 
   void resendSelected() {
     final selected = filteredUserList.where((user) => user.isSelected).toList();
+
     if (selected.isEmpty) {
       Get.snackbar(
         'Warning',
@@ -312,7 +552,35 @@ class TeamManagerController extends GetxController {
       );
       return;
     }
-    Get.snackbar('Info', '${selected.length} users selected for resend');
+
+    final resendUsers = selected
+        .where((user) => user.status == UserStatus.resend)
+        .toList();
+
+    if (resendUsers.isEmpty) {
+      Get.snackbar(
+        'Warning',
+        'Selected users do not have "Resend" status',
+        backgroundColor: TeamManagerColors.primaryOrange,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    for (var user in resendUsers) {
+      CustomDialogs.showResendConfirmation(
+        userName: user.name,
+        userEmail: user.email,
+        onConfirm: () {
+          user.status = UserStatus.pending;
+          user.isSelected = false;
+          Get.back();
+        },
+      );
+    }
+
+    filteredUserList.refresh();
+    _updateSelectAllState();
   }
 
   void removeSelected() {
@@ -368,9 +636,6 @@ class TeamManagerController extends GetxController {
   }
 }
 
-// ============================================================
-// USER MODEL
-// ============================================================
 class UserModel {
   String name;
   String email;
@@ -387,9 +652,6 @@ class UserModel {
 
 enum UserStatus { active, pending, resend, remove }
 
-// ============================================================
-// CUSTOM SCROLL INDICATOR
-// ============================================================
 class CustomScrollIndicator extends StatefulWidget {
   final ScrollController scrollController;
   final double containerHeight;
@@ -501,9 +763,6 @@ class _CustomScrollIndicatorState extends State<CustomScrollIndicator> {
   }
 }
 
-// ============================================================
-// CUSTOM DIALOGS
-// ============================================================
 class CustomDialogs {
   static void showRemoveConfirmation({required VoidCallback onConfirm}) {
     Get.dialog(
@@ -511,9 +770,7 @@ class CustomDialogs {
         backgroundColor: Colors.transparent,
         insetPadding: EdgeInsets.symmetric(horizontal: 15),
         child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFFB71C1C),
-          ),
+          decoration: BoxDecoration(color: const Color(0xFFB71C1C)),
           padding: EdgeInsets.all(15),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -575,6 +832,112 @@ class CustomDialogs {
       barrierDismissible: true,
     );
   }
+  //                 ============================    resend diolog box show ============================
+  static void showResendConfirmation({
+    required String userName,
+    required String userEmail,
+    required VoidCallback onConfirm,
+  }) {
+    Get.dialog(
+      Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: EdgeInsets.symmetric(horizontal: 20),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.green.shade700,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.check_circle_outline, color: Colors.white, size: 60),
+              SizedBox(height: 20),
+              Text(
+                'Email Sent!',
+                style: GoogleFonts.lato(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 15),
+              Text(
+                'An email invite has been sent to',
+                style: GoogleFonts.lato(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 8),
+              Text(
+                userName,
+                style: GoogleFonts.lato(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 4),
+              Text(
+                userEmail,
+                style: GoogleFonts.lato(
+                  color: Colors.white.withOpacity(0.9),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 15),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Text(
+                  'They will have 7 days to respond.\nStatus will change to "Pending".',
+                  style: GoogleFonts.lato(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    height: 1.5,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 25),
+              GestureDetector(
+                onTap: onConfirm,
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    'OK',
+                    style: GoogleFonts.lato(
+                      color: Colors.green.shade700,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
 
   static void showHelpDialog() {
     Get.dialog(
@@ -613,7 +976,7 @@ class CustomDialogs {
               _buildInstructionText(
                 title: 'Single entry:',
                 content:
-                'Tap inside field below, type first/last name and email separated by a comma. ',
+                    'Tap inside field below, type first/last name and email separated by a comma. ',
               ),
               _buildInstructionText(
                 title: 'Example:',
@@ -624,7 +987,7 @@ class CustomDialogs {
               _buildInstructionText(
                 title: 'Multiple entries:',
                 content:
-                'Tap Import. List must be comma delineated in .CSV format, one user per line.',
+                    'Tap Import. List must be comma delineated in .CSV format, one user per line.',
               ),
               SizedBox(height: 12),
               Text(
@@ -673,9 +1036,6 @@ class CustomDialogs {
   }
 }
 
-// ============================================================
-// MAIN SCREEN WITH STICKY LOGO
-// ============================================================
 class TeamManager extends StatelessWidget {
   TeamManager({super.key});
 
@@ -749,7 +1109,9 @@ class TeamManager extends StatelessWidget {
                         _buildUsersSection(),
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed(AppRoutes.accountScreen);
+                            final navController = Get.find<NavController>();
+                            navController.saveCurrentNavbarRoute();
+                            Get.offAllNamed(AppRoutes.accountScreen);
                           },
                           child: Text(
                             'Manage Account',
@@ -923,7 +1285,7 @@ class TeamManager extends StatelessWidget {
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                       height: 2,
-                    )
+                    ),
                   ),
                 ),
               ),
@@ -959,7 +1321,7 @@ class TeamManager extends StatelessWidget {
                     child: Column(
                       children: List.generate(
                         controller.filteredUserList.length,
-                            (index) => _buildTableRow(index),
+                        (index) => _buildTableRow(index),
                       ),
                     ),
                   ),
@@ -1029,7 +1391,7 @@ class TeamManager extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Obx(
-                      () => GestureDetector(
+                  () => GestureDetector(
                     onTap: () {
                       controller.toggleAllSelection();
                     },
@@ -1071,7 +1433,14 @@ class TeamManager extends StatelessWidget {
   Widget _buildTableRow(int index) {
     return Obx(() {
       final user = controller.filteredUserList[index];
-      final textColor = _getTextColor(user.status);
+
+      // ✅ Name/Email: White unless checkbox checked → then Orange
+      final nameEmailColor = user.isSelected
+          ? TeamManagerColors.primaryOrange
+          : TeamManagerColors.primaryWhite;
+
+      // ✅ Status color: Active/Resend = Orange, Pending = White
+      final statusColor = _getTextColor(user.status);
 
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -1091,7 +1460,7 @@ class TeamManager extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.lato(
-                  color: textColor,
+                  color: nameEmailColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -1104,7 +1473,7 @@ class TeamManager extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.lato(
-                  color: textColor,
+                  color: nameEmailColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
@@ -1117,7 +1486,7 @@ class TeamManager extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.lato(
-                  color: textColor,
+                  color: statusColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -1217,9 +1586,9 @@ class TeamManager extends StatelessWidget {
               SizedBox(height: 16),
               Text(
                 '• Click the checkbox to select individual users\n'
-                    '• Click the checkbox in the header to select/deselect all users\n'
-                    '• Click the pencil icon to edit a user\'s information\n'
-                    '• Select users and click action buttons to perform bulk operations',
+                '• Click the checkbox in the header to select/deselect all users\n'
+                '• Click the pencil icon to edit a user\'s information\n'
+                '• Select users and click action buttons to perform bulk operations',
                 style: GoogleFonts.lato(
                   color: Colors.white,
                   fontSize: 16,
@@ -1378,12 +1747,14 @@ class TeamManager extends StatelessWidget {
                     ),
                   ),
                   Divider(color: AppColors.darkGray, thickness: 1),
-                  Text(
-                    '+ 215',
-                    style: GoogleFonts.lato(
-                      color: Colors.green,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
+                  Obx(
+                    () => Text(
+                      controller.limitText,
+                      style: GoogleFonts.lato(
+                        color: controller.limitColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
                   ),
                 ],
@@ -1411,7 +1782,49 @@ class TeamManager extends StatelessWidget {
             SizedBox(width: 12),
             SizedBox(
               width: 64,
-              child: _buildActionButton('Add', controller.addUserEmail),
+              child: GetBuilder<TeamManagerController>(
+                id: 'add_button',
+                builder: (ctrl) {
+                  final canAdd = ctrl.canAddUsers();
+                  final buttonColor = ctrl.addButtonColor();
+
+                  return GestureDetector(
+                    onTap: canAdd
+                        ? ctrl.addUserEmail
+                        : () {
+                            Get.snackbar(
+                              'Cannot Add',
+                              'User limit exceeded. Please remove some users from the text field or upgrade your plan.',
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                              duration: Duration(seconds: 4),
+                            );
+                          },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: buttonColor,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Add',
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontFamily: 'Lato',
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -1422,13 +1835,13 @@ class TeamManager extends StatelessWidget {
   Color _getTextColor(UserStatus status) {
     switch (status) {
       case UserStatus.active:
-        return TeamManagerColors.primaryOrange;
+        return TeamManagerColors.primaryOrange;  // ✅ Active = Orange
       case UserStatus.pending:
-        return TeamManagerColors.primaryWhite;
+        return TeamManagerColors.primaryWhite;   // ✅ Pending = White
       case UserStatus.resend:
-        return TeamManagerColors.primaryOrange;
+        return TeamManagerColors.primaryOrange;  // ✅ Resend = Orange
       case UserStatus.remove:
-        return TeamManagerColors.primaryWhite;
+        return TeamManagerColors.primaryWhite;   // ✅ Remove = White (though this won't be visible)
     }
   }
 

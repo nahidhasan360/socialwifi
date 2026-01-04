@@ -274,7 +274,7 @@ class LoginAccount extends StatelessWidget {
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: 19),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -339,7 +339,7 @@ class LoginAccount extends StatelessWidget {
                         SizedBox(width: 4),
                         GestureDetector(
                           onTap: () {
-                            Get.toNamed(AppRoutes.enterEmailScreen);
+                            Get.toNamed(AppRoutes.emailEdit);
                           },
                           child: Text(
                             'edit',
@@ -418,7 +418,7 @@ class LoginAccount extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              Get.toNamed(AppRoutes.otpVerificationScreen);
+                              Get.toNamed(AppRoutes.homeNewRoutes);
                             },
                             child: Container(
                               height: 50,
@@ -457,7 +457,7 @@ class LoginAccount extends StatelessWidget {
                             width: 55,
                             decoration: BoxDecoration(
                               color: controller.availableBiometrics.isEmpty
-                                  ? AppColors.orange.withOpacity(0.5)
+                                  ? AppColors.orange
                                   : AppColors.orange,
                               borderRadius: BorderRadius.circular(50),
                             ),
@@ -508,7 +508,7 @@ class LoginAccount extends StatelessWidget {
                     /// TROUBLE LOGGING IN
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRoutes.otpVerificationScreen);
+                        Get.toNamed(AppRoutes.otpVerificationScreenlogin);
                       },
                       child: Text(
                         'Having trouble logging in? Send a one time code.',
@@ -534,97 +534,3 @@ class LoginAccount extends StatelessWidget {
     );
   }
 }
-
-/* ============================================================================
-   📦 COMPLETE SETUP CHECKLIST - MUST DO ALL!
-   ============================================================================
-
-   ✅ 1️⃣ Add dependency in pubspec.yaml:
-
-   dependencies:
-     local_auth: ^2.3.0
-
-   Run: flutter pub get
-
-
-   ✅ 2️⃣ iOS Setup (ios/Runner/Info.plist):
-
-   <key>NSFaceIDUsageDescription</key>
-   <string>We need Face ID or Touch ID permission to authenticate you securely</string>
-
-
-   ✅ 3️⃣ Android Setup (android/app/build.gradle):
-
-   android {
-     compileOptions {
-       sourceCompatibility JavaVersion.VERSION_1_8
-       targetCompatibility JavaVersion.VERSION_1_8
-     }
-   }
-
-
-   ✅ 4️⃣ Android Permissions (android/app/src/main/AndroidManifest.xml):
-
-   <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
-
-
-   ✅ 5️⃣ DEVICE SETUP (VERY IMPORTANT!):
-
-   📱 Android:
-   - Settings > Security > Fingerprint
-   - Add at least one fingerprint
-
-   📱 iOS:
-   - Settings > Face ID & Passcode (or Touch ID)
-   - Enroll your fingerprint or face
-
-   ============================================================================
-
-   🎯 WHAT'S NEW IN THIS VERSION:
-   ============================================================================
-
-   ✅ Complete biometric detection on app start
-   ✅ Detailed console logging for debugging
-   ✅ Better error handling with specific messages
-   ✅ Success snackbar with icon and animation
-   ✅ Check for enrolled biometrics
-   ✅ Visual feedback on fingerprint button (dimmed if not available)
-   ✅ Smooth navigation after authentication
-   ✅ All platform-specific error codes handled
-
-   ============================================================================
-
-   📊 CONSOLE OUTPUT YOU'LL SEE:
-   ============================================================================
-
-   When app starts:
-   🔐 === BIOMETRIC SUPPORT CHECK ===
-   📱 Device supported: true
-   ✋ Can check biometrics: true
-   📋 === AVAILABLE BIOMETRICS ===
-   👆 ✅ Fingerprint available
-   =================================
-
-   When you tap fingerprint button:
-   👆 Fingerprint button pressed!
-   🚀 === STARTING BIOMETRIC AUTHENTICATION ===
-   📱 Device supported: true
-   ✋ Can check biometrics: true
-   📋 Available biometrics: 1
-   👆 Prompting user for biometric authentication...
-   📊 Authentication result: true
-   ✅ ✅ ✅ AUTHENTICATION SUCCESSFUL! ✅ ✅ ✅
-   🚀 Navigating to OTP screen...
-
-   ============================================================================
-
-   🧪 TESTING STEPS:
-   1. Run app on REAL DEVICE (not emulator)
-   2. Check console for biometric detection logs
-   3. Tap orange fingerprint button
-   4. Use your enrolled fingerprint
-   5. See green success snackbar
-   6. Auto-navigate to OTP screen
-
-   ============================================================================
-*/

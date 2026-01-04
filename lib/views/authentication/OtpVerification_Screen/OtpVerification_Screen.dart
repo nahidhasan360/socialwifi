@@ -7,14 +7,17 @@ import 'package:right_routes/core/routes/all_routes.dart';
 
 import '../../../utils/assets_manager.dart';
 import '../../../utils/colors.dart';
+import 'OtpVerificationController.dart';
 
-class OtpVerificationScreen extends StatelessWidget {
-  final controller = Get.put(OtpVerificationController());
-
-  OtpVerificationScreen({super.key});
+class OtpVerificationScreenlogin extends StatelessWidget {
+  OtpVerificationScreenlogin({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Simple Get.put - no tags, no binding needed
+    // final controller = Get.put(OtpVerificationController());
+    final controller = Get.find<OtpVerificationScreenLoginController>();
+
     ScreenUtil.init(context);
     return Scaffold(
       body: Container(
@@ -70,7 +73,7 @@ class OtpVerificationScreen extends StatelessWidget {
                         children: [
                           TextSpan(
                             text:
-                                'We’ll need you to verify your email address.We’ve sent a 6-digit code to ',
+                                "We'll need you to verify your email address. We've sent a 6-digit code to ",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -79,7 +82,7 @@ class OtpVerificationScreen extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: 'tanvirhasancr8****@gmail.com',
+                            text: controller.email,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -91,7 +94,7 @@ class OtpVerificationScreen extends StatelessWidget {
 
                           TextSpan(
                             text:
-                                'The code expires in 15 minutes. Please enter it below.',
+                                ' The code expires in 15 minutes. Please enter it below.',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -110,6 +113,7 @@ class OtpVerificationScreen extends StatelessWidget {
                     PinCodeTextField(
                       length: 6,
                       appContext: context,
+                      controller: controller.otpController,
                       animationType: AnimationType.fade,
 
                       keyboardType: TextInputType.number,
@@ -129,11 +133,8 @@ class OtpVerificationScreen extends StatelessWidget {
                         selectedFillColor: Colors.white,
                       ),
                       enableActiveFill: true,
-                      onChanged: (value) {},
-
-                      // Dynamic GetX logic (commented out)
+                      onChanged: controller.onOtpChanged,
                       // onCompleted: (value) {
-                      //   controller.otp.value = value;
                       //   controller.verifyOtp();
                       // },
                     ),
@@ -143,9 +144,11 @@ class OtpVerificationScreen extends StatelessWidget {
                     /// CONTINUE BUTTON
                     GestureDetector(
                       onTap: () {
-                        // controller.verifyOtp();
+                        
                         Get.toNamed(AppRoutes.weLoggedYou);
+                        // controller.verifyOtp();
                       },
+
                       child: Container(
                         width: double.infinity,
                         height: 55,
@@ -203,10 +206,11 @@ class OtpVerificationScreen extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                            text: "Didn’t receive the mail? Check your spam folder or ",
+                            text:
+                                "Didn't receive the mail? Check your spam folder or ",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 15, // white text = purple text same size
+                              fontSize: 15,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.w500,
                               height: 1.38,
@@ -223,7 +227,7 @@ class OtpVerificationScreen extends StatelessWidget {
                             ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
-                                Get.toNamed(AppRoutes.otpVerificationScreen);
+                                controller.resendOtp();
                               },
                           ),
                         ],
@@ -239,11 +243,4 @@ class OtpVerificationScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class OtpVerificationController extends GetxController {
-  // var otp = ''.obs;
-
-  // void verifyOtp() {}
-  // void resendOtp() {}
 }

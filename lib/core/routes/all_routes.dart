@@ -10,11 +10,13 @@ import '../../views/account/contact_support.dart';
 import '../../views/account/email_saved.dart';
 import '../../views/account/help.dart';
 import '../../views/account/password_saved.dart';
+import '../../views/authentication/OtpVerification_Screen/OtpVerificationBinding.dart';
 import '../../views/authentication/OtpVerification_Screen/OtpVerification_Screen.dart';
 import '../../views/authentication/create_an_account/create_an_account.dart';
 import '../../views/authentication/enter_email_for_delete/enter_email_for_delete.dart';
 import '../../views/authentication/enter_email_screen/enter_email_screen.dart';
 import '../../views/authentication/get_started_screen/get_started_screen.dart';
+import '../../views/authentication/login_account/email_edit/email_edit.dart';
 import '../../views/authentication/login_account/login_account.dart';
 import '../../views/authentication/privacy_policy/privacy_policy.dart';
 import '../../views/authentication/subscriber_agreement/subscriber_agreement.dart';
@@ -45,12 +47,12 @@ class AppRoutes {
   static const String getStartedScreen = "/GetStartedScreen";
   static const String enterEmailForDelete = "/EnterEmailForDelete";
 
-
-
   // ================== Enter Email screen =====================//
   static const String enterEmailScreen = "/EnterEmailScreen";
   static const String createAccountScreen = "/CreateAnAccount";
   static const String loginAccount = "/LoginAccount";
+  static const String emailEdit = "/EmailEdit";
+
   static const String otpVerificationScreen = "/OtpVerificationScreen";
   static const String weLoggedYou = "/WeLoggedYou";
   static const String individualTeam = "/IndividualTeam";
@@ -81,28 +83,36 @@ class AppRoutes {
   static const String termsModal = "/TermsModal";
 
 
+
   static const String importYourPermit = "/ImportYourPermit";
   static const String importYourPhotoPermit = "/ImportYourPhotoPermit";
   static const String enterDirections = "/EnterDirections";
 
+
+
   //====================
   static const String plotYourRoute = "/PlotYourRoute";
   static const String pinsMaking = "/PinsMaking";
+
+
 
   // =============  edit - confirm - start route section ================
   static const String editConfirmStartYourRoute = "/EditConfirmStartYourRoute";
   static const String driveRouteMap = "/DriveRouteMap";
 
 
-
   // static const String teamManager ="/TeamManager";
 
   // ================ login Screen part ================================
 
+  static const String otpVerificationScreenlogin = "/OtpVerificationScreenlogin";
+
+
+
   // bridge
   static List<GetPage> routes = [
     // dialog box
-// accounts ar routes
+    // accounts ar routes
     GetPage(name: subscriberAgreement, page: () => SubscriberAgreement()),
     GetPage(name: privacyPolicy, page: () => PrivacyPolicy()),
     GetPage(name: termsModal, page: () => TermsModal()),
@@ -112,7 +122,17 @@ class AppRoutes {
     GetPage(name: enterEmailScreen, page: () => EnterEmailScreen()),
     GetPage(name: createAccountScreen, page: () => CreateAnAccount()),
     GetPage(name: loginAccount, page: () => LoginAccount()),
-    GetPage(name: otpVerificationScreen, page: () => OtpVerificationScreen()),
+    GetPage(
+      name: otpVerificationScreenlogin,
+      page: () => OtpVerificationScreenlogin(),binding: OtpVerificationBinding(),
+    ),
+    GetPage(name: emailEdit, page: () => EmailEdit()),
+
+    // GetPage(
+    //   name: otpVerificationScreen,
+    //   page: () => OtpVerificationScreen(),
+    //   binding: OtpVerificationBinding(),
+    // ),
     GetPage(name: weLoggedYou, page: () => WeLoggedYou()),
     GetPage(name: individualTeam, page: () => IndividualTeam()),
     GetPage(name: chooseYourPlan, page: () => ChooseYourPlan()),
@@ -132,7 +152,10 @@ class AppRoutes {
     GetPage(name: plotYourRoute, page: () => PlotYourRoute()),
     GetPage(name: pinsMaking, page: () => PinsMaking()),
     // =============  edit - confirm - start route section ================
-    GetPage(name: editConfirmStartYourRoute, page: () => EditConfirmStartYourRoute()),
+    GetPage(
+      name: editConfirmStartYourRoute,
+      page: () => EditConfirmStartYourRoute(),
+    ),
     GetPage(name: driveRouteMap, page: () => DriveRouteMap()),
     // accounts all screen route
     GetPage(name: contactSupport, page: () => ContactSupport()),
@@ -148,6 +171,17 @@ class AppRoutes {
     GetPage(name: enterEmailForDelete, page: () => EnterEmailForDelete()),
     GetPage(name: help, page: () => Help()),
 
-    // GetPage(name: teamManager, page: () => TeamManager()),
+
+
+
+
+
+
+
+
+
+
+
+
   ];
 }

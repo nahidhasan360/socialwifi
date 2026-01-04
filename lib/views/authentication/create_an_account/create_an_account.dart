@@ -581,7 +581,7 @@ class CreateAnAccount extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Get.toNamed(AppRoutes.loginAccount);
+        Get.toNamed(AppRoutes.individualTeam);
       },
       child: Container(
         width: 393,

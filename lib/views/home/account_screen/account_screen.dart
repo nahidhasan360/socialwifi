@@ -42,7 +42,7 @@ class RRRightArrowTile extends StatelessWidget {
     return InkWell(
       onTap: onTap ?? () {},
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(vertical: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -102,6 +102,7 @@ class AccountScreen extends StatelessWidget {
                     _buildSectionTitle("Manage Account"),
                     _buildDivider(),
                     _buildEmailSection(),
+                    SizedBox(height: 3),
                     _buildPasswordSection(),
                     SizedBox(height: 1),
                     _buildRouteHistory(),
@@ -181,40 +182,44 @@ class AccountScreen extends StatelessWidget {
         RRRightArrowTile(
           title: "tanvirhasancr890890@gmail.com",
           onTap: () {
-            // Navigate to email management page or show more options
             Get.toNamed(AppRoutes.changeEmail);
           },
         ),
-        SizedBox(height: 8),
       ],
     );
   }
 
   Widget _buildPasswordSection() {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 15),
-        Text(
-          "Password",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontFamily: 'Lato',
-            fontWeight: FontWeight.w500,
-            height: 1.56,
-          ),
-        ),
-        SizedBox(width: 6),
-        Obx(() {
-          return GestureDetector(
-            onTap: c.togglePassword,
-            child: Icon(
-              c.showPassword.value ? Icons.visibility_off : Icons.visibility,
-              size: 24,
-              color: AppColors.white,
+        Row(
+          children: [
+            Text(
+              "Password",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontFamily: 'Lato',
+                fontWeight: FontWeight.w500,
+                height: 1.56,
+              ),
             ),
-          );
-        }),
+            SizedBox(width: 3),
+            Obx(() {
+              return GestureDetector(
+                onTap: c.togglePassword,
+                child: Icon(
+                  c.showPassword.value
+                      ? Icons.visibility_off
+                      : Icons.visibility,
+                  size: 24,
+                  color: AppColors.white,
+                ),
+              );
+            }),
+          ],
+        ),
       ],
     );
   }
@@ -399,7 +404,7 @@ class AccountScreen extends StatelessWidget {
                     ],
                   ),
                   overflow: TextOverflow.ellipsis,
-                 maxLines: 1,
+                  maxLines: 1,
                 ),
               ),
             ),

@@ -167,7 +167,7 @@ class ChooseYourPlan extends StatelessWidget {
                             ButtonReusable(
                               text: 'SUBSCRIBE',
                               onPressed: () {
-                                Get.toNamed(AppRoutes.homeNewRoutes);
+                                Get.offAllNamed(AppRoutes.homeNewRoutes);
                               },
                               width: 250,
                               height: 55,

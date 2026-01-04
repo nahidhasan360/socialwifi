@@ -15,7 +15,4 @@ class AppColors {
   static const Color editEmailColor = Color(0xff9DACF5);
 
 
-
-
-
 }

@@ -6,11 +6,28 @@ import 'package:right_routes/global_widgets/custom_navbar.dart';
 import 'package:right_routes/utils/assets_manager.dart';
 import 'package:right_routes/utils/colors.dart';
 
+// ========== PIN MODEL ==========
+class MapPin {
+  String id;
+  Offset position;
+  bool isActive;
+
+  MapPin({
+    required this.id,
+    required this.position,
+    this.isActive = false,
+  });
+}
+
 // ========== GetX Controller ==========
 class ConfirmRouteController extends GetxController {
   final TextEditingController routeNameController = TextEditingController();
 
   RxString distance = '64.2 miles'.obs;
+
+  // ✅ Map pins
+  var mapPins = <MapPin>[].obs;
+  Rxn<String> selectedMapPinId = Rxn<String>();
 
   RxList<TextEditingController> waypointControllers =
       <TextEditingController>[].obs;
@@ -31,6 +48,7 @@ class ConfirmRouteController extends GetxController {
     super.onInit();
     routeNameController.text = 'Name Your Route';
     _initializeWaypointControllers();
+    _initializeMapPins();
   }
 
   void _initializeWaypointControllers() {
@@ -39,6 +57,101 @@ class ConfirmRouteController extends GetxController {
       final controller = TextEditingController(text: waypoint);
       waypointControllers.add(controller);
     }
+  }
+
+  // ✅ Initialize map pins
+  void _initializeMapPins() {
+    mapPins.add(MapPin(
+      id: 'pin_1',
+      position: Offset(40, 80),
+      isActive: false,
+    ));
+    mapPins.add(MapPin(
+      id: 'pin_2',
+      position: Offset(180, 150),
+      isActive: false,
+    ));
+  }
+
+  // ✅ Add new pin at map center
+  void addMapPin() {
+    final newPin = MapPin(
+      id: 'pin_${DateTime.now().millisecondsSinceEpoch}',
+      position: Offset(175, 140), // Center
+      isActive: true,
+    );
+
+    for (var pin in mapPins) {
+      pin.isActive = false;
+    }
+
+    mapPins.add(newPin);
+    selectedMapPinId.value = newPin.id;
+
+    Get.snackbar(
+      'Pin Added',
+      'Burgundy pin added. Drag to move.',
+      backgroundColor: Colors.green.withOpacity(0.8),
+      colorText: Colors.white,
+      snackPosition: SnackPosition.TOP,
+      duration: Duration(seconds: 2),
+    );
+  }
+
+  // ✅ Set all pins to orange (map tap)
+  void setAllPinsOrange() {
+    for (var pin in mapPins) {
+      pin.isActive = false;
+    }
+    selectedMapPinId.value = null;
+    mapPins.refresh();
+  }
+
+  // ✅ Select pin (burgundy)
+  void selectMapPin(String pinId) {
+    for (var pin in mapPins) {
+      pin.isActive = false;
+    }
+
+    final selectedPin = mapPins.firstWhere((p) => p.id == pinId);
+    selectedPin.isActive = true;
+    selectedMapPinId.value = pinId;
+
+    mapPins.refresh();
+  }
+
+  // ✅ Move pin
+  void moveMapPin(String pinId, Offset newPosition) {
+    final pin = mapPins.firstWhere((p) => p.id == pinId);
+    pin.position = newPosition;
+    mapPins.refresh();
+  }
+
+  // ✅ Delete selected map pin
+  void deleteSelectedMapPin() {
+    if (selectedMapPinId.value == null) {
+      Get.snackbar(
+        'No Pin Selected',
+        'Please tap on a pin first',
+        backgroundColor: Colors.orange.withOpacity(0.8),
+        colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 2),
+      );
+      return;
+    }
+
+    mapPins.removeWhere((pin) => pin.id == selectedMapPinId.value);
+    selectedMapPinId.value = null;
+
+    Get.snackbar(
+      'Pin Deleted',
+      'Selected pin removed',
+      backgroundColor: Colors.red.withOpacity(0.8),
+      colorText: Colors.white,
+      snackPosition: SnackPosition.TOP,
+      duration: Duration(seconds: 2),
+    );
   }
 
   void selectWaypoint(int index) {
@@ -122,13 +235,20 @@ class ConfirmRouteController extends GetxController {
     }
   }
 
+  // ✅ Update route - automatically updates waypoints
   void updateRoute() {
     try {
+      // Update waypoints list automatically
+      mapPins.refresh();
+      waypoints.refresh();
+
       Get.snackbar(
-        'Update',
-        'Route updated successfully',
-        backgroundColor: AppColors.darkGray,
+        'Updated',
+        'Route and waypoints updated successfully',
+        backgroundColor: Colors.green.withOpacity(0.8),
         colorText: Colors.white,
+        snackPosition: SnackPosition.TOP,
+        duration: Duration(seconds: 2),
       );
     } catch (e) {
       Get.snackbar(
@@ -152,6 +272,7 @@ class ConfirmRouteController extends GetxController {
 
 class EditConfirmStartYourRoute extends StatelessWidget {
   const EditConfirmStartYourRoute({super.key});
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ConfirmRouteController());
@@ -176,7 +297,6 @@ class EditConfirmStartYourRoute extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // ========== Fixed Logo Section ==========
                 Center(
                   child: Container(
                     width: 225,
@@ -191,7 +311,6 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                 ),
                 SizedBox(height: 28),
 
-                // ========== Scrollable Content Section ==========
                 Expanded(
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),
@@ -200,13 +319,11 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // ========== Content with Padding ==========
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // ========== Title (Centered) ==========
                               Row(
                                 children: [
                                   Expanded(
@@ -228,7 +345,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                               ),
                               SizedBox(height: 20),
 
-                              // ========== Instruction Text with Info Icon ==========
+                              // ✅ UPDATED TEXT
                               RichText(
                                 text: TextSpan(
                                   style: TextStyle(
@@ -240,7 +357,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                   ),
                                   children: [
                                     TextSpan(
-                                      text: 'Check your waypoints. Tap the map to move pins or scroll down to edit the directions in the fields below. Tap Update to confirm changes. Tap Go to start. ',
+                                      text: 'Check your waypoints, edit as needed then click GO to start your route. ',
                                     ),
                                     WidgetSpan(
                                       alignment: PlaceholderAlignment.middle,
@@ -250,11 +367,11 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                           showConfirmRouteInfoDialog(context);
                                         },
                                         child: Padding(
-                                          padding: const EdgeInsets.only(left: 2),
+                                          padding: const EdgeInsets.only(left: 4),
                                           child: SvgPicture.asset(
                                             "assets/icons/Question-Box-gray.svg",
-                                            width: 15,
-                                            height: 15,
+                                            width: 20, // ✅ Same size as other screens
+                                            height: 20,
                                           ),
                                         ),
                                       ),
@@ -267,53 +384,72 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                           ),
                         ),
 
-                        // ========== MAP CONTAINER (FULL WIDTH) ==========
-                        Container(
-                          width: double.infinity,
-                          height: 280,
-                          child: Stack(
-                            children: [
-                              Image.asset(
-                                'assets/images/confirm_map.png',
-                                width: double.infinity,
-                                height: double.infinity,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    color: Color(0xFFE8F4F8),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.map_outlined,
-                                        size: 64,
-                                        color: Color(0xFF1A2332),
+                        // ✅ MAP WITH MOVABLE PINS
+                        GestureDetector(
+                          onTapDown: (details) {
+                            controller.setAllPinsOrange();
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            height: 280,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  'assets/images/confirm_map.png',
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: Color(0xFFE8F4F8),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.map_outlined,
+                                          size: 64,
+                                          color: Color(0xFF1A2332),
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                              ),
-                              Positioned(
-                                top: 80,
-                                left: 40,
-                                child: Icon(
-                                  Icons.location_pin,
-                                  size: 35,
-                                  color: AppColors.orange,
+                                    );
+                                  },
                                 ),
-                              ),
-                              Positioned(
-                                top: 150,
-                                left: 180,
-                                child: Icon(
-                                  Icons.location_pin,
-                                  size: 35,
-                                  color: AppColors.orange,
-                                ),
-                              ),
-                            ],
+
+                                // ✅ DYNAMIC MOVABLE PINS
+                                Obx(() => Stack(
+                                  children: controller.mapPins.map((pin) {
+                                    return Positioned(
+                                      left: pin.position.dx,
+                                      top: pin.position.dy,
+                                      child: GestureDetector(
+                                        onTapDown: (details) {
+                                          controller.selectMapPin(pin.id);
+                                        },
+                                        onPanUpdate: (details) {
+                                          if (pin.isActive) {
+                                            controller.moveMapPin(
+                                              pin.id,
+                                              Offset(
+                                                (pin.position.dx + details.delta.dx).clamp(0.0, 340.0),
+                                                (pin.position.dy + details.delta.dy).clamp(0.0, 245.0),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        child: Icon(
+                                          Icons.location_pin,
+                                          size: 35,
+                                          color: pin.isActive
+                                              ? Color(0xFF800020) // Burgundy
+                                              : AppColors.orange,  // Orange
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                )),
+                              ],
+                            ),
                           ),
                         ),
 
-                        // ========== Route Info Section (With Padding) ==========
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 22),
                           child: Column(
@@ -322,10 +458,9 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                             children: [
                               SizedBox(height: 20),
 
-                              // ========== Distance, Delete Pin, Update Row ==========
+                              // ✅ UPDATED: Distance, Add Pin, Delete Pin, Update
                               Row(
                                 children: [
-                                  // Distance Display
                                   Obx(
                                         () => Text(
                                       controller.distance.value,
@@ -340,11 +475,39 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                   ),
                                   Spacer(),
 
+                                  // ✅ NEW: Add Pin Button
+                                  GestureDetector(
+                                    onTap: () {
+                                      FocusScope.of(context).unfocus();
+                                      controller.addMapPin();
+                                    },
+                                    child: Container(
+                                      width: 75,
+                                      height: 24,
+                                      decoration: BoxDecoration(
+                                        color: AppColors.orange,
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Add Pin',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 0.5,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+
                                   // Delete Pin Button
                                   GestureDetector(
                                     onTap: () {
                                       FocusScope.of(context).unfocus();
-                                      controller.deleteSelectedWaypoint();
+                                      controller.deleteSelectedMapPin();
                                     },
                                     child: Container(
                                       width: 88,
@@ -366,7 +529,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(width: 70),
+                                  SizedBox(width: 10),
 
                                   // Update Button
                                   GestureDetector(
@@ -398,7 +561,6 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                               ),
                               SizedBox(height: 15),
 
-                              // ========== Route Name Input Field (FIXED) ==========
                               Container(
                                 width: double.infinity,
                                 height: 57,
@@ -410,7 +572,8 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                   child: TextField(
                                     controller: controller.routeNameController,
                                     onChanged: (value) => controller.updateRouteName(value),
-                                    textAlign: TextAlign.start, // ✅ Left align
+                                    textAlign: TextAlign.start,
+                                    textAlignVertical: TextAlignVertical.center, // ✅ Vertical center
                                     style: TextStyle(
                                       color: const Color(0xFFBFBFBF),
                                       fontSize: 18,
@@ -419,7 +582,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                       height: 1.56,
                                     ),
                                     cursorColor: AppColors.white,
-                                    cursorHeight: 20, // ✅ Smaller cursor
+                                    cursorHeight: 20,
                                     textInputAction: TextInputAction.done,
                                     onSubmitted: (value) {
                                       FocusScope.of(context).unfocus();
@@ -440,14 +603,13 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                         fontWeight: FontWeight.w400,
                                         height: 1.56,
                                       ),
-                                      isDense: true, // ✅ Dense layout
+                                      isDense: true,
                                     ),
                                   ),
                                 ),
                               ),
                               SizedBox(height: 15),
 
-                              // ========== Waypoints Header ==========
                               Row(
                                 children: [
                                   Text(
@@ -476,7 +638,6 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                               ),
                               SizedBox(height: 15),
 
-                              // ========== DYNAMIC WAYPOINTS LIST ==========
                               Obx(() {
                                 if (controller.waypoints.isEmpty) {
                                   return Text(
@@ -493,9 +654,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                                     controller.waypoints.length,
                                         (index) {
                                       if (index >=
-                                          controller
-                                              .waypointControllers
-                                              .length) {
+                                          controller.waypointControllers.length) {
                                         return SizedBox.shrink();
                                       }
 
@@ -522,26 +681,10 @@ class EditConfirmStartYourRoute extends StatelessWidget {
 
                               SizedBox(height: 12),
 
-                              // ========== Bottom GO Button ==========
                               GestureDetector(
                                 onTap: () {
                                   Get.toNamed(AppRoutes.driveRouteMap);
                                   FocusScope.of(context).unfocus();
-                                  try {
-                                    Get.snackbar(
-                                      'Navigation',
-                                      'Starting route navigation...',
-                                      backgroundColor: AppColors.darkGray,
-                                      colorText: Colors.white,
-                                    );
-                                  } catch (e) {
-                                    Get.snackbar(
-                                      'Error',
-                                      'Failed to start navigation',
-                                      backgroundColor: AppColors.darkGray,
-                                      colorText: Colors.white,
-                                    );
-                                  }
                                 },
                                 child: Center(
                                   child: Container(
@@ -585,7 +728,6 @@ class EditConfirmStartYourRoute extends StatelessWidget {
     );
   }
 
-  // ========== Waypoint Item Widget ==========
   Widget _buildWaypointItem(
       ConfirmRouteController controller,
       int index,
@@ -618,6 +760,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                     controller: controller.waypointControllers[index],
                     onChanged: (value) =>
                         controller.updateWaypoint(index, value),
+                    textAlignVertical: TextAlignVertical.center, // ✅ Vertical center
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -626,7 +769,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                       height: 1.75,
                     ),
                     cursorColor: AppColors.white,
-                    cursorHeight: 20, // ✅ Smaller cursor
+                    cursorHeight: 20,
                     textInputAction: TextInputAction.done,
                     onSubmitted: (value) {
                       FocusScope.of(context).unfocus();
@@ -644,7 +787,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 6),
               GestureDetector(
                 onTap: () {
                   FocusScope.of(context).unfocus();
@@ -653,8 +796,8 @@ class EditConfirmStartYourRoute extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   "assets/icons/Close-X-white.svg",
-                  width: 30,
-                  height: 30,
+                  width: 40,
+                  height: 40,
                 ),
               ),
             ],
@@ -664,7 +807,6 @@ class EditConfirmStartYourRoute extends StatelessWidget {
     );
   }
 
-  // ========== Add Button Between Waypoints ==========
   Widget _buildAddButton(
       ConfirmRouteController controller,
       int index,
@@ -694,7 +836,7 @@ class EditConfirmStartYourRoute extends StatelessWidget {
   }
 }
 
-// ========== DIALOGS ==========
+// ✅ UPDATED DIALOGS
 void showConfirmRouteInfoDialog(BuildContext context) {
   showDialog(
     context: context,
@@ -738,14 +880,44 @@ void showConfirmRouteInfoDialog(BuildContext context) {
               SizedBox(height: 16),
               Flexible(
                 child: SingleChildScrollView(
-                  child: Text(
-                    'Manipulating the map:\nTo move the map, use one finger to drag it to the desired location.\nTo enlarge the map, use two fingers and spread them on the map.\nTo reduce the map, slide your two fingers together.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontFamily: 'Lato',
-                      fontWeight: FontWeight.w500,
-                      height: 1.44,
+                  child: Text.rich(
+                    TextSpan(
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Lato',
+                        fontWeight: FontWeight.w500,
+                        height: 1.44,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'Adding new pins: ',
+                          style: TextStyle(fontWeight: FontWeight.w800),
+                        ),
+                        TextSpan(
+                          text: 'Tap the Add Pin button then drag the new pin to a location on your route. This will create a new waypoint.\n',
+                        ),
+                        TextSpan(
+                          text: 'Deleting pins: ',
+                          style: TextStyle(fontWeight: FontWeight.w800),
+                        ),
+                        TextSpan(
+                          text: 'Tap a pin to select it. It will turn burgundy. Tap the Delete Pin button.\n',
+                        ),
+                        TextSpan(
+                          text: 'Manipulating the map: ',
+                          style: TextStyle(fontWeight: FontWeight.w800),
+                        ),
+                        TextSpan(
+                          text: 'Use one finger to move the map within the window. Spread or contract two fingers on the map the zoom in or out.\n',
+                        ),
+                        TextSpan(
+                          text: 'Tap Update which will update the waypoints in the fields below.\n',
+                        ),
+                        TextSpan(
+                          text: 'Tap the GO button to start your route.',
+                        ),
+                      ],
                     ),
                   ),
                 ),

@@ -370,7 +370,7 @@ class ChangePasswordController extends GetxController {
       strengthLabel.value = 'Weak';
     } else if (strength == 2 || strength == 3) {
       strengthProgress.value = 0.6;
-      strengthColor.value = Color(0xFFFFB800); // ✅ Changed: Fair Yellow
+      strengthColor.value = Colors.yellow;
       strengthLabel.value = 'Fair';
     } else if (strength >= 4) {
       strengthProgress.value = 1.0;
