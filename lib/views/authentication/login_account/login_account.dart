@@ -2,253 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/utils/colors.dart';
+import 'package:right_routes/views/authentication/login_account/reusable_enter_email-screen.dart';
 import '../../../global_widget/custom_troggle_button.dart';
 import '../../../utils/assets_manager.dart';
 import 'package:get/get.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:flutter/services.dart';
-
-// ============================================================================
-// CONTROLLER WITH BIOMETRIC AUTHENTICATION - FULLY UPDATED
-// ============================================================================
-class LoginController extends GetxController {
-  // Password visibility toggle
-  RxBool hidePassword = true.obs;
-
-  // Touch ID enabled state
-  RxBool isTouchIDEnabled = false.obs;
-
-  // Biometric authentication instance
-  final LocalAuthentication auth = LocalAuthentication();
-
-  // Check if biometric is available
-  RxBool canCheckBiometrics = false.obs;
-  RxBool isBiometricSupported = false.obs;
-
-  // Available biometric types
-  RxList<BiometricType> availableBiometrics = <BiometricType>[].obs;
-
-  @override
-  void onInit() {
-    super.onInit();
-    initializeBiometrics();
-  }
-
-  void togglePassword() {
-    hidePassword.value = !hidePassword.value;
-  }
-
-  void toggleTouchID(bool value) {
-    isTouchIDEnabled.value = value;
-    print('✅ Touch ID enabled: $value');
-  }
-
-  // Initialize all biometric checks
-  Future<void> initializeBiometrics() async {
-    await checkBiometricSupport();
-    await checkAvailableBiometrics();
-  }
-
-  // Check if device supports biometric authentication
-  Future<void> checkBiometricSupport() async {
-    try {
-      canCheckBiometrics.value = await auth.canCheckBiometrics;
-      isBiometricSupported.value = await auth.isDeviceSupported();
-
-      print('🔐 === BIOMETRIC SUPPORT CHECK ===');
-      print('📱 Device supported: ${isBiometricSupported.value}');
-      print('✋ Can check biometrics: ${canCheckBiometrics.value}');
-
-    } catch (e) {
-      print('❌ Error checking biometric support: $e');
-      canCheckBiometrics.value = false;
-      isBiometricSupported.value = false;
-    }
-  }
-
-  // Check available biometric types
-  Future<void> checkAvailableBiometrics() async {
-    try {
-      List<BiometricType> biometrics = await auth.getAvailableBiometrics();
-      availableBiometrics.value = biometrics;
-
-      print('📋 === AVAILABLE BIOMETRICS ===');
-
-      if (biometrics.isEmpty) {
-        print('❌ No biometrics enrolled on this device');
-        print('⚠️ User needs to add fingerprint/face in device settings');
-      } else {
-        if (biometrics.contains(BiometricType.fingerprint)) {
-          print('👆 ✅ Fingerprint available');
-        }
-        if (biometrics.contains(BiometricType.face)) {
-          print('😀 ✅ Face ID available');
-        }
-        if (biometrics.contains(BiometricType.iris)) {
-          print('👁️ ✅ Iris scanner available');
-        }
-        if (biometrics.contains(BiometricType.strong)) {
-          print('💪 ✅ Strong biometric available');
-        }
-        if (biometrics.contains(BiometricType.weak)) {
-          print('⚡ ✅ Weak biometric available');
-        }
-      }
-      print('=================================');
-
-    } catch (e) {
-      print('❌ Error getting available biometrics: $e');
-    }
-  }
-
-  // Authenticate with biometrics
-  Future<bool> authenticateWithBiometrics() async {
-    try {
-      print('\n🚀 === STARTING BIOMETRIC AUTHENTICATION ===');
-      print('📱 Device supported: ${isBiometricSupported.value}');
-      print('✋ Can check biometrics: ${canCheckBiometrics.value}');
-      print('📋 Available biometrics: ${availableBiometrics.length}');
-
-      // Check if biometric is available
-      if (!canCheckBiometrics.value) {
-        print('❌ FAILED: Biometric not available on device');
-        Get.snackbar(
-          'Not Available',
-          'Biometric authentication is not available on this device',
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.TOP,
-          duration: Duration(seconds: 3),
-          margin: EdgeInsets.all(10),
-        );
-        return false;
-      }
-
-      // Check if any biometrics are enrolled
-      if (availableBiometrics.isEmpty) {
-        print('❌ FAILED: No biometrics enrolled');
-        Get.snackbar(
-          'Setup Required',
-          'Please add fingerprint or face ID in your device settings first',
-          backgroundColor: Colors.orange,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.TOP,
-          duration: Duration(seconds: 4),
-          margin: EdgeInsets.all(10),
-        );
-        return false;
-      }
-
-      print('👆 Prompting user for biometric authentication...');
-
-      // Authenticate
-      final bool didAuthenticate = await auth.authenticate(
-        localizedReason: 'Please authenticate to login to Right Routes',
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: true,
-          useErrorDialogs: true,
-          sensitiveTransaction: false,
-        ),
-      );
-
-      print('📊 Authentication result: $didAuthenticate');
-
-      if (didAuthenticate) {
-        print('✅ ✅ ✅ AUTHENTICATION SUCCESSFUL! ✅ ✅ ✅');
-
-        // Show success snackbar
-        Get.snackbar(
-          'Success!',
-          'Fingerprint authentication successful!',
-          backgroundColor: Colors.green,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.TOP,
-          duration: Duration(seconds: 2),
-          margin: EdgeInsets.all(10),
-          icon: Icon(Icons.check_circle, color: Colors.white, size: 35),
-          shouldIconPulse: true,
-        );
-
-        // Wait a bit before navigation
-        await Future.delayed(Duration(milliseconds: 800));
-
-        print('🚀 Navigating to OTP screen...');
-        Get.toNamed(AppRoutes.otpVerificationScreen);
-
-        return true;
-
-      } else {
-        print('❌ Authentication failed - User cancelled or didn\'t match');
-        Get.snackbar(
-          'Authentication Failed',
-          'Fingerprint not recognized. Please try again.',
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.TOP,
-          duration: Duration(seconds: 2),
-          margin: EdgeInsets.all(10),
-        );
-        return false;
-      }
-
-    } on PlatformException catch (e) {
-      print('⚠️ === PLATFORM EXCEPTION ===');
-      print('Error code: ${e.code}');
-      print('Error message: ${e.message}');
-      print('Error details: ${e.details}');
-
-      String errorMessage = 'Authentication error';
-
-      // Handle specific error codes
-      switch (e.code) {
-        case 'NotAvailable':
-          errorMessage = 'Biometric authentication is not available';
-          break;
-        case 'NotEnrolled':
-          errorMessage = 'No fingerprint enrolled. Please add one in settings';
-          break;
-        case 'LockedOut':
-          errorMessage = 'Too many attempts. Please try again later';
-          break;
-        case 'PermanentlyLockedOut':
-          errorMessage = 'Biometric authentication is locked. Use device password';
-          break;
-        case 'PasscodeNotSet':
-          errorMessage = 'Please set up a passcode on your device first';
-          break;
-        default:
-          errorMessage = e.message ?? 'Authentication error occurred';
-      }
-
-      Get.snackbar(
-        'Error',
-        errorMessage,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.TOP,
-        duration: Duration(seconds: 3),
-        margin: EdgeInsets.all(10),
-      );
-      return false;
-
-    } catch (e) {
-      print('💥 === GENERAL ERROR ===');
-      print('Error: $e');
-
-      Get.snackbar(
-        'Error',
-        'An unexpected error occurred during authentication',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-        snackPosition: SnackPosition.TOP,
-        duration: Duration(seconds: 2),
-        margin: EdgeInsets.all(10),
-      );
-      return false;
-    }
-  }
-}
+import 'login-controller.dart';
 
 // ============================================================================
 // SCREEN
@@ -274,7 +33,7 @@ class LoginAccount extends StatelessWidget {
         ),
         child: SafeArea(
           child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 19),
+            padding: EdgeInsets.symmetric(horizontal: 18),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -324,36 +83,58 @@ class LoginAccount extends StatelessWidget {
                     ),
 
                     /// EMAIL
-                    Row(
-                      children: [
-                        Text(
-                          'tanvirhasan890@gmail.com',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 18,
-                            fontFamily: 'Lato',
-                            fontWeight: FontWeight.bold,
-                            height: 1.44,
-                          ),
-                        ),
-                        SizedBox(width: 4),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.emailEdit);
-                          },
-                          child: Text(
-                            'edit',
+                    /// EMAIL - ডাইনামিক + edit অপশন
+                    Obx(() {
+                      final String email = controller.userEmail.value.trim();
+
+                      final String displayEmail = email.isEmpty
+                          ? 'Your email...'
+                          : email;
+
+                      return Row(
+                        children: [
+                          Text(
+                            displayEmail,
                             style: TextStyle(
-                              color: AppColors.purple,
+                              color: AppColors.white,
                               fontSize: 18,
                               fontFamily: 'Lato',
                               fontWeight: FontWeight.bold,
                               height: 1.44,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(width: 4),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(
+                                () => ReusableEnterEmailScreen(
+                                  title: 'Enter your email to continue',
+                                  subtitle: 'Log in to your Route Route account. If you don’t have one, you will be prompted to create one.',
+                                  buttonText: 'CONTINUE',
+                                  onContinue: () {
+                                    Get.back();
+                                  },
+
+                                  onEmailSubmitted: (newEmail) {
+                                    controller.setEmail(newEmail); //
+                                  },
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'edit',
+                              style: TextStyle(
+                                color: AppColors.purple,
+                                fontSize: 18,
+                                fontFamily: 'Lato',
+                                fontWeight: FontWeight.bold,
+                                height: 1.44,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
 
                     SizedBox(height: 14),
 
@@ -381,31 +162,35 @@ class LoginAccount extends StatelessWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Obx(() => TextField(
-                              obscureText: controller.hidePassword.value,
-                              style: TextStyle(color: Colors.white),
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                hintText: 'password',
-                                hintStyle: TextStyle(
-                                  color: const Color(0xFFBFBFBF),
-                                  fontSize: 16,
-                                  fontFamily: 'Lato',
-                                  fontWeight: FontWeight.w400,
-                                  height: 1.75,
+                            child: Obx(
+                              () => TextField(
+                                obscureText: controller.hidePassword.value,
+                                style: TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'password',
+                                  hintStyle: TextStyle(
+                                    color: const Color(0xFFBFBFBF),
+                                    fontSize: 16,
+                                    fontFamily: 'Lato',
+                                    fontWeight: FontWeight.w400,
+                                    height: 1.75,
+                                  ),
                                 ),
                               ),
-                            )),
-                          ),
-                          Obx(() => IconButton(
-                            icon: Icon(
-                              controller.hidePassword.value
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: Colors.white54,
                             ),
-                            onPressed: () => controller.togglePassword(),
-                          )),
+                          ),
+                          Obx(
+                            () => IconButton(
+                              icon: Icon(
+                                controller.hidePassword.value
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.white54,
+                              ),
+                              onPressed: () => controller.togglePassword(),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -445,31 +230,33 @@ class LoginAccount extends StatelessWidget {
                         SizedBox(width: 10),
 
                         /// ✅ FINGERPRINT BUTTON - FULLY FUNCTIONAL WITH ANIMATIONS
-                        Obx(() => GestureDetector(
-                          onTap: () async {
-                            print('\n👆 Fingerprint button pressed!');
-                            // Trigger biometric authentication
-                            await controller.authenticateWithBiometrics();
-                          },
-                          child: AnimatedContainer(
-                            duration: Duration(milliseconds: 150),
-                            height: 50,
-                            width: 55,
-                            decoration: BoxDecoration(
-                              color: controller.availableBiometrics.isEmpty
-                                  ? AppColors.orange
-                                  : AppColors.orange,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.fingerprint,
-                                color: AppColors.white,
-                                size: 45,
+                        Obx(
+                          () => GestureDetector(
+                            onTap: () async {
+                              print('\n👆 Fingerprint button pressed!');
+                              // Trigger biometric authentication
+                              await controller.authenticateWithBiometrics();
+                            },
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 150),
+                              height: 50,
+                              width: 55,
+                              decoration: BoxDecoration(
+                                color: controller.availableBiometrics.isEmpty
+                                    ? AppColors.orange
+                                    : AppColors.orange,
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.fingerprint,
+                                  color: AppColors.white,
+                                  size: 45,
+                                ),
                               ),
                             ),
                           ),
-                        )),
+                        ),
                       ],
                     ),
 

@@ -82,32 +82,24 @@ class AppRoutes {
   static const String privacyPolicy = "/PrivacyPolicy";
   static const String termsModal = "/TermsModal";
 
-
-
   static const String importYourPermit = "/ImportYourPermit";
   static const String importYourPhotoPermit = "/ImportYourPhotoPermit";
   static const String enterDirections = "/EnterDirections";
-
-
 
   //====================
   static const String plotYourRoute = "/PlotYourRoute";
   static const String pinsMaking = "/PinsMaking";
 
-
-
   // =============  edit - confirm - start route section ================
   static const String editConfirmStartYourRoute = "/EditConfirmStartYourRoute";
   static const String driveRouteMap = "/DriveRouteMap";
-
 
   // static const String teamManager ="/TeamManager";
 
   // ================ login Screen part ================================
 
-  static const String otpVerificationScreenlogin = "/OtpVerificationScreenlogin";
-
-
+  static const String otpVerificationScreenlogin =
+      "/OtpVerificationScreenlogin";
 
   // bridge
   static List<GetPage> routes = [
@@ -116,7 +108,6 @@ class AppRoutes {
     GetPage(name: subscriberAgreement, page: () => SubscriberAgreement()),
     GetPage(name: privacyPolicy, page: () => PrivacyPolicy()),
     GetPage(name: termsModal, page: () => TermsModal()),
-
     GetPage(name: splashScreen, page: () => SplashScreen()),
     GetPage(name: getStartedScreen, page: () => GetStartedScreen()),
     GetPage(name: enterEmailScreen, page: () => EnterEmailScreen()),
@@ -124,7 +115,8 @@ class AppRoutes {
     GetPage(name: loginAccount, page: () => LoginAccount()),
     GetPage(
       name: otpVerificationScreenlogin,
-      page: () => OtpVerificationScreenlogin(),binding: OtpVerificationBinding(),
+      page: () => OtpVerificationScreenlogin(),
+      binding: OtpVerificationBinding(),
     ),
     GetPage(name: emailEdit, page: () => EmailEdit()),
 
@@ -170,18 +162,5 @@ class AppRoutes {
     GetPage(name: accountDelete, page: () => AccountDelete()),
     GetPage(name: enterEmailForDelete, page: () => EnterEmailForDelete()),
     GetPage(name: help, page: () => Help()),
-
-
-
-
-
-
-
-
-
-
-
-
-
   ];
 }

@@ -505,7 +505,7 @@ class AccountScreen extends StatelessWidget {
           title: "Delete Account",
           onTap: () {
             // Navigate to delete account screen
-            Get.toNamed(AppRoutes.enterEmailForDelete);
+            Get.toNamed(AppRoutes.areYouSureDeleteThisAccount);
           },
         ),
       ],

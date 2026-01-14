@@ -5,6 +5,9 @@ import 'package:right_routes/core/routes/all_routes.dart';
 import 'package:right_routes/global_widgets/custom_buttons.dart';
 import 'package:right_routes/utils/colors.dart';
 import '../../../utils/assets_manager.dart';
+import '../login_account/login-controller.dart';
+import '../login_account/login_binding.dart';
+import '../login_account/reusable_enter_email-screen.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
@@ -135,7 +138,7 @@ class GetStartedScreen extends StatelessWidget {
                               ),
                               TextSpan(
                                 text: 'SIGN IN ',
-                                style:  TextStyle(
+                                style: TextStyle(
                                   color: AppColors.purple,
                                   fontSize: 20,
                                   fontFamily: 'League Gothic',
@@ -143,8 +146,23 @@ class GetStartedScreen extends StatelessWidget {
                                 ),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    // Navigate to Sign In screen
-                                    Get.toNamed(AppRoutes.enterEmailScreen);
+                                    Get.to(() => ReusableEnterEmailScreen(
+                                      title: 'Enter your email to continue',
+                                      subtitle: 'Log in to your Route Route account. If you don’t have one, you will be prompted to create one.',
+                                      buttonText: 'CONTINUE',
+                                      onContinue: () {
+                                        Get.toNamed(AppRoutes.loginAccount);
+                                      },
+                                      onEmailSubmitted: (email) {
+                                        Get.find<LoginController>().setEmail(email);
+                                        print("Saved email for login: $email");
+                                      },
+
+                                    ),
+                                      binding: LoginBinding(),
+
+
+                                    );
                                   },
                               ),
                             ],

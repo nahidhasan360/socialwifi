@@ -145,3 +145,8 @@ class EnterEmailScreen extends StatelessWidget {
     );
   }
 }
+
+class EnterEmailController extends GetxController {
+  var email = "".obs;
+  final emailController = TextEditingController();
+}
